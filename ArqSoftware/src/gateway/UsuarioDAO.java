@@ -38,10 +38,11 @@ public class UsuarioDAO {
 				int equipo = rs.getInt("Equipo");
 				String fondo = rs.getString("Fondo");
 				String logo = rs.getString("Logo");
+				String descripcion = rs.getString("Descripcion");
 				
 				Date fecha1 = toDate(fecha);
 				nuevo = new Usuario(id, nombre, fecha1, sexo, email, 
-					nick, password, equipo, logo, fondo);
+					nick, password, equipo, logo, fondo, descripcion);
 			}
 			
 		} catch (SQLException e) {
@@ -84,8 +85,9 @@ public class UsuarioDAO {
 				String fondo = rs.getString("Fondo");
 				String logo = rs.getString("Logo");
 				Date fecha1 = toDate(fecha);
+				String descripcion = rs.getString("Descripcion");
 				Usuario nuevo = new Usuario(id, nombre, fecha1, sexo, email, 
-					nick, password, equipo, fondo, logo);
+					nick, password, equipo, fondo, logo, descripcion);
 				users.add(nuevo);
 			}
 		} catch (SQLException e) {
@@ -129,11 +131,12 @@ public class UsuarioDAO {
 				String email = rs.getString("Mail");
 				String nick = rs.getString("Nick");
 				String password = rs.getString("Password");
+				String descripcion = rs.getString("Descripcion");
 				// Falta comprobar equipo
 				
 				Date fecha1 = toDate(fecha);
 				nuevo = new Usuario(id, nombre, fecha1, sexo, email, 
-					nick, password, 0, null, null);
+					nick, password, 0, null, null, descripcion);
 			}
 			
 		} catch (SQLException e) {
@@ -160,8 +163,8 @@ public class UsuarioDAO {
 	public static void insert(Usuario usr) throws SQLException{
 		Connection conecta = Connect.getDBConnection();
 		
-		String query = "INSERT INTO ASoftware.Usuario (Nombre, Fecha, Mail, Sexo, Password, Equipo, Nick) "
-				+ " VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO ASoftware.Usuario (Nombre, Fecha, Mail, Sexo, Password, Equipo, Nick, Descripcion) "
+				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement preparedStatement = conecta.prepareStatement(query);
 		preparedStatement.setString(1, usr.getNombre());
 		preparedStatement.setString(2, usr.getFechaString());
@@ -170,6 +173,7 @@ public class UsuarioDAO {
 		preparedStatement.setString(5, usr.getPassword());
 		preparedStatement.setInt(6, usr.getEquipo());
 		preparedStatement.setString(7, usr.getNick());
+		preparedStatement.setString(8, usr.getDescripcion());
 		
 		preparedStatement.execute();
 		conecta.close();

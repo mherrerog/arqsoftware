@@ -75,7 +75,7 @@ public class Fechas {
 	public static Date getFechaFromWeb(String fecha){
 		Date nueva = null;
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
 		try {
 			nueva = sdf.parse(fecha);
 		} catch (ParseException e) {

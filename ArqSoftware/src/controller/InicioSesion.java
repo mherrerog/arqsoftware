@@ -113,6 +113,7 @@ public class InicioSesion extends HttpServlet {
 		String password_confirm = request.getParameter("password_confirm");
 		String genero = request.getParameter("genero");
 		String team = request.getParameter("team");
+		String descripcion = request.getParameter("descripcion");
 		int equipo = 0;
 		if (team != null) {
 			equipo = 1;
@@ -120,8 +121,9 @@ public class InicioSesion extends HttpServlet {
 		
 		try {
 			if (password.compareTo(password_confirm) == 0){
-				Usuario nuevo = new Usuario(username, fecha, email, genero, nick, 
-						password, equipo, null, null);
+				Usuario nuevo = new Usuario(username, fecha, genero, email, 
+						nick, password, equipo, null, null, descripcion);
+				System.out.println(nuevo);
 				//Passwords iguales, realizamos el insert.
 				UsuarioDAO.insert(nuevo);
 				return true;

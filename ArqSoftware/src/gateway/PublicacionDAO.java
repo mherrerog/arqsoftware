@@ -117,10 +117,14 @@ public class PublicacionDAO {
 		Statement stmt = null;
 		String query = "";
 		if (modo == 1) { // select para el Home de un usuario <- Sin implementar
-			query = "select idPublicacion, Fecha, Hora, Emisor, Texto, Imagen, Video, Ruta, Deporte " +
-					"from asoftware.publicacion p, asoftware.seguir s where ( " +
-					"(p.emisor = s.fk_Seguido AND s.fk_Usuario=" + idUsuario +
-					") OR (p.Emisor = "+ idUsuario +"))  order by fecha desc, hora desc";
+			query = "select distinct A.idPublicacion, A.Fecha, A.Hora, A.Emisor, A.Texto, A.Imagen, A.Video, A.Ruta, A.Deporte from ("
+					+ "(select idPublicacion, Fecha, Hora, Emisor, Texto, Imagen, Video, Ruta, Deporte " +
+					"from ASoftware.Publicacion p, ASoftware.Seguir s where " +
+					"p.emisor = s.fk_Seguido AND s.fk_Usuario=" + idUsuario + ")"
+					+ "UNION"
+					+ "(select idPublicacion, Fecha, Hora, Emisor, Texto, Imagen, Video, Ruta, Deporte " +
+					"from ASoftware.Publicacion p where " +
+					"p.Emisor = "+ idUsuario +")) A order by A.Fecha desc, A.Hora desc";
 		} else if (modo == 2) { // select de publicaciones de un usario
 			query = "select * from ASoftware.Publicacion "
 					+ "where (Emisor =" + idUsuario + ") order by fecha, hora";

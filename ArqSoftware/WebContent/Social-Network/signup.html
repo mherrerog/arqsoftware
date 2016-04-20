@@ -46,13 +46,6 @@
             </button>
             <a class="navbar-brand" id="brand-home" href="index.html">FaceSports</a>
           </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <form id="entrar-form" class="navbar-form navbar-right">
-              <input type="text" class="form-control" placeholder="Correo electrónico">
-              <input type="password" class="form-control" placeholder="Contraseña">
-              <input type="submit" id="entrar-btn" class="btn btn-xs btn-info" value="Entrar">
-            </form>
-          </div><!--/.nav-collapse -->
         </div>
       </div><!--/.container-fluid -->
     </nav>
@@ -78,15 +71,15 @@
             <div class="control-group">
               <label class="control-label" for="password_confirm">Nacimiento</label>
               <div class="controls">
-                <input type="date" id="date" name="date" placeholder="" class="form-control input-lg">
+                <input type="texto" id="date" name="date" placeholder="ddmmaaaa" class="form-control input-lg">
                 <p class="help-block"></p>
               </div>
             </div>
 
             <div class="control-group">
-              <label class="control-label" for="username">Nombre de Usuario</label>
+              <label class="control-label" for="nick">Nombre de Usuario</label>
               <div class="controls">
-                <input type="text" id="username" name="username" placeholder="" class="form-control input-lg">
+                <input type="text" id="nick" name="nick" placeholder="" class="form-control input-lg">
                 <p class="help-block">Contiene números y letras, sin espacios</p>
               </div>
             </div>
@@ -115,13 +108,21 @@
               </div>
             </div>
            
+           <div class="control-group">
+              <label class="control-label" for="password_confirm">Descripción</label>
+              <div class="controls">
+                <input type="text" id="descripcion" name="descripcion" placeholder="" class="form-control input-lg">
+                <p class="help-block">Inserte una descripción suya</p>
+              </div>
+            </div>
+           
             <div class="control-group">
               <table class="radio-sport">
                 <tr><td><label class="control-label" for="password">Sexo</label></td></tr>
                 <tr>
-                  <td><input type="radio" name="genero" value="masculino"> Hombre</td>
-                  <td><input type="radio" name="genero" value="futbol"> Mujer</td>
-                  <td><input type="radio" name="genero" value="baloncesto"> Mixto</td>
+                  <td><input type="radio" name="genero" value="hombre"> Hombre</td>
+                  <td><input type="radio" name="genero" value="mujer"> Mujer</td>
+                  <td><input type="radio" name="genero" value="mixto"> Mixto</td>
                 </tr>
                 <tr><td></br></td></tr>
                 <tr><td><label class="control-label" for="password">Deporte que practica</label></td></tr>
@@ -133,7 +134,7 @@
                 <tr>
                   <td><input type="radio" name="sport" value="ciclismo"> Ciclismo</td>
                   <td><input type="radio" name="sport" value="futbol"> Multideporte</td>
-                  <td><input type="radio" name="sport" value="baloncesto"> Otros</td>
+                  <td><input type="radio" name="sport" value="otros"> Otros</td>
                 </tr>
                 <tr><td></br></td></tr>
                 <tr>

@@ -22,13 +22,14 @@ public class Usuario {
 	private int equipo;
 	private String logo;
 	private String fondo;
+	private String descripcion;
 	
 
 	/**
 	 * Metodo constructor
 	 */
 	public Usuario(int id, String nombre, Date fecha, String sexo, String email, 
-			String nick, String password, int equipo, String logo, String fondo){
+			String nick, String password, int equipo, String logo, String fondo, String descripcion){
 		this.id = id;
 		this.nombre = nombre;
 		this.sexo = sexo;
@@ -39,13 +40,14 @@ public class Usuario {
 		this.equipo = equipo;
 		this.logo = logo;
 		this.fondo = fondo;
+		this.descripcion = descripcion;
 	}
 	
 	/**
 	 * Metodo constructor sin id
 	 */
 	public Usuario(String nombre, Date fecha, String sexo, String email, 
-			String nick, String password, int equipo, String logo, String fondo){
+			String nick, String password, int equipo, String logo, String fondo, String descripcion){
 		this.id = 0;
 		this.nombre = nombre;
 		this.sexo = sexo;
@@ -56,6 +58,7 @@ public class Usuario {
 		this.equipo = equipo;
 		this.logo = logo;
 		this.fondo = fondo;
+		this.descripcion = descripcion;
 	}
 	
 	
@@ -128,6 +131,10 @@ public class Usuario {
 
 	public Date getFecha() {
 		return fecha;
+	}
+	
+	public String getDescripcion() {
+		return descripcion;
 	}
 	
 	public String getFechaString() {
