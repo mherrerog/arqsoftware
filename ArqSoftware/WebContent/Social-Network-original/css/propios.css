@@ -1,0 +1,126 @@
+.nombre {
+  display: inline-block;
+  margin: 10px;
+  font-size: 18px;
+  color: black;
+}
+
+/* links */
+.black_link {
+  color: black;
+}
+
+.follow {
+  display: inline-block;
+  margin: 10px;
+  font-size: 16px;
+}
+
+.publicacion {
+  font-size: 14px;
+}
+
+.imagen {
+  display: inline-block;
+  width: 80px;
+}
+
+.botones {
+  display: inline-block;
+  float: right;
+}
+
+.like {
+  margin-top: 7%;
+}
+
+.modal {
+  width: 100%;
+  /*Toma el 100% del ancho de la página*/
+  height: 100%;
+  /*Toma el 100% del alto de la página*/
+  position: fixed;
+  /*Con este código hacemos que el contenedor se mantenga en la pantalla y para que tome las dimensiones del body y no de la entrada*/
+  background-color: rgba(1, 1, 1, 0.4);
+  /*Color de fondo, incluye opacidad del 90%*/
+  top: 0;
+  /*Position superior*/
+  left: 0;
+  /*Posición lateral*/
+  z-index: 9999;
+  /*Evitamos que algún elemento del blog sobreponga la ventana modal*/
+}
+
+#contenido-interno {
+  margin: 3% auto;
+  /*Separación arriba y centrado*/
+  font-size: 12px;
+  /*Tamaño de la fuente*/
+  width: 50%;
+  /*Ancho del contenedor*/
+  color: #222;
+  /*Color del texto*/
+  background-color: rgba(255, 255, 255, 0);
+  /*Color de fondo*/
+}
+
+#comentario {
+  display: none;
+}
+
+.columna1 {
+  display: inline-block;
+  float: left;
+}
+
+.columna2 {
+  display: inline-block;
+  float: right;
+}
+
+.center {
+  text-align: center;
+}
+
+
+#bpublicacion {
+  margin: 7% auto;
+  width: 120px;
+}
+
+
+#blike {
+  width: 85px;
+}
+
+#bnum {
+  width: 35px;
+  color: #337ab7;
+  background-color: white;
+}
+
+#pub {
+  width: 60%;
+}
+
+
+.form-control {
+  width: 100%;
+}
+
+/* Adaptar elementos según la pantalla */
+@media screen and (max-width: 690px)   {
+  .columna1, .columna2{
+      width:100%;
+      float:none;
+  }
+
+  #bpublicacion {
+    margin: 2% 1%;
+  }
+
+  #contenido-interno {
+    width: 90%;
+  }
+
+}

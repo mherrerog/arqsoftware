@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<style type="text/css">
+	.error-template {padding: 40px 15px;text-align: center;}
+	.error-actions {margin-top:15px;margin-bottom:15px;}
+	.error-actions .btn { margin-right:10px; }
+</style>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- Icono de Social Network -->
+	<link rel="icon" href="../../favicon.ico">
+
+	<title>Error 404</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="../bootstrap-3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Iconos -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+	<!-- Custom styles for this template -->
+	<link href="navbar.css" rel="stylesheet">
+
+	<!-- CSS Propios -->
+	<link href="css/propios.css" rel="stylesheet">
+	
+	<!-- Semantic UI -->
+	<link rel="stylesheet" type="text/css" href="../Semantic-UI-CSS-master/dist/semantic.min.css">
+	<script src="../Semantic-UI-CSS-masters/dist/semantic.min.js"></script>
+
+
+</head>
+
+
+<body>
+
+	
+	<!-- NAVBAR
+	================================================== -->
+	<div class="navbar-wrapper">
+		<div class="container">
+
+			<nav class="navbar navbar-inverse navbar-fixed-top">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+							<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">FaceSports</a>
+					</div>
+					<div id="navbar" class="navbar-collapse collapse">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="home.html">Inicio</a></li>
+							<li><a href="profile.html">Perfil</a></li>
+							<li><a href="mensajes.html">Mensajes</a></li>
+
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Salir<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Editar perfil</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a href="#">Cerrar sesión</a></li>
+								</ul>
+							</li>
+						</ul>
+						<form action="/ArqSoftware/Social-Network/search.html" method="GET" class="navbar-form navbar-right">
+							<div class="ui search">
+                <div class="ui icon input">
+                  <input class="prompt" name="userSearch" type="text" placeholder="Buscar...">
+                  <i class="search icon"></i>
+                </div>
+                <div class="results"></div>
+              </div>
+						</form>
+					</div>
+					<!--/.nav-collapse -->
+				</div>
+			</nav>
+
+		</div>
+	</div>
+
+	<div class="container" id="pub">
+
+		<!-- Static navbar -->
+		<nav class="navbar"></nav>
+		
+		<div class="container">
+		    <div class="row">
+		        <div class="col-md-8">
+		            <div class="error-template">
+		                <h1>
+		                    Oops!</h1>
+		                <h2>
+		                    404 Not Found</h2>
+		                <div class="error-details">
+		                    Lo siento, un error ha ocurrido, la página no existe!
+		                </div>
+		                <div class="error-actions">
+		                    <a href="../Social-Network/home.html" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+		                        Home 
+		                    </a>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+		
+	</div>
+			
+
+			
+
+
+			<!-- Bootstrap core JavaScript
+    ================================================== -->
+			<!-- Placed at the end of the document so the pages load faster -->
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+			<script>
+				window.jQuery || document.write('<script src="../bootstrap-3.3.6/assets/js/vendor/jquery.min.js"><\/script>')
+			</script>
+			<script src="../bootstrap-3.3.6/dist/js/bootstrap.min.js"></script>
+			<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+			<!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+
+			<script type="text/javascript">
+				// jQuery
+				$(document).ready(function() {
+					$('#alternar-respuesta-ej1').on('click', function() {
+						$('#respuesta-ej1').toggle();
+					});
+				});
+			</script>
+	
+</body>
+
+</html>

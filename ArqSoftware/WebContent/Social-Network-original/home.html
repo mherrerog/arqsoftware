@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<style type="text/css">
+	#plegar {
+		display: none;
+	}
+
+	.likes {
+		display: inline-block;
+		background-color: white;
+		padding: auto 50px;
+	}
+</style>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- Icono de Social Network -->
+	<link rel="icon" href="../../favicon.ico">
+
+	<title>Inicio</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="../bootstrap-3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Iconos -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+	<!-- Custom styles for this template -->
+	<link href="navbar.css" rel="stylesheet">
+
+	<!-- CSS Propios -->
+	<link href="css/propios.css" rel="stylesheet">
+
+	<!-- Semantic UI -->
+	<link rel="stylesheet" type="text/css" href="../Semantic-UI-CSS-master/dist/semantic.min.css">
+	<script src="../Semantic-UI-CSS-masters/dist/semantic.min.js"></script>
+
+
+	<script type="text/javascript">
+		function abrir(url) {
+			window.open(url, '', 'top=' + ((screen.height - 500) / 2) + ',left=' + ((screen.width - 500) / 2) + ',width=500%,height=500%');
+		}
+
+	
+		function mostrareldiv(name) {
+			document.getElementById(name).style.display = "block";
+		}
+
+		function ocultareldiv(name) {
+			document.getElementById(name).style.display = "none";
+		}
+
+		function mostrar_y_ocultar_div(mostrar1, mostrar2, ocultar) {
+			document.getElementById(mostrar1).style.display = "block";
+			document.getElementById(mostrar2).style.display = "block";
+			document.getElementById(ocultar).style.display = "none";
+		}
+
+		function ocultar_y_mostrar_div(mostrar1, mostrar2, ocultar) {
+			document.getElementById(mostrar1).style.display = "none";
+			document.getElementById(mostrar2).style.display = "none";
+			document.getElementById(ocultar).style.display = "block";
+		}
+
+		function PreviewImage() {
+			var oFReader = new FileReader();
+			oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+
+			oFReader.onload = function(oFREvent) {
+				document.getElementById("uploadPreview").src = oFREvent.target.result;
+			};
+		};
+
+		function startTime() {
+			today = new Date();
+			h = today.getHours();
+			m = today.getMinutes();
+			m = checkTime(m);
+			document.getElementById('reloj').innerHTML = h + ":" + m;
+			t = setTimeout('startTime()', 500);
+		}
+
+		function checkTime(i) {
+			if (i < 10) {
+				i = "0" + i;
+			}
+			return i;
+		}
+		window.onload = function() {
+			startTime();
+		}
+	</script>
+
+</head>
+
+
+<body onunload="getLogoffTime()">
+
+	<!-- NAVBAR
+	================================================== -->
+	<div class="navbar-wrapper">
+		<div class="container">
+
+			<nav class="navbar navbar-inverse navbar-fixed-top">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+							<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">FaceSports</a>
+					</div>
+					<div id="navbar" class="navbar-collapse collapse">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="home.html">Inicio</a></li>
+							<li><a href="profile.html">Perfil</a></li>
+							<li><a href="mensajes.html">Mensajes</a></li>
+
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Salir<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Editar perfil</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a href="#">Cerrar sesión</a></li>
+								</ul>
+							</li>
+						</ul>
+						<form action="/ArqSoftware/Social-Network/search.html" method="GET" class="navbar-form navbar-right">
+							<div class="ui search">
+                <div class="ui icon input">
+                  <input class="prompt" name="userSearch" type="text" placeholder="Buscar...">
+                  <i class="search icon"></i>
+                </div>
+                <div class="results"></div>
+              </div>
+						</form>
+					</div>
+					<!--/.nav-collapse -->
+				</div>
+			</nav>
+
+		</div>
+	</div>
+
+	<div class="container" id="pub">
+
+		<!-- Static navbar -->
+		<nav class="navbar"></nav>
+
+		<div class="col-sm">
+			<!-- Añadir publicacion -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="publicacion">
+						<div class="columna1">
+							<strong>Añadir Publicación</strong>
+						</div>
+						<div class="columna2">
+							<button type="button" class="btn btn-xs btn-default" id="desplegar" onclick="mostrar_y_ocultar_div(&#34;publi&#34;, &#34;plegar&#34;, &#34;desplegar&#34;)">
+								Desplegar
+							</button>
+							<button type="button" class="btn btn-xs btn-danger" id="plegar" onclick="ocultar_y_mostrar_div(&#34;publi&#34;, &#34;plegar&#34;, &#34;desplegar&#34;)">
+								Cancelar <i class="fa fa-ban"></i>
+							</button>
+
+						</div>
+						</br>
+					</div>
+				</div>
+				<div id="publi" style="display: none;">
+					<form action="/" method="post" enctype="multipart/form-data">
+						<div class="panel-body" style="text-align: center">
+							<div>
+								<textarea name="textPublicacion" class="form-control col-xs-12" placeholder="¿En qué estas pensando?"></textarea>
+							</div>
+
+							<img name="uploadPreview" id="uploadPreview" style="width: 25%; height: 25%; text-align: left;" />
+
+						</div>
+						<div class="panel-footer">
+							<div class="columna1" id="reloj"></div>
+							h.
+							<div class="columna2">
+								<div id="image" style="display: none; text-align: center" class="columna1">
+									<input type="hidden" name="MAX_FILE_SIZE" value="12000000" />
+									<input id="uploadImage" type="file" name="myPhoto" onchange="PreviewImage();" />
+								</div>
+								<button type="button" class="btn btn-xs btn-default" onclick="mostrareldiv(&#34;image&#34;)">
+									Subir archivo <i class="fa fa-camera"></i>
+								</button>
+								<button type="submit" class="btn btn-xs btn-success">
+									Publicar <i class="fa fa-paper-plane"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- Cierre añadir publicacion -->
+
+			<!-- Publicacion -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<img src="img/rafaNadal.jpg" class="panel-icon imagen" />
+					<div class="nombre">
+						<a href="#" class="black_link">
+							<strong>Rafa Nadal</strong>
+						</a>
+						<a href="#" class="black_link">
+							<p>@rafa_nadal</p>
+						</a>
+					</div>
+					<div class="botones columna2">
+						<div class="btn-group like">
+							<button type="button" class="btn btn-xs btn-primary" id="blike">
+								Me Gusta &nbsp <i class="fa fa-thumbs-o-up"></i>
+							</button>
+							<button type="button" class="btn btn-xs btn-primary" id="bnum">
+								460
+							</button>
+						</div>
+						</br>
+						<button type="button" class="btn btn-xs btn-primary" id="bpublicacion">
+							Compartir &nbsp <i class="fa fa-share"></i>
+						</button>
+					</div>
+				</div>
+				<div class="panel-body">
+					<p>Hola, aquí os dejo una publicación con algunos de mis mejores momentos en Roland Garros!.</p>
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/9pI8bCZ2FM0" frameborder="0" allowfullscreen></iframe>
+					</div>
+				</div>
+				<div class="panel-footer" id="foot">
+					<div class="columna1">16:50 h.</div>
+					<div class="columna2">
+						<button type="button" class="btn btn-xs btn-default" id="down">#Tenis</button>
+						<button type="button" class="btn btn-xs btn-primary" onclick="mostrareldiv(&#34;comentarios2&#34;)" id="down">
+							Comentarios <i class="fa fa-comment"></i>
+						</button>
+					</div>
+					<br>
+					<!-- Rellenar línea -->
+				</div>
+
+				<!-- Comentarios -->
+				<div class="panel-body modal" id="comentarios2" style="display: none">
+					<div id="contenido-interno">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="ui comments">
+									<h3 class="ui dividing header">Comentarios</h3>
+									<div class="comment">
+										<a class="avatar">
+											<img src="/images/avatar/small/matt.jpg">
+										</a>
+										<div class="content">
+											<a class="author">Matt</a>
+											<div class="metadata">
+												<span class="date">28/02/2016 a las 11:33</span>
+											</div>
+											<div class="text">
+												How artistic!
+											</div>
+										</div>
+										<div class="comment">
+											<a class="avatar">
+												<img src="/images/avatar/small/elliot.jpg">
+											</a>
+											<div class="content">
+												<a class="author">Elliot Fu</a>
+												<div class="metadata">
+													<span class="date">12/03/2016 a las 22:10</span>
+												</div>
+												<div class="text">
+													<p>This has been very useful for my research. Thanks as well!</p>
+												</div>
+											</div>
+										</div>
+										<div class="comment">
+											<a class="avatar">
+												<img src="/images/avatar/small/joe.jpg">
+											</a>
+											<div class="content">
+												<a class="author">Joe Henderson</a>
+												<div class="metadata">
+													<span class="date">01/04/2016 a las 18:31</span>
+												</div>
+												<div class="text">
+													Dude, this is awesome. Thanks so much
+												</div>
+											</div>
+										</div>
+										<form class="ui reply form">
+											<div class="field">
+												<textarea name="textComentario"></textarea>
+											</div>
+											<div class="columna2">
+												<button type="button" class="btn btn-xs btn-success" onclick="ocultareldiv(&#34;comentarios2&#34;)">
+													Comentar &nbsp <i class="fa fa-comment"></i>
+												</button> &nbsp
+												<button type="button" class="btn btn-xs btn-danger" onclick="ocultareldiv(&#34;comentarios2&#34;)">
+													Cancelar &nbsp <i class="fa fa-ban"></i>
+												</button>
+											</div>
+										</form>
+									</div>
+								</div>
+								<!-- Panel -->
+							</div>
+						</div>
+					</div>
+				</div><br><br>
+				<!-- Cierre comentarios -->
+				<!-- Cierre publicacion -->
+
+			</div>
+
+			<div>
+
+				<!-- Publicacion -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<img src="http://capovelo.com/wp-content/uploads/2015/03/mzl.pbglulvn.png" class="panel-icon imagen" />
+						<div class="nombre">
+							<a href="#" class="black_link">
+								<strong>SKY PRO CYCLING</strong>
+							</a>
+							<a href="#" class="black_link">
+								<p>@sky_cycling</p>
+							</a>
+						</div>
+						<div class="botones columna2">
+							<div class="btn-group like">
+								<button type="button" class="btn btn-xs btn-primary" id="blike">
+									Me Gusta &nbsp <i class="fa fa-thumbs-o-up"></i>
+								</button>
+								<button type="button" class="btn btn-xs btn-primary" id="bnum">
+									51
+								</button>
+							</div>
+							</br>
+							<button type="button" class="btn btn-xs btn-primary" id="bpublicacion">
+								Compartir &nbsp <i class="fa fa-share"></i>
+							</button>
+						</div>
+					</div>
+					<div class="panel-body">
+						<p>Comienza la preparación para el Tour de France 2016.</p>
+						<div class="embed-responsive embed-responsive-16by9">
+							<img class="img-responsive" src="http://www.wallpapersxl.com/wallpapers/1920x1080/pinarello/1188362/pinarello-team-sky-pro-cycling-1188362.jpg"></img>
+						</div>
+					</div>
+					<div class="panel-footer" id="foot">
+						<div class="columna1">16:50 h.</div>
+						<div class="columna2">
+							<button type="button" class="btn btn-xs btn-default" id="down">#Ciclismo</button>
+							<button type="button" class="btn btn-xs btn-default" id="down">Equipo <i class="fa fa-users"></i></button>
+							<button type="button" class="btn btn-xs btn-primary" onclick="mostrareldiv(&#34;comentarios1&#34;)" id="down">
+								Comentarios <i class="fa fa-comment"></i>
+							</button>
+						</div>
+						<br>
+						<!-- Rellenar línea -->
+					</div>
+
+					<!-- Comentarios -->
+					<div class="panel-body modal" id="comentarios1" style="display: none">
+						<div id="contenido-interno">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="ui comments">
+										<h3 class="ui dividing header">Comentarios</h3>
+										<div class="comment">
+											<a class="avatar">
+												<img src="/images/avatar/small/matt.jpg">
+											</a>
+											<div class="content">
+												<a class="author">Matt</a>
+												<div class="metadata">
+													<span class="date">28/02/2016 a las 11:33</span>
+												</div>
+												<div class="text">
+													How artistic!
+												</div>
+											</div>
+											<div class="comment">
+												<a class="avatar">
+													<img src="/images/avatar/small/elliot.jpg">
+												</a>
+												<div class="content">
+													<a class="author">Elliot Fu</a>
+													<div class="metadata">
+														<span class="date">12/03/2016 a las 22:10</span>
+													</div>
+													<div class="text">
+														<p>This has been very useful for my research. Thanks as well!</p>
+													</div>
+												</div>
+											</div>
+											<div class="comment">
+												<a class="avatar">
+													<img src="/images/avatar/small/joe.jpg">
+												</a>
+												<div class="content">
+													<a class="author">Joe Henderson</a>
+													<div class="metadata">
+														<span class="date">01/04/2016 a las 18:31</span>
+													</div>
+													<div class="text">
+														Dude, this is awesome. Thanks so much
+													</div>
+												</div>
+											</div>
+											<form class="ui reply form">
+												<div class="field">
+													<textarea name="textComentario"></textarea>
+												</div>
+												<div class="columna2">
+													<button type="button" class="btn btn-xs btn-success" onclick="ocultareldiv(&#34;comentarios1&#34;)">
+														Comentar &nbsp <i class="fa fa-comment"></i>
+													</button> &nbsp
+													<button type="button" class="btn btn-xs btn-danger" onclick="ocultareldiv(&#34;comentarios1&#34;)">
+														Cancelar &nbsp <i class="fa fa-ban"></i>
+													</button>
+												</div>
+											</form>
+										</div>
+									</div>
+									<!-- Panel -->
+								</div>
+							</div>
+						</div>
+						<!-- Cierre comentarios -->
+
+
+					</div>
+					<!-- Cierre publicacion -->
+
+				</div>
+			</div>
+
+
+			<!-- Bootstrap core JavaScript
+    ================================================== -->
+			<!-- Placed at the end of the document so the pages load faster -->
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+			<script>
+				window.jQuery || document.write('<script src="../bootstrap-3.3.6/assets/js/vendor/jquery.min.js"><\/script>')
+			</script>
+			<script src="../bootstrap-3.3.6/dist/js/bootstrap.min.js"></script>
+			<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+			<!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+
+			<script type="text/javascript">
+				// jQuery
+				$(document).ready(function() {
+					$('#alternar-respuesta-ej1').on('click', function() {
+						$('#respuesta-ej1').toggle();
+					});
+				});
+			</script>
+</body>
+
+</html>
