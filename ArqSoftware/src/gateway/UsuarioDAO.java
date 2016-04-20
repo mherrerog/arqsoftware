@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import datos.User;
 import datos.Usuario;
 
 public class UsuarioDAO {

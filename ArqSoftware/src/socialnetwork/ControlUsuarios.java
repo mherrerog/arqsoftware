@@ -3,7 +3,6 @@ package socialnetwork;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import datos.User;
 import datos.Usuario;
 import gateway.UsuarioDAO;
 

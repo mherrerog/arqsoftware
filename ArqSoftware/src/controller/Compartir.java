@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,14 +46,24 @@ public class Compartir extends HttpServlet {
 	 * 
 	 */
 	private void compartir(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Obtener usuario
-		//HttpSession sesion = request.getSession();
-		//int usuario = (int) sesion.getAttribute("usuario");
-		int usuario = 1;
+		String cookieName = "userId";
+		String userId = "";
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) 
+		{
+		    for(int i=0; i<cookies.length; i++) 
+		    {
+		        Cookie cookie = cookies[i];
+		        if (cookieName.equals(cookie.getName())) 
+		        {
+		        	userId = (cookie.getValue());
+		        }
+		    }
+		}
 		int publicacion = Integer.parseInt(request.getParameter("pub"));
 		
 		try {
-			PublicacionDAO.insertShare(usuario, publicacion);
+			PublicacionDAO.insertShare(Integer.parseInt(userId), publicacion);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -67,7 +67,7 @@ public class PublicacionDAO {
 	public static void insertLike(int usuario, int pub) throws SQLException {
 
 		Connection conn = Connect.getDBConnection();
-		String query = "INSERT INTO ASoftware.MeGusta VALUES " + "( ?, ?)";
+		String query = "INSERT INTO ASoftware.Megusta VALUES " + "( ?, ?)";
 
 		// create the mysql insert preparedstatement
 		PreparedStatement preparedStmt = conn.prepareStatement(query);

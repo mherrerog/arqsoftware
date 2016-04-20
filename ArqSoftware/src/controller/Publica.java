@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,10 +46,20 @@ public class Publica extends HttpServlet {
 	 * 
 	 */
 	private void nuevaPublicacion(HttpServletRequest request, HttpServletResponse response){
-		// Obtener usuario
-		//HttpSession sesion = request.getSession();
-		//int usuario = (int) sesion.getAttribute("usuario");
-		int usuario = 1;	//Prueba
+		String cookieName = "userId";
+		String userId = "";
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) 
+		{
+		    for(int i=0; i<cookies.length; i++) 
+		    {
+		        Cookie cookie = cookies[i];
+		        if (cookieName.equals(cookie.getName())) 
+		        {
+		        	userId = (cookie.getValue());
+		        }
+		    }
+		}
 		
 		// Obtener campos del formulario
 		String texto = request.getParameter("textPublicacion");
@@ -59,7 +70,7 @@ public class Publica extends HttpServlet {
 		String deporte = request.getParameter("deporte");
 		
 		
-		ControlPublicaciones.nuevaPub(usuario,texto,fecha,img,video,ruta,deporte);
+		ControlPublicaciones.nuevaPub(Integer.parseInt(userId),texto,fecha,img,video,ruta,deporte);
 		
 		try {
 			response.sendRedirect("/ArqSoftware/Social-Network/home.html");
