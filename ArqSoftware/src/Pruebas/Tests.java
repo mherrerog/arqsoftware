@@ -14,7 +14,16 @@ import socialnetwork.Fechas;
 public class Tests {
 	
 	public static void main (String [] args){
-		selectUsuarioId();
+		insertarLike();
+	}
+	
+	private static void insertarLike(){
+		try {
+			PublicacionDAO.insertLike(3, 10);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private static void selectUsuarioId(){

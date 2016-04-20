@@ -12,6 +12,18 @@ import gateway.PublicacionDAO;
 public class ControlPublicaciones {
 	
 	/**
+	 * Añade como me gusta la publicacion al usuario indicado
+	 */
+	public static void meGusta(int usuario, int publicacion){
+		try {
+			PublicacionDAO.insertLike(usuario, publicacion);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
 	 * Crea una nueva publicación en la base de datos
 	 */
 	public static void nuevaPub(int autor, String texto, Date fecha,

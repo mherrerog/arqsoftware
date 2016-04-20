@@ -246,17 +246,17 @@
 							</div>
 							<div class="botones columna2">
 								<div class="btn-group like">
-									<button type="button" class="btn btn-xs btn-primary" id="blike">
+									<a href="/ArqSoftware/MeGusta?pub={{ x.Id }}" type="button" class="btn btn-xs btn-primary" id="blike">
 										Me Gusta &nbsp <i class="fa fa-thumbs-o-up"></i>
-									</button>
+									</a>
 									<button type="button" class="btn btn-xs btn-primary" id="bnum">
 										{{ x.likes }}
 									</button>
 								</div>
 								</br>
-								<button type="button" class="btn btn-xs btn-primary" id="bpublicacion">
+								<a href="/ArqSoftware/Compartir?pub={{ x.Id }}" type="button" class="btn btn-xs btn-primary" id="bpublicacion">
 									Compartir &nbsp <i class="fa fa-share"></i>
-								</button>
+								</a>
 							</div>
 						</div>
 						<div class="panel-body">
@@ -269,8 +269,9 @@
 							</div>
 							<!-- YouTube -->
 							<div ng-show="(x.video) != null && (x.video) != ''">
+								{{x.video}}
 								<div class="embed-responsive embed-responsive-16by9">
-									<iframe class="embed-responsive-item" src="{{ x.video }}" frameborder="0" allowfullscreen></iframe>
+									<iframe class="embed-responsive-item" frameborder="0" allowfullscreen ng-src="{{x.video}}"></iframe>
 								</div>
 							</div>
 						</div>

@@ -220,6 +220,7 @@ public class Publicacion implements Comparable{
 		obj.put("video", video);
 		obj.put("ruta", ruta);
 		obj.put("deporte", deporte);
+		obj.put("idUsuario", autor);
 		
 		return obj.toString();
 	}

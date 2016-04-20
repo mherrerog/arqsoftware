@@ -58,6 +58,50 @@ public class PublicacionDAO {
 		conn.close();
 
 	}
+	
+	/**
+	 * Inserta like de un usuario a publicación en la BD
+	 * 
+	 * @throws SQLException
+	 */
+	public static void insertLike(int usuario, int pub) throws SQLException {
+
+		Connection conn = Connect.getDBConnection();
+		String query = "INSERT INTO ASoftware.MeGusta VALUES " + "( ?, ?)";
+
+		// create the mysql insert preparedstatement
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		preparedStmt.setInt(1, usuario);
+		preparedStmt.setInt(2, pub);
+
+		// execute the preparedstatement
+		preparedStmt.execute();
+		// close connection
+		conn.close();
+
+	}
+	
+	/**
+	 * Inserta un compartir en la BD entre un usuario y una publicacion
+	 * 
+	 * @throws SQLException
+	 */
+	public static void insertShare(int usuario, int pub) throws SQLException {
+
+		Connection conn = Connect.getDBConnection();
+		String query = "INSERT INTO ASoftware.Compartir VALUES " + "( ?, ?)";
+
+		// create the mysql insert preparedstatement
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		preparedStmt.setInt(1, usuario);
+		preparedStmt.setInt(2, pub);
+
+		// execute the preparedstatement
+		preparedStmt.execute();
+		// close connection
+		conn.close();
+
+	}
 
 	/**
 	 * Selecciona las publicaciones que aparecen en el home de un usario
