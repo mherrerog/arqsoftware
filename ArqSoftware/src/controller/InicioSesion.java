@@ -51,9 +51,8 @@ public class InicioSesion extends HttpServlet {
 		 * si metodo == 1 -> registro de un nuevo usuario.
 		 */
 		if (metodo == 0) {
-			
+			Usuario user;
 			if (inicioSesion(request)){
-				Usuario user;
 				try {
 					user = UsuarioDAO.selectByMail((String) request.getParameter("mail"));
 					Cookie userCookie = new Cookie("userId", ""+user.getId());
@@ -71,9 +70,18 @@ public class InicioSesion extends HttpServlet {
 				out.flush();
 			}
 		}else if (metodo == 1) {
+			String email = request.getParameter("email");
 			if (registroUsuario(request)){
-				HttpSession mySession = request.getSession();
-				mySession.setAttribute("userMail", request.getAttribute("mail"));
+				Usuario user;
+				try {
+					user = UsuarioDAO.selectByMail(email);
+					Cookie userCookie = new Cookie("userId", ""+user.getId());
+					userCookie.setMaxAge(60*15); //15 minutos
+					response.addCookie(userCookie);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				response.sendRedirect("/ArqSoftware/Social-Network/home.html");
 			}else{
 				//Informar error al usuario.

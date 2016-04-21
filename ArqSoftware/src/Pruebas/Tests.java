@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import datos.Publicacion;
+import datos.Usuario;
 import gateway.PublicacionDAO;
 import gateway.UsuarioDAO;
 import socialnetwork.Fechas;
@@ -14,7 +15,13 @@ import socialnetwork.Fechas;
 public class Tests {
 	
 	public static void main (String [] args){
-		insertarLike();
+		verFecha();
+	}
+	
+	private static void verFecha(){
+		Usuario u = new Usuario("", new Date(), "", "", "", "", 0, "", "", "");
+		
+		System.out.println(u.getFechaString());
 	}
 	
 	private static void insertarLike(){

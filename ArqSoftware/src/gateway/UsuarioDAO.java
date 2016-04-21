@@ -164,6 +164,7 @@ public class UsuarioDAO {
 		
 		String query = "INSERT INTO ASoftware.Usuario (Nombre, Fecha, Mail, Sexo, Password, Equipo, Nick, Descripcion) "
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		System.out.println(usr.getFechaString());
 		PreparedStatement preparedStatement = conecta.prepareStatement(query);
 		preparedStatement.setString(1, usr.getNombre());
 		preparedStatement.setString(2, usr.getFechaString());

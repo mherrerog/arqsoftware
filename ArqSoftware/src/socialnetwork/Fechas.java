@@ -86,5 +86,27 @@ public class Fechas {
 		return nueva;
 	    
 	}
+	
+	public static String getFechaString(Date fecha) {
+		Calendar cal = Calendar.getInstance();
+	    cal.setTime(fecha);
+		// Año
+		String yy = "" + cal.get(Calendar.YEAR);
+		while (yy.length() < 4){
+			yy = "0" + yy;
+		}
+		// Meses
+		String mm = "" + (cal.get(Calendar.MONTH) + 1);	// Mes 0 -> Enero
+														// En los nuestros datos: Enero -> mes 1
+		while (mm.length() < 2){
+			mm = "0" + mm;
+		}
+		// Dia
+		String dd = "" + cal.get(Calendar.DAY_OF_MONTH);
+		while (dd.length() < 2){
+			dd = "0" + dd;
+		}
+		return yy + mm + dd;
+	}
 
 }

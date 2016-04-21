@@ -2,6 +2,7 @@ package datos;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.json.JSONObject;
@@ -138,22 +139,7 @@ public class Usuario {
 	}
 	
 	public String getFechaString() {
-		// Año
-		String yy = "" + fecha.getYear();
-		while (yy.length() < 4){
-			yy = "0" + yy;
-		}
-		// Meses
-		String mm = "" + fecha.getMonth();
-		while (mm.length() < 2){
-			mm = "0" + mm;
-		}
-		// Dia
-		String dd = "" + fecha.getDay();
-		while (dd.length() < 2){
-			dd = "0" + dd;
-		}
-		return yy + mm + dd;
+		return Fechas.getFechaString(this.fecha);
 	}
 	
 	/**
