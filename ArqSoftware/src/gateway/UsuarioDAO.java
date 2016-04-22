@@ -154,7 +154,89 @@ public class UsuarioDAO {
 
 	}
 	
+	/**
+	 * Devuelve un array con dos enteros
+	 * resultado[0] = nº seguidores del usuario
+	 * resultado[1] = nº seguidos del usuario 
+	 */
+	public static int[] seguidor_seguido(int usuario) throws SQLException {
+		int[] resultado = new int [2];
+		Connection conecta = null;
+		ResultSet rs = null;
+		Statement stmt = null;
+		
+		String query = "select usuario, seguidores, seguidos from" +
+				"(SELECT COUNT(*) AS seguidores, fk_usuario AS usuario FROM ASoftware.seguir GROUP BY fk_usuario) a," +
+				"(SELECT COUNT(*) AS seguidos, fk_Seguido AS useguido FROM ASoftware.seguir GROUP BY fk_Seguido) b " +
+				"where usuario = useguido AND usuario = " + usuario;
+		
+		try {
+			conecta = Connect.getDBConnection();
+			stmt = conecta.createStatement();
+			// execute query
+			rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+				resultado[0] = rs.getInt("seguidores");
+				resultado[1] = rs.getInt("seguidos");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+			if (conecta != null) {
+				conecta.close();
+			}
+
+		}
+		
+		return resultado;
+	}
 	
+	/**
+	 * Devuelve un array con dos enteros
+	 * resultado[0] = nº seguidores del usuario
+	 * resultado[1] = nº seguidos del usuario 
+	 */
+	public static boolean leSigue(int usuario, int siguiendo) throws SQLException {
+		int resultado = 0;
+		Connection conecta = null;
+		ResultSet rs = null;
+		Statement stmt = null;
+		
+		String query = "SELECT fk_Usuario, fk_Seguido from ASoftware.Seguir where "
+				+ "fk_Usuario=" + siguiendo + " and fk_Seguido=" + usuario +
+				" group by fk_Usuario, fk_Seguido";
+		
+		try {
+			conecta = Connect.getDBConnection();
+			stmt = conecta.createStatement();
+			// execute query
+			rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+				resultado++;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+			if (conecta != null) {
+				conecta.close();
+			}
+
+		}
+		
+		return (resultado > 0);
+	}
 	
 	/**
 	 * Inserta un usuario en la BD

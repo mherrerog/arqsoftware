@@ -109,6 +109,13 @@ public class PublicacionDAO {
 	public static ArrayList<Publicacion> selectForHome(int idUsuario) throws SQLException {
 		return select(idUsuario, 1);
 	}
+	
+	/**
+	 * Selecciona las publicaciones que aparecen en el perfil de un usario
+	 */
+	public static ArrayList<Publicacion> selectForProfile(int idUsuario) throws SQLException {
+		return select(idUsuario, 2);
+	}
 
 	/**
 	 * Selecciona las publicaciones de un usario
@@ -169,9 +176,14 @@ public class PublicacionDAO {
 					+ "(select idPublicacion, Fecha, Hora, Emisor, Texto, Imagen, Video, Ruta, Deporte " +
 					"from ASoftware.Publicacion p where " +
 					"p.Emisor = "+ idUsuario +")) A order by A.Fecha desc, A.Hora desc";
-		} else if (modo == 2) { // select de publicaciones de un usario
-			query = "select * from ASoftware.Publicacion "
-					+ "where (Emisor =" + idUsuario + ") order by fecha, hora";
+		} else if (modo == 2) { // select de publicaciones de un usario o compartidas
+			
+			query = "SELECT DISTINCT idPublicacion, Fecha, Hora, Emisor, Texto, Imagen, "
+					+ "Video, Ruta, Deporte FROM ASoftware.Publicacion "
+					+ "WHERE Emisor = " + idUsuario + " OR idPublicacion IN ("
+					+ "SELECT pk_publicacion_c FROM ASoftware.Compartir WHERE "
+					+ "pk_usuario_c = " + idUsuario + ") "
+					+ "ORDER BY Fecha DESC , Hora DESC";
 		}
 		try {
 			conecta = Connect.getDBConnection();

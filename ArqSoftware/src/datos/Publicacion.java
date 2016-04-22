@@ -174,7 +174,6 @@ public class Publicacion implements Comparable{
 		int likes = 0;
 		try {
 			u = UsuarioDAO.selectById(autor);
-			System.out.println(u);
 			
 			likes = PublicacionDAO.selectLikes(id);
 		} catch (SQLException e) {

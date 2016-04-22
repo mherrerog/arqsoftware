@@ -64,9 +64,12 @@ public class Usuario {
 	
 	
 	/**
+	 * @throws SQLException 
 	 * 
 	 */
-	public String toJSON(){
+	public String toJSON(int idUsuario) throws SQLException{
+		
+		int[] seguir = UsuarioDAO.seguidor_seguido(id);
 		
 		JSONObject obj = new JSONObject();
 		
@@ -80,20 +83,37 @@ public class Usuario {
 		obj.put("fecha", fecha);
 		obj.put("sexo", sexo);
 		//obj.put("deporte", deporte);
-		//obj.put("descripcion", descripcion);
+		obj.put("descripcion", descripcion);
+		// Seguidores y seguidos
+		obj.put("seguidores", seguir[0]);
+		obj.put("seguidos", seguir[1]);
+		if (idUsuario != id){
+			if (UsuarioDAO.leSigue(this.id, idUsuario)){
+				// Me sigue
+				obj.put("le_sigue", "true");
+			} else {
+				// No me sigue
+				obj.put("le_sigue", "false");
+			}
+		} else {
+			// Yo mismo
+			obj.put("le_sigue", "false");
+			System.out.println(">> Yo mismo");
+		}
 		
 		return obj.toString();
 	}
 	
 	/**
 	 * Devuelve un String en formato JSON con el contenido de la publicacion
+	 * @throws SQLException 
 	 */
-	public static String toJSON(ArrayList<Usuario> vector){
+	public static String toJSON(ArrayList<Usuario> vector) throws SQLException{
 		
 		String rs = "{\"usuarios\": [\n";
 		for (Usuario d: vector){
 			
-			rs += d.toJSON() + ",\n";
+			rs += d.toJSON(d.getId()) + ",\n";
 		}
 		
 		// Consulta vacia?

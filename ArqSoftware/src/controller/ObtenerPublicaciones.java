@@ -33,11 +33,7 @@ public class ObtenerPublicaciones extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String home = request.getParameter("home");
-		if (home != null){
-			showHome(request, response);
-		}
+		obtenerPublicaciones(request, response);
 	}
 
 	/**
@@ -51,7 +47,7 @@ public class ObtenerPublicaciones extends HttpServlet {
 	/**
 	 * Trata la peticion para mostrar las publicaciones en el home
 	 */
-	private void showHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void obtenerPublicaciones(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cookieName = "userId";
 		String userId = "";
 		Cookie[] cookies = request.getCookies();
@@ -66,11 +62,31 @@ public class ObtenerPublicaciones extends HttpServlet {
 		        }
 		    }
 		}
+		
+		String peticion = request.getParameter("page");
 		//int usuario = (int) sesion.getAttribute("usuario");
 
 		String respuesta = "";
 		try {
-			respuesta = ControlPublicaciones.showHome(Integer.parseInt(userId));
+			// Peticion en el home
+			if (peticion.compareTo("home") == 0){
+				respuesta = ControlPublicaciones.showHome(Integer.parseInt(userId));
+			}
+			// Peticion en el perfil
+			else if (peticion.compareTo("profile") == 0) {
+				int actual = Integer.parseInt(userId);
+				String usuario = request.getParameter("user");
+				System.out.println(usuario);
+				if (usuario.compareTo("false") != 0){
+					// Peticion de perfil de usuario distinto al propio
+					int u = Integer.parseInt(usuario);
+					respuesta = ControlPublicaciones.showProfile(actual, u);
+				} else {
+					// Peticion del perfil del usuario de la sesion
+					
+					respuesta = ControlPublicaciones.showProfile(actual, actual);
+				}
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
