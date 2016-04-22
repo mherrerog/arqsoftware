@@ -28,6 +28,7 @@ CREATE TABLE `Mensaje` (
   `Receptor` int(11) NOT NULL,
   `Fecha` varchar(8) NOT NULL,
   `Hora` varchar(5) NOT NULL,
+  `Leido` int(1) NOT NULL,
   `Cuerpo` text,
   PRIMARY KEY (`idMensaje`),
   KEY `Receptor_idx` (`Receptor`),

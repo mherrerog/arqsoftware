@@ -19,16 +19,16 @@
 -- Table structure for table `Compartir`
 --
 
-DROP TABLE IF EXISTS `Compartir`;
+DROP TABLE IF EXISTS ASoftware.`Compartir`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Compartir` (
+CREATE TABLE ASoftware.`Compartir` (
   `pk_usuario_c` int(11) NOT NULL,
   `pk_publicacion_c` int(11) NOT NULL,
   PRIMARY KEY (`pk_usuario_c`,`pk_publicacion_c`),
   KEY `Publicacion_c_idx` (`pk_publicacion_c`),
-  CONSTRAINT `Publicacion_c` FOREIGN KEY (`pk_publicacion_c`) REFERENCES `Publicacion` (`idPublicacion`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Usuario_c` FOREIGN KEY (`pk_usuario_c`) REFERENCES `Usuario` (`idUsuarios`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `Publicacion_c` FOREIGN KEY (`pk_publicacion_c`) REFERENCES ASoftware.`Publicacion` (`idPublicacion`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Usuario_c` FOREIGN KEY (`pk_usuario_c`) REFERENCES ASoftware.`Usuario` (`idUsuarios`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

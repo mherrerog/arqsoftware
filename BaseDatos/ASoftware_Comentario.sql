@@ -19,10 +19,10 @@
 -- Table structure for table `Comentario`
 --
 
-DROP TABLE IF EXISTS `Comentario`;
+DROP TABLE IF EXISTS ASoftware.`Comentario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Comentario` (
+CREATE TABLE ASoftware.`Comentario` (
   `idComentario` int(11) NOT NULL AUTO_INCREMENT,
   `Publicacion_com` int(11) NOT NULL,
   `Hora` varchar(5) NOT NULL,
@@ -32,8 +32,8 @@ CREATE TABLE `Comentario` (
   PRIMARY KEY (`idComentario`),
   KEY `Usuario_com_idx` (`Usuario_com`),
   KEY `Publicacion_com_idx` (`Publicacion_com`),
-  CONSTRAINT `Publicacion_com` FOREIGN KEY (`Publicacion_com`) REFERENCES `Publicacion` (`idPublicacion`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Usuario_com` FOREIGN KEY (`Usuario_com`) REFERENCES `Usuario` (`idUsuarios`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `Publicacion_com` FOREIGN KEY (`Publicacion_com`) REFERENCES ASoftware.`Publicacion` (`idPublicacion`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Usuario_com` FOREIGN KEY (`Usuario_com`) REFERENCES ASoftware.`Usuario` (`idUsuarios`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
