@@ -58,6 +58,9 @@
 
 </head>
 
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"
+	type="text/javascript"></script>
 <body>
 	<!-- NAVBAR
       ================================================== -->
@@ -168,6 +171,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="col-md-5">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -176,36 +180,33 @@
 						</div>
 					</div>
 					<div class="panel-body">
-						<div class="panel panel-default">
-					<div class="panel-heading">
-						<img src="img/josePerez.jpg" class="panel-icon imagen" />
-						<div class="nombre">
-							<strong>Victor Beltran</strong>
-							<p>@vbeltran</p>
+						<div ng-app="myApp" ng-controller="mensajeCtrl">
+							<div ng-repeat="x in myData">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<img src="{{x.logo}}" class="panel-icon imagen" />
+										<div class="nombre">
+											<strong>{{x.nombre}}</strong>
+											<p>@{{x.nick}}</p>
+										</div>
+										<div style="text-align: right;">
+											<button type="button" class="btn btn-xs btn-success">
+												Enviar Mensaje <i class="fa fa-reply-all"></i>
+											</button>
+										</div>
+
+									</div>
+								</div>
+							</div>
 						</div>
-						<div style="text-align: right;"><button type="button" class="btn btn-xs btn-success">
-							Enviar Mensaje <i class="fa fa-reply-all"></i>
-						</button></div>
-						
 					</div>
 				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<img src="img/josePerez.jpg" class="panel-icon imagen" />
-						<div class="nombre">
-							<strong>Manuel Herrero</strong>
-							<p>@mherrero</p>
-						</div>
-						<div style="text-align: right;"><button type="button" class="btn btn-xs btn-success">
-							Enviar Mensaje <i class="fa fa-reply-all"></i>
-						</button></div>
-					</div>
-				</div>
-					</div>
-				</div>
-				
+
 			</div>
+
 		</div>
+		
+		<script type="text/javascript" src="js/mensajes.js"></script>
 
 
 		<!-- Bootstrap core JavaScript

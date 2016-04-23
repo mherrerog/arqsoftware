@@ -238,6 +238,53 @@ public class UsuarioDAO {
 		return (resultado > 0);
 	}
 	
+	
+	public static ArrayList<Usuario> selectSeguirMutuo(int myId) throws SQLException {
+
+		ArrayList<Usuario> users = new ArrayList<Usuario>();
+		Connection conecta = null;
+		ResultSet rs = null;
+		Statement stmt = null;
+		String query = "select * from ASoftware.Usuario U, ASoftware.Seguir S, ASoftware.Seguir P " +
+		"where (S.fk_Usuario = P.fk_Seguido and P.fk_Usuario = S.fk_Seguido and S.fk_Usuario = " + myId + ") and S.fk_Seguido = U.idUsuarios";
+		try {
+			conecta = Connect.getDBConnection();
+			stmt = conecta.createStatement();
+			// execute query
+			rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int id = rs.getInt("idUsuarios");
+				String nombre = rs.getString("Nombre");
+				String fecha = rs.getString("Fecha");
+				String sexo = rs.getString("Sexo");
+				String email = rs.getString("Mail");
+				String nick = rs.getString("Nick");
+				int equipo = rs.getInt("Equipo");
+				String password = rs.getString("Password");
+				String fondo = rs.getString("Fondo");
+				String logo = rs.getString("Logo");
+				Date fecha1 = toDate(fecha);
+				String descripcion = rs.getString("Descripcion");
+				Usuario nuevo = new Usuario(id, nombre, fecha1, sexo, email, 
+					nick, password, equipo, fondo, logo, descripcion);
+				users.add(nuevo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+			if (conecta != null) {
+				conecta.close();
+			}
+
+		}
+		return users;
+
+	}
+	
 	/**
 	 * Inserta un usuario en la BD
 	 */
