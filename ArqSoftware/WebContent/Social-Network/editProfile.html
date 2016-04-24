@@ -150,14 +150,7 @@
 														<a href="#" class="btn btn-sm btn-danger" role="button" id="seguir"> Dejar de seguir
 														</a>
 													</div>
-												</div>
-
-												<div ng-show="(propio) == (u.Id)">
-													<div class="seguir_d_perfil">
-														<a href="editProfile.html?user={{ u.Id }}" class="btn btn-sm btn-default" role="button" id="seguir"> Editar perfil &nbsp&nbsp <i class="fa fa-pencil" aria-hidden="true"></i>
-														</a>
-													</div>
-												</div>
+												</div>	
 											</div>
 										</div>
 
@@ -175,137 +168,107 @@
 									</div>
 								</div>
 								<!-- Cierre perfil -->
+								
+								<div class="container " id="registro">
+							      <div class="row">
+							      	<div class="col-md-1"></div>
+							        <div class="col-md-6">
+							        
+							          <form onsubmit="return submitAdvice(this);" class="form-horizontal" action="/ArqSoftware/EditarPerfil" method="POST">
+							            <div id="legend">
+							              <legend class="">Editar perfil</legend>
+							            </div>
+							
+							            <div class="control-group">
+							              <label class="control-label" for="username">Nombre completo</label>
+							              <div class="controls">
+							                <input type="text" id="username" name="username" placeholder="{{ u.nombre }}" class="form-control input-lg">
+							                <p class="help-block">Nombre y apellidos</p>
+							              </div>
+							            </div>
+							
+							            <div class="control-group">
+							              <label class="control-label" for="password_confirm">Nacimiento</label>
+							              <div class="controls">
+							                <input type="texto" id="date" name="date" placeholder="ddmmaaaa" class="form-control input-lg">
+							                <p class="help-block"></p>
+							              </div>
+							            </div>
+							         
+							            <div class="control-group">
+							              <label class="control-label" for="password">Contraseña</label>
+							              <div class="controls">
+							                <input type="password" id="password" name="password" placeholder="" class="form-control input-lg">
+							                <p class="help-block"></p>
+							              </div>
+							            </div>
+							         
+							            <div class="control-group">
+							              <label class="control-label" for="password_confirm">Contraseña (Confirmación)</label>
+							              <div class="controls">
+							                <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="form-control input-lg">
+							                <p class="help-block">Por favor confirme contraseña</p>
+							              </div>
+							            </div>
+							           
+							           <div class="control-group">
+							              <label class="control-label" for="password_confirm">Descripción</label>
+							              <div class="controls">
+							                <input type="text" id="descripcion" name="descripcion" placeholder="{{ u.descripcion }}" class="form-control input-lg">
+							                <p class="help-block">Inserte una descripción suya</p>
+							              </div>
+							            </div>
+							           
+							            <div class="control-group">
+							              <table class="radio-sport">
+							                <tr><td><label class="control-label" for="password">Sexo</label></td></tr>
+							                <tr>
+							                  <td><input type="radio" name="genero" value="hombre"> Hombre</td>
+							                  <td><input type="radio" name="genero" value="mujer"> Mujer</td>
+							                  <td><input type="radio" name="genero" value="mixto"> Mixto</td>
+							                </tr>
+							                <tr><td></br></td></tr>
+							                <tr><td><label class="control-label" for="password">Deporte que practica</label></td></tr>
+							                <tr>
+							                  <td><input type="radio" name="sport" value="running"> Running</td>
+							                  <td><input type="radio" name="sport" value="futbol"> Futbol</td>
+							                  <td><input type="radio" name="sport" value="baloncesto"> Baloncesto</td>
+							                </tr>
+							                <tr>
+							                  <td><input type="radio" name="sport" value="ciclismo"> Ciclismo</td>
+							                  <td><input type="radio" name="sport" value="futbol"> Multideporte</td>
+							                  <td><input type="radio" name="sport" value="otros"> Otros</td>
+							                </tr>
+							                <tr><td></br></td></tr>
+							                
+							              </table>
+							            </div>
+							
+							            <div class="control-group">
+							             <button type="submit" class="btn btn-lg btn-success btn-block" value="Submit">Aplicar cambios</button>
+							            </div>
+							            <div> &nbsp<br>&nbsp</div>
+							        </form>
+							        <form class="form-horizontal" action="/ArqSoftware/EditarPerfil" method="GET">
+							        	<div class="control-group">
+							             <button type="submit" class="btn btn-lg btn-danger btn-block" value="Submit">Eliminar usuario</button>
+							            </div>
+							            <div> &nbsp<br>&nbsp</div>
+							        </form>
+							        
+							        </div> 
+							        <div class="col-md-4"></div>
+							      </div>   
+							    </div>
 
-							</div>
 
-							<!-- Miembros del equipo -->
-							<div ng-show="(jugadores.length) > 0" class="panel-body">
-								<div id="myCarousel" class="carousel slide" data-ride="carousel">
-									<!-- Wrapper for slides -->
-									<div class="carousel-inner" role="listbox">
-										<div class="row placeholders">
-											<div class="item active">
-
-												<div ng-repeat="j in jugadores | pagination: curPage * pageSize | limitTo: pageSize">
-
-													<!-- Usuario -->
-													<div class="col-xs-6 col-sm-3 placeholder">
-														<div class="panel panel-default">
-															<div class="panel-heading">
-																<div class="col-md-offset-0">
-																	<img src="{{ j.logo }}" class="panel-icon img-rounded imagen">
-																	<h4>{{ j.nombre }}</h4>
-																	<span class="text-muted">@{{ j.nick }}</span>
-																</div>
-															</div>
-														</div>
-													</div>
-
-												</div>
-
-											</div>
-										</div>
-									</div>
-
-									<!-- Left and right controls -->
-									<div ng-show="jugadores.length" id="paginacion">
-										<ul class="pagination-controle pagination">
-											<li>
-												<button type="button" class="btn btn-xs btn-primary"
-													ng-disabled="curPage == 0" ng-click="curPage=curPage-1">
-														&lt;
-												</button>
-											</li>
-											<span id="pags" class="btn-ms btn-default">
-												&nbsp;&nbsp; {{curPage + 1}} / {{ numberOfPages() }} &nbsp;&nbsp;
-											</span>
-											<li>
-												<button type="button" class="btn btn-xs btn-primary"
-													ng-disabled="curPage >= jugadores.length/pageSize - 1"
-													ng-click="curPage = curPage+1">
-														&gt;
-													</button>
-											</li>
-										</ul>
-									</div><!-- Cierre botones -->
-
-								</div>
-							</div>
-							<!-- No tiene miembros el equipo -->
-							<div ng-show="(jugadores.length) < 1" class="panel-body">
-								<p>
-									El equipo no tiene miembros aún.
-								</p>
-							</div>
-						</div>
-						<!-- Cerrar miembros -->
-					</div>
-					<!-- /.col-sm-10 -->
-					<!-- Contenido del perfil -->
-					<div>
-
-						<div ng-repeat="x in myData">
-							<!-- Publicacion -->
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<img src="{{ x.logo }}" class="panel-icon imagen" alt="" />
-									<div class="nombre">
-										<a href="profile.html?user={{ x.idUsuario }}" class="black_link">
-											<strong>{{ x.nombre}}</strong>
-											<p>@{{ x.nick }}</p>
-										</a>
-									</div>
-									<div class="botones columna2">
-										<div class="btn-group like">
-											<a href="/ArqSoftware/MeGusta?pub={{ x.Id }}" type="button" class="btn btn-xs btn-primary" id="blike"> Me Gusta
-												&nbsp <i class="fa fa-thumbs-o-up"></i>
-											</a>
-											<button type="button" class="btn btn-xs btn-primary" id="bnum">{{ x.likes }}</button>
-										</div>
-										<br></br> <a href="/ArqSoftware/Compartir?pub={{ x.Id }}" type="button" class="btn btn-xs btn-primary" id="bpublicacion"> Compartir &nbsp <i class="fa fa-share"></i>
-										</a>
-									</div>
-								</div>
-								<div class="panel-body">
-									<p>{{ x.texto }}</p>
-									<!-- Imagen -->
-									<div ng-show="(x.img) != null &amp;&amp; (x.img) != ''">
-										<div class="embed-responsive embed-responsive-16by9">
-											<img class="img-responsive" src="{{ x.img }}" alt=""></img>
-										</div>
-									</div>
-									<!-- YouTube -->
-									<div ng-show="(x.video) != null &amp;&amp; (x.video) != ''">
-										{{x.video}}
-										<div class="embed-responsive embed-responsive-16by9">
-											<iframe class="embed-responsive-item" frameborder="0" allowfullscreen ng-src="{{x.video}}"></iframe>
-										</div>
-									</div>
-								</div>
-								<div class="panel-footer" id="foot">
-									<div class="columna1">{{ x.fecha }}</div>
-									<div class="columna2">
-										<button type="button" class="btn btn-xs btn-default" id="down" ng-show="(x.deporte) != null">#{{ x.deporte}}</button>
-										<button type="button" class="btn btn-xs btn-default" id="equipo" ng-show="(x.equipo) &gt; 1">
-											EQUIPO <i class="fa fa-users"></i>
-										</button>
-										<button type="button" class="btn btn-xs btn-primary" onclick="mostrareldiv(&#34;comentarios1&#34;)" id="down">
-											Comentarios <i class="fa fa-comment"></i>
-										</button>
-									</div>
-									<br>
-									<!-- Rellenar línea -->
-								</div>
-
-								<!-- Comentarios -->
-
-								<!-- Cierre comentarios -->
-
-								<!-- Cierre publicacion -->
 							</div>
 						</div>
 					</div>
 				</div>
+				
+				
+				
 				<script type="text/javascript" src="js/perfil.js"></script>
 
 
@@ -324,5 +287,20 @@
 		</div>
 	</div>
 </body>
+
+<script type="text/javascript">
+
+function submitAdvice(f) {
+	//alert('onsubmit');
+	var pass1 = document.getElementById("password").value;
+	var pass2 = document.getElementById("password_confirm").value;
+
+	if (pass1 != pass2 && pass1.length > 0) {
+		alert('Los passwords no coinciden');
+		return false;
+	}
+}
+
+</script>
 
 </html>
