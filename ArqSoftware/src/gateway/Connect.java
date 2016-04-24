@@ -16,7 +16,7 @@ public class Connect {
 	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
 	private static final String DB_CONNECTION = "jdbc:mysql://127.0.0.1/";
 	private static final String DB_USER = "root";
-	private static final String DB_PASSWORD = "root";
+	private static final String DB_PASSWORD = "ssii2015";
 	
 	
 	

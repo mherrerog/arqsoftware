@@ -59,6 +59,9 @@ public class UsuarioDAO {
 		return nuevo;
 	}
 
+	/**
+	 * 
+	 */
 	public static ArrayList<Usuario> selectByName(String name) throws SQLException {
 
 		ArrayList<Usuario> users = new ArrayList<Usuario>();
@@ -166,8 +169,8 @@ public class UsuarioDAO {
 		Statement stmt = null;
 		
 		String query = "select usuario, seguidores, seguidos from" +
-				"(SELECT COUNT(*) AS seguidores, fk_usuario AS usuario FROM ASoftware.seguir GROUP BY fk_usuario) a," +
-				"(SELECT COUNT(*) AS seguidos, fk_Seguido AS useguido FROM ASoftware.seguir GROUP BY fk_Seguido) b " +
+				"(SELECT COUNT(*) AS seguidores, fk_usuario AS usuario FROM ASoftware.Seguir GROUP BY fk_usuario) a," +
+				"(SELECT COUNT(*) AS seguidos, fk_Seguido AS useguido FROM ASoftware.Seguir GROUP BY fk_Seguido) b " +
 				"where usuario = useguido AND usuario = " + usuario;
 		
 		try {
@@ -198,11 +201,9 @@ public class UsuarioDAO {
 	}
 	
 	/**
-	 * Devuelve un array con dos enteros
-	 * resultado[0] = nº seguidores del usuario
-	 * resultado[1] = nº seguidos del usuario 
+	 * Devuelve un true si usuario sigue a siguiendo
 	 */
-	public static boolean leSigue(int usuario, int siguiendo) throws SQLException {
+	public static boolean yoSigo(int usuario, int siguiendo) throws SQLException {
 		int resultado = 0;
 		Connection conecta = null;
 		ResultSet rs = null;
@@ -238,7 +239,48 @@ public class UsuarioDAO {
 		return (resultado > 0);
 	}
 	
+	/**
+	 * Devuelve un true si usuario sigue a siguiendo
+	 */
+	public static boolean meSigue(int usuario, int siguiendo) throws SQLException {
+		int resultado = 0;
+		Connection conecta = null;
+		ResultSet rs = null;
+		Statement stmt = null;
+		
+		String query = "SELECT fk_Usuario, fk_Seguido from ASoftware.Seguir where "
+				+ "fk_Usuario=" + usuario + " and fk_Seguido=" + siguiendo +
+				" group by fk_Usuario, fk_Seguido";
+		
+		try {
+			conecta = Connect.getDBConnection();
+			stmt = conecta.createStatement();
+			// execute query
+			rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+				resultado++;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+			if (conecta != null) {
+				conecta.close();
+			}
+
+		}
+		
+		return (resultado > 0);
+	}
 	
+	/**
+	 * 
+	 */
 	public static ArrayList<Usuario> selectSeguirMutuo(int myId) throws SQLException {
 
 		ArrayList<Usuario> users = new ArrayList<Usuario>();
@@ -284,6 +326,56 @@ public class UsuarioDAO {
 		return users;
 
 	}
+	
+	/**
+	 * 
+	 */
+	public static ArrayList<Usuario> selectByEquipo(int team) throws SQLException {
+
+		ArrayList<Usuario> users = new ArrayList<Usuario>();
+		Connection conecta = null;
+		ResultSet rs = null;
+		Statement stmt = null;
+		String query = "select * from ASoftware.Usuario, ASoftware.Pertenecen " + 
+				"where idUsuarios=fk_Miembro and fk_Equipo=" + team;
+		try {
+			conecta = Connect.getDBConnection();
+			stmt = conecta.createStatement();
+			// execute query
+			rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int id = rs.getInt("idUsuarios");
+				String nombre = rs.getString("Nombre");
+				String fecha = rs.getString("Fecha");
+				String sexo = rs.getString("Sexo");
+				String email = rs.getString("Mail");
+				String nick = rs.getString("Nick");
+				int equipo = rs.getInt("Equipo");
+				String password = rs.getString("Password");
+				String fondo = rs.getString("Fondo");
+				String logo = rs.getString("Logo");
+				Date fecha1 = toDate(fecha);
+				String descripcion = rs.getString("Descripcion");
+				Usuario nuevo = new Usuario(id, nombre, fecha1, sexo, email, 
+					nick, password, equipo, logo,fondo, descripcion);
+				users.add(nuevo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+			if (conecta != null) {
+				conecta.close();
+			}
+
+		}
+		return users;
+
+	}
+	
 	
 	/**
 	 * Inserta un usuario en la BD

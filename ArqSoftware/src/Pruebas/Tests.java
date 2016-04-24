@@ -10,12 +10,23 @@ import datos.Publicacion;
 import datos.Usuario;
 import gateway.PublicacionDAO;
 import gateway.UsuarioDAO;
+import socialnetwork.ControlPublicaciones;
 import socialnetwork.Fechas;
 
 public class Tests {
 	
 	public static void main (String [] args){
-		verFecha();
+		equipoJSON();
+	}
+	
+	private static void equipoJSON(){
+		try {
+			String sal = ControlPublicaciones.showProfile(1, 4);
+			System.out.println(sal);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private static void verFecha(){

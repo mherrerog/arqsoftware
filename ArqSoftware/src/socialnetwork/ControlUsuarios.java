@@ -21,5 +21,19 @@ public class ControlUsuarios {
 		}
 		return result;
 	}
+	
+	public static String buscarMiembros(int equipo){
+		String result = "";
+		try {
+			ArrayList<Usuario> users = UsuarioDAO.selectByEquipo(equipo);
+			result = Usuario.toJSON(users);
+			// System.out.println(result);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 }

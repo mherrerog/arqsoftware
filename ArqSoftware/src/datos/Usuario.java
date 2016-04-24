@@ -88,16 +88,24 @@ public class Usuario {
 		obj.put("seguidores", seguir[0]);
 		obj.put("seguidos", seguir[1]);
 		if (idUsuario != id){
-			if (UsuarioDAO.leSigue(this.id, idUsuario)){
-				// Me sigue
+			if (UsuarioDAO.yoSigo(this.id, idUsuario)){
+				// Lo siguo
 				obj.put("le_sigue", "true");
 			} else {
-				// No me sigue
+				// No lo sigo
 				obj.put("le_sigue", "false");
+			}
+			if (UsuarioDAO.meSigue(this.id, idUsuario)){
+				// Me sigue
+				obj.put("me_sigue", "true");
+			} else {
+				// No me sigue
+				obj.put("me_sigue", "false");
 			}
 		} else {
 			// Yo mismo
 			obj.put("le_sigue", "false");
+			obj.put("me_sigue", "false");
 			System.out.println(">> Yo mismo");
 		}
 		

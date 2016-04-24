@@ -131,6 +131,7 @@
 }
 .sigues {
   font-size: 11px;
+  display: inline-block;
 }
 #der {
   text-align:right;

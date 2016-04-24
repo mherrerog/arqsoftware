@@ -38,12 +38,7 @@ var val = getQueryVariable("user");
 app.controller('perfilCtrl', function($scope, $http, $location) {
   $http.get("/ArqSoftware/ObtenerPublicaciones?page=profile&user=" + val).then(
     function(response) {
-			// Paginacion de miembros del equipo
-			$scope.curPage = 0;
-			$scope.pageSize = 4;
-
       $scope.myUser = response.data.usuario;
-			$scope.jugadores = response.data.jugadores;
       $scope.myData = response.data.publicaciones;
       // Recorrer valor de cookies
       var rastro = document.cookie.split('=');
@@ -55,16 +50,49 @@ app.controller('perfilCtrl', function($scope, $http, $location) {
         // Avanzar otro valor de i
         i++;
       }
-    })
-
-		$scope.numberOfPages = function() {
-			return Math.ceil($scope.jugadores.length / $scope.pageSize);
-		};
+    });
 });
 
-angular.module('myApp').filter('pagination', function() {
-	return function(input, start) {
-		start = +start;
-		return input.slice(start);
+
+/**/
+var myapp = angular.module('equipoApp', []);
+
+myapp.controller('equipoCtrl', function($scope, $http) {
+
+	$scope.showData = function() {
+
+		$scope.curPage = 0;
+		$scope.pageSize = 4;
+		var val = getQueryVariable("user");
+		$http.get("/ArqSoftware/ObtenerPublicaciones?page=profile&user=" + val).then(
+				function(response) {
+          $scope.myUser = response.data.usuario;
+					$scope.jugadores = response.data.jugadores;
+          $scope.myData = response.data.publicaciones;
+          // Recorrer valor de cookies
+          var rastro = document.cookie.split('=');
+          for (var i = 0; i < rastro.length; i++) {
+            var par = rastro[i];
+            if (par == 'userId'){
+                $scope.propio = rastro[i+1];
+            }
+            // Avanzar otro valor de i
+            i++;
+          }
+				})
+
+		$scope.numberOfPages = function() {
+			return Math.ceil($scope.datalists.length / $scope.pageSize);
+		};
+
+	}
+
+	$scope.predicate = 'nombre'; 	// Por defecto ordena por idAsignatura
+	$scope.reverse = true;
+	$scope.order = function(predicate) {
+		$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse
+				: false;
+		$scope.predicate = predicate;
 	};
+
 });

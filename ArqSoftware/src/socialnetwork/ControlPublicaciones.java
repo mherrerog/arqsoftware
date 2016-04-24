@@ -67,14 +67,25 @@ public class ControlPublicaciones {
 		String publicaciones = Publicacion.toJSON(pubs);
 		publicaciones=publicaciones.substring(1);
 		Usuario u = UsuarioDAO.selectById(usuario);
+		// Perfil de usuario -> equipo?
+		boolean equipo = (u.getEquipo() > 0);
 		String usuarioJSON = u.toJSON(actual);
 		
-		String respuesta = "{\"usuario\": ["
-				+ usuarioJSON + "], " + publicaciones +
-				"";
+		String respuesta = "";
 		
-		System.out.println(respuesta);
-		
+		if (equipo){
+			String miembros = ControlUsuarios.buscarMiembros(usuario);
+			miembros = miembros.substring(12, miembros.length()-1);
+			// Equipo
+			respuesta = "{\"usuario\": ["
+					+ usuarioJSON + "], \"jugadores\":" + miembros + ", "
+					+ publicaciones;
+		} else {
+			// No equipo
+			respuesta = "{\"usuario\": ["
+					+ usuarioJSON + "], " + publicaciones +
+					"";
+		}		
 		
 		return respuesta;
 	}

@@ -82,8 +82,7 @@ public class ObtenerPublicaciones extends HttpServlet {
 					int u = Integer.parseInt(usuario);
 					respuesta = ControlPublicaciones.showProfile(actual, u);
 				} else {
-					// Peticion del perfil del usuario de la sesion
-					
+					// Peticion del perfil del usuario de la sesion					
 					respuesta = ControlPublicaciones.showProfile(actual, actual);
 				}
 			}
@@ -91,6 +90,11 @@ public class ObtenerPublicaciones extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		//Debug
+		System.out.println(respuesta);
+		
+		
 		response.setContentType("application/json");
 		// Get the printwriter object from response to write the required json object to the output stream      
 		PrintWriter out = response.getWriter();

@@ -54,27 +54,6 @@
 			window.open(url, '', 'top=' + ((screen.height - 500) / 2) + ',left=' + ((screen.width - 500) / 2) + ',width=500%,height=500%');
 		}
 
-
-		function mostrareldiv(name) {
-			document.getElementById(name).style.display = "block";
-		}
-
-		function ocultareldiv(name) {
-			document.getElementById(name).style.display = "none";
-		}
-
-		function mostrar_y_ocultar_div(mostrar1, mostrar2, ocultar) {
-			document.getElementById(mostrar1).style.display = "block";
-			document.getElementById(mostrar2).style.display = "block";
-			document.getElementById(ocultar).style.display = "none";
-		}
-
-		function ocultar_y_mostrar_div(mostrar1, mostrar2, ocultar) {
-			document.getElementById(mostrar1).style.display = "none";
-			document.getElementById(mostrar2).style.display = "none";
-			document.getElementById(ocultar).style.display = "block";
-		}
-
 		function PreviewImage() {
 			var oFReader = new FileReader();
 			oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
@@ -103,6 +82,7 @@
 			startTime();
 		}
 	</script>
+	<script type="text/javascript" src="js/home.js"></script>
 
 </head>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
@@ -236,10 +216,8 @@
 						<div class="panel-heading">
 							<img src="{{ x.logo }}" class="panel-icon imagen" />
 							<div class="nombre">
-								<a href="perfil.html?user={{ x.idUsuario }}" class="black_link">
+								<a href="profile.html?user={{ x.idUsuario }}" class="black_link">
 									<strong>{{ x.nombre}}</strong>
-								</a>
-								<a href="#" class="black_link">
 									<p>@{{ x.nick }}</p>
 								</a>
 							</div>
