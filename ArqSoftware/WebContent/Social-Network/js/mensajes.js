@@ -16,5 +16,6 @@ app.controller('mensajeCtrl', function($scope, $http, $location) {
   $http.get("/ArqSoftware/ObtenerMensajes").then(
     function(response) {
       $scope.myData = response.data.usuarios;
+      $scope.myMens = response.data.mensajes;
     });
 });

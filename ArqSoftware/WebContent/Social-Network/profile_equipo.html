@@ -70,7 +70,7 @@
 
 </head>
 
-<body>
+<body onload="checkCookie()">
     <div class="wallpaper">
 
         <!-- NAVBAR
@@ -96,9 +96,9 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Salir<span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">Editar perfil</a></li>
+                                        <li><a href="editProfile.html">Editar perfil</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#">Cerrar sesión</a></li>
+                                        <li><a href="/ArqSoftware/InicioSesion?id=2">Cerrar sesión</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -351,6 +351,7 @@
     ================================================== -->
             <!-- Placed at the end of the document so the pages load faster -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script type="text/javascript" src="js/cookies.js"></script>
             <script>
                 window.jQuery || document.write('<script src="../bootstrap-3.3.6/assets/js/vendor/jquery.min.js"><\/script>')
             </script>

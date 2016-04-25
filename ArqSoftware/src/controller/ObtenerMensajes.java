@@ -49,7 +49,7 @@ public class ObtenerMensajes extends HttpServlet {
 	/**
 	 * Trata la peticion para mostrar las publicaciones en el home
 	 */
-	private void obtenerMensajes (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void obtenerMensajes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cookieName = "userId";
 		String userId = "";
 		Cookie[] cookies = request.getCookies();
@@ -66,12 +66,21 @@ public class ObtenerMensajes extends HttpServlet {
 		}
 
 		String respuesta = "";
+		String respuesta1 = "";
 		try {
 			respuesta = ControlMensajes.usersSeguidoresMutuos(Integer.parseInt(userId));
+			respuesta = respuesta.substring(0, respuesta.length()-1);
+			respuesta1 = ControlMensajes.listMensajesUser(Integer.parseInt(userId));
+			respuesta1 = respuesta1.substring(1, respuesta1.length());
+			respuesta = respuesta + ", " + respuesta1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//Debug
+		System.out.println(respuesta);
+		
 		response.setContentType("application/json");
 		// Get the printwriter object from response to write the required json object to the output stream      
 		PrintWriter out = response.getWriter();

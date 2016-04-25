@@ -36,7 +36,14 @@ public class InicioSesion extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int metodo = Integer.parseInt(request.getParameter("id"));
 		
+		if (metodo == 2) {
+			Cookie userCookie = new Cookie("userId", "");
+			userCookie.setMaxAge(0);
+			response.addCookie(userCookie);
+			response.sendRedirect("/ArqSoftware/Social-Network/index.html");
+		}
 	}
 
 	/**

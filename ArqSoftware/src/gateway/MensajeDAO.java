@@ -21,8 +21,8 @@ public class MensajeDAO {
 		Connection conn = Connect.getDBConnection();
 		
 		String query = "INSERT INTO ASoftware.Mensaje" +
-			"(Emisor_M, Receptor, Fecha, Hora, Cuerpo)  VALUES" +
-			"( ?, ?, ?,?, ?)";
+			"(Emisor_M, Receptor, Fecha, Hora, Cuerpo, Leido)  VALUES" +
+			"( ?, ?, ?,?, ?,?)";
 		
 		// create the mysql insert preparedstatement
 		PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -31,6 +31,7 @@ public class MensajeDAO {
 		preparedStmt.setString(3, fecha);
 		preparedStmt.setString(4, hora);
 		preparedStmt.setString(5, cuerpo);
+		preparedStmt.setInt(6, 0);
 
 		// execute the preparedstatement
 		preparedStmt.execute();
@@ -45,7 +46,7 @@ public class MensajeDAO {
 	 * @throws SQLException
 	 */
 	public static void delete(int idMensaje) throws SQLException {
-		String query = "DELETE FROM ASoftware.Mensaje WHERE " + "(idPublicacion = ?)";
+		String query = "DELETE FROM ASoftware.Mensaje WHERE " + "(idMensaje = ?)";
 		Connection conn = Connect.getDBConnection();
 		PreparedStatement preparedStmt = conn.prepareStatement(query);
 		preparedStmt.setInt(1, idMensaje);
@@ -63,8 +64,7 @@ public class MensajeDAO {
 		ResultSet rs = null;
 		Statement stmt = null;
 		String query = "select * from ASoftware.Mensaje "
-				+ "where (Emisor_M=" +idUsuario +" or Receptor=" +idUsuario +")"
-				+ " order by fecha, hora";
+				+ "where (Receptor=" +idUsuario + ") order by fecha, hora";
 		try {
 			conecta = Connect.getDBConnection();
 			stmt = conecta.createStatement();
@@ -75,8 +75,9 @@ public class MensajeDAO {
 				int receptor = rs.getInt(3);
 				String fecha = rs.getString(4);
 				String hora = rs.getString(5);
-				String cuerpo = rs.getString(6);
-				Mensaje nuevo = new Mensaje(emisor, receptor, fecha, hora, cuerpo);
+				int leido = rs.getInt(6);
+				String cuerpo = rs.getString(7);
+				Mensaje nuevo = new Mensaje(emisor, receptor, fecha, hora, cuerpo, leido);
 				mensajes.add(nuevo);
 			}
 		} catch (SQLException e) {

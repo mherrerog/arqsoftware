@@ -1,8 +1,15 @@
 package datos;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+
+import org.json.JSONObject;
+
+import gateway.UsuarioDAO;
+import socialnetwork.Fechas;
 
 public class Mensaje {
 	
@@ -11,6 +18,7 @@ public class Mensaje {
 	private String fecha;
 	private String hora;
 	private String cuerpo;
+	private int leido;
 	
 	/**
 	 * @param emisor
@@ -19,12 +27,21 @@ public class Mensaje {
 	 * @param hora
 	 * @param cuerpo
 	 */
-	public Mensaje(int emisor, int receptor, String fecha, String hora, String cuerpo) {
+	public Mensaje(int emisor, int receptor, String fecha, String hora, String cuerpo, int leido) {
 		this.emisor = emisor;
 		this.receptor = receptor;
 		this.fecha = fecha;
 		this.hora = hora;
 		this.cuerpo = cuerpo;
+		this.leido = leido;
+	}
+
+	public int getLeido() {
+		return leido;
+	}
+
+	public void setLeido(int leido) {
+		this.leido = leido;
 	}
 
 	// Getters
@@ -72,11 +89,49 @@ public class Mensaje {
 	 * Devuelve la cadena que representa dicho objeto en JSON
 	 */
 	public String toJSON(){
-		String rs = "";
+		JSONObject obj = new JSONObject();
 		
-		return rs;
+		String horatoweb = Fechas.getFechaToWeb(Fechas.getFechaFromWeb(fecha,hora));
+		
+		Usuario user = null;
+		try {
+			user = UsuarioDAO.selectById(emisor);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// Atributos de publicacion
+		obj.put("emisor", user.getNombre());
+		obj.put("emisor_nick", user.getNick());
+		obj.put("receptor", receptor);
+		obj.put("hora", horatoweb);
+		obj.put("cuerpo", cuerpo);
+		obj.put("leido", leido);
+		
+		
+		return obj.toString();
 	}
 
+	
+	/**
+	 * Devuelve la cadena que representa dicho objeto en JSON
+	 */
+	public static String toJSON(ArrayList<Mensaje> vector){
+		String rs = "{\"mensajes\": [\n";
+		for (Mensaje d: vector){
+			
+			rs += d.toJSON() + ",\n";
+		}
+		
+		// Consulta vacia?
+		if (!vector.isEmpty()){
+			int end = rs.lastIndexOf(',');
+			rs = rs.substring(0, end);	// Elimina la última coma puesta
+		}
+		
+		return rs + "\n]}";
+	}
+	
 	/**
 	 * 
 	 */
