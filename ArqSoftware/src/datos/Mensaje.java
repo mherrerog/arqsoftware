@@ -101,6 +101,7 @@ public class Mensaje {
 			e.printStackTrace();
 		}
 		// Atributos de publicacion
+		obj.put("id", user.getId());
 		obj.put("emisor", user.getNombre());
 		obj.put("emisor_nick", user.getNick());
 		obj.put("receptor", receptor);
