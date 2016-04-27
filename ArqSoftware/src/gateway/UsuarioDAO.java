@@ -399,26 +399,6 @@ public class UsuarioDAO {
 		preparedStatement.execute();
 		conecta.close();
 	}
-	
-	public static void delete(Usuario usuario) throws SQLException{
-		Connection conecta = Connect.getDBConnection();
-		
-		String query = "DELETE FROM ASoftware.Usuario WHERE idUsuarios='"+Integer.toString(usuario.getId())+"';";
-		PreparedStatement preparedStatement = conecta.prepareStatement(query);		
-		preparedStatement.execute();
-		conecta.close();
-	}
-	
-	public static void update(Usuario usuario) throws SQLException{
-		Connection conecta = Connect.getDBConnection();
-		
-		String query = "UPDATE ASoftware.Usuario set Nombre='"+usuario.getNombre()+"', Fecha='"+usuario.getFechaString()+" "
-				+ "', Sexo='"+usuario.getSexo()+"', Password='"+usuario.getPassword()+"', Descripcion='"+usuario.getDescripcion()+" "
-				+ "' WHERE idUsuarios='"+Integer.toString(usuario.getId())+"';";
-		PreparedStatement preparedStatement = conecta.prepareStatement(query);		
-		preparedStatement.execute();
-		conecta.close();
-	}
 
 	/**
 	 * Inserta una nueva realcion de seguimiento en la BD

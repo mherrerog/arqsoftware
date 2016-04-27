@@ -45,6 +45,7 @@ app.controller('perfilCtrl', function($scope, $http, $location) {
       $scope.myUser = response.data.usuario;
 			$scope.jugadores = response.data.jugadores;
       $scope.myData = response.data.publicaciones;
+
       // Recorrer valor de cookies
       var rastro = document.cookie.split('=');
       for (var i = 0; i < rastro.length; i++) {
@@ -57,8 +58,20 @@ app.controller('perfilCtrl', function($scope, $http, $location) {
       }
     })
 
+		// Id inicial negativo, todos son mayor de 0
+		$scope.hoverEdit = -1;
+
 		$scope.numberOfPages = function() {
 			return Math.ceil($scope.jugadores.length / $scope.pageSize);
+		};
+
+		//Funciones para mostrar y ocultar un close
+		$scope.hoverIn = function(i){
+			$scope.hoverEdit = i;
+		};
+
+		$scope.hoverOut = function(){
+				$scope.hoverEdit = -1;
 		};
 });
 

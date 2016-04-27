@@ -6,6 +6,12 @@
 		background-image: url('img/pista.jpg');
 		background-size: 100% auto;
 	}
+	.miembro {
+		display: inline-block;
+	}
+	.close {
+		display: inline-block;
+	}
 </style>
 
 <head>
@@ -189,16 +195,23 @@
 												<div ng-repeat="j in jugadores | pagination: curPage * pageSize | limitTo: pageSize">
 
 													<!-- Usuario -->
-													<div class="col-xs-6 col-sm-3 placeholder">
+													<div class="col-xs-6 col-sm-3 placeholder"  ng-mouseover="hoverIn(j.Id)" ng-mouseleave="hoverOut()">
+														<!-- Usuario -->
 														<div class="panel panel-default">
 															<div class="panel-heading">
 																<div class="col-md-offset-0">
-																	<img src="{{ j.logo }}" class="panel-icon img-rounded imagen">
+																	<img src="{{ j.logo }}" class="panel-icon img-rounded imagen miembro">
+																	<!-- Close -->
+																	<div class="close" ng-show="hoverEdit == (j.Id)">
+																		<a href="#">
+																			<i class="fa fa-times" aria-hidden="true"></i>
+																		</a>
+																	</div> <!-- Close -->
 																	<h4>{{ j.nombre }}</h4>
 																	<span class="text-muted">@{{ j.nick }}</span>
 																</div>
 															</div>
-														</div>
+														</div> <!-- Usuario -->
 													</div>
 
 												</div>
