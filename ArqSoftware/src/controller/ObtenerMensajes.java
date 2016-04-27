@@ -34,7 +34,6 @@ public class ObtenerMensajes extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("hola");
 		obtenerMensajes(request, response);
 	}
 
@@ -43,7 +42,7 @@ public class ObtenerMensajes extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		insertarMensaje(request,response);
 	}
 	
 	/**
@@ -87,6 +86,29 @@ public class ObtenerMensajes extends HttpServlet {
 		// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
 		out.print(respuesta);
 		out.flush();
+	}
+	
+	private void insertarMensaje(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		String cookieName = "userId";
+		String userId = "";
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) 
+		{
+		    for(int i=0; i<cookies.length; i++) 
+		    {
+		        Cookie cookie = cookies[i];
+		        if (cookieName.equals(cookie.getName())) 
+		        {
+		        	userId = (cookie.getValue());
+		        }
+		    }
+		}
+		int idReceptor = Integer.parseInt(request.getParameter("idReceptor"));
+		String cuerpo = request.getParameter("cuerpoMensaje");
+		
+		ControlMensajes.envioMensaje(Integer.parseInt(userId), idReceptor, cuerpo);
+		
+		response.sendRedirect("/ArqSoftware/Social-Network/mensajes.html");
 	}
 
 }

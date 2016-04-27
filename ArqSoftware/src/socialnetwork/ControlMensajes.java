@@ -2,6 +2,7 @@ package socialnetwork;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import datos.Mensaje;
 import datos.Usuario;
@@ -26,5 +27,19 @@ public class ControlMensajes {
 		result = Mensaje.toJSON(users);
 						
 		return result;
+	}
+	
+	public static void envioMensaje(int userId, int idReceptor, String cuerpo) {
+		Date d = new Date();
+		String fecha = Fechas.getFechaString(d);
+		String hora = Fechas.getHoraString(d);
+		
+		try {
+			MensajeDAO.insert(userId, idReceptor, fecha, hora, cuerpo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

@@ -152,10 +152,11 @@
 								<!-- Completar línea -->
 							</div>
 							<div id="comentario">
-								<form action="/" method="post">
+								<form action="/ArqSoftware/ObtenerMensajes" method="post">
 									<div class="panel-body" style="text-align: center">
 										<div>
-											<textarea name="textPublicacion"
+											<input type="hidden" name="idReceptor" value={{x.id}}>
+											<textarea name="cuerpoMensaje"
 												class="form-control col-xs-12" cols="" rows=""></textarea>
 										</div>
 									</div>
@@ -195,7 +196,8 @@
 											<p>@{{y.nick}}</p>
 										</div>
 										<div style="text-align: right;">
-											<button type="button" class="btn btn-xs btn-success">
+											<button type="button" onclick="mostrar_y_ocultar_div(&#34;comentario&#34;, &#34;resp&#34;)" 
+											class="btn btn-xs btn-success">
 												Enviar Mensaje <i class="fa fa-reply-all"></i>
 											</button>
 										</div>

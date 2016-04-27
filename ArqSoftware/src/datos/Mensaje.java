@@ -103,6 +103,7 @@ public class Mensaje {
 		// Atributos de publicacion
 		obj.put("emisor", user.getNombre());
 		obj.put("emisor_nick", user.getNick());
+		obj.put("id", user.getId());
 		obj.put("receptor", receptor);
 		obj.put("hora", horatoweb);
 		obj.put("cuerpo", cuerpo);

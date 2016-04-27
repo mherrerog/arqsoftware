@@ -108,5 +108,18 @@ public class Fechas {
 		}
 		return yy + mm + dd;
 	}
-
+	
+	public static String getHoraString(Date fecha){
+		Calendar cal = Calendar.getInstance();
+	    cal.setTime(fecha);
+	    String hh = "" + cal.get(Calendar.HOUR_OF_DAY);
+	    while (hh.length() < 2){
+			hh = "0" + hh;
+		}
+	    String mm = "" + cal.get(Calendar.MINUTE);
+	    while (mm.length() < 2){
+			mm = "0" + mm;
+		}
+	    return hh + mm;
+	}
 }
