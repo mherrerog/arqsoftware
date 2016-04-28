@@ -142,8 +142,7 @@
 							<div class="panel-footer">
 								<div class="columna1">{{x.hora}}</div>
 								<div class="columna2">
-									<button type="button" class="btn btn-xs btn-primary" id="resp"
-										onclick="mostrar_y_ocultar_div(&#34;comentario&#34;, &#34;resp&#34;)">
+									<button type="button" class="btn btn-xs btn-primary" id="resp" ng-click="hoverIn(x.id)">
 										Responder <i class="fa fa-reply-all"></i>
 									</button>
 									<!--  id="alternar-respuesta-ej1"-->
@@ -151,7 +150,7 @@
 								<br>
 								<!-- Completar línea -->
 							</div>
-							<div id="comentario">
+							<div ng-show="(x.id) == hoverEdit">
 								<form action="/ArqSoftware/ObtenerMensajes" method="post">
 									<div class="panel-body" style="text-align: center">
 										<div>
@@ -166,7 +165,7 @@
 												Responder <i class="fa fa-reply-all"></i>
 											</button>
 											<button type="button" class="btn btn-xs btn-danger" id="resp"
-												onclick="mostrar_y_ocultar_div(&#34;resp&#34;, &#34;comentario&#34;)">
+												ng-click="hoverOut()">
 												Cancelar <i class="fa fa-ban"></i>
 											</button>
 											<!--  id="alternar-respuesta-ej1"-->

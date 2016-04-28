@@ -13,9 +13,20 @@ function getQueryVariable(variable) {
 
 var app = angular.module('myApp', []);
 app.controller('mensajeCtrl', function($scope, $http, $location) {
-  $http.get("/ArqSoftware/ObtenerMensajes").then(
-    function(response) {
-      $scope.myData = response.data.usuarios;
-      $scope.myMens = response.data.mensajes;
-    });
+	$http.get("/ArqSoftware/ObtenerMensajes").then(function(response) {
+		$scope.myData = response.data.usuarios;
+		$scope.myMens = response.data.mensajes;
+	})
+
+	// Id inicial negativo, todos son mayor de 0
+	$scope.hoverEdit = -1;
+
+	// Funciones para mostrar y ocultar un close
+	$scope.hoverIn = function(i) {
+		$scope.hoverEdit = i;
+	};
+
+	$scope.hoverOut = function() {
+		$scope.hoverEdit = -1;
+	};
 });
