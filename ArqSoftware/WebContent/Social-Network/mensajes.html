@@ -59,10 +59,8 @@
 
 </head>
 
-<script
-	src="../angular-1.5.0/angular.min.js"
-	type="text/javascript"></script>
-<body  onload="checkCookie()">
+<script src="../angular-1.5.0/angular.min.js" type="text/javascript"></script>
+<body onload="checkCookie()">
 	<!-- NAVBAR
       ================================================== -->
 	<div class="navbar-wrapper">
@@ -94,7 +92,8 @@
 								<ul class="dropdown-menu">
 									<li><a href="editProfile.html">Editar perfil</a></li>
 									<li role="separator" class="divider"></li>
-									<li><a href="/ArqSoftware/InicioSesion?id=2">Cerrar sesión</a></li>
+									<li><a href="/ArqSoftware/InicioSesion?id=2">Cerrar
+											sesión</a></li>
 								</ul></li>
 						</ul>
 						<form action="/ArqSoftware/Social-Network/search.html"
@@ -142,7 +141,8 @@
 							<div class="panel-footer">
 								<div class="columna1">{{x.hora}}</div>
 								<div class="columna2">
-									<button type="button" class="btn btn-xs btn-primary" id="resp" ng-click="hoverIn(x.id)">
+									<button type="button" class="btn btn-xs btn-primary" id="resp"
+										ng-click="hoverIn(x.id_mensj)">
 										Responder <i class="fa fa-reply-all"></i>
 									</button>
 									<!--  id="alternar-respuesta-ej1"-->
@@ -150,13 +150,13 @@
 								<br>
 								<!-- Completar línea -->
 							</div>
-							<div ng-show="(x.id) == hoverEdit">
+							<div ng-show="(x.id_mensj) == hoverEdit">
 								<form action="/ArqSoftware/ObtenerMensajes" method="post">
 									<div class="panel-body" style="text-align: center">
 										<div>
 											<input type="hidden" name="idReceptor" value={{x.id}}>
-											<textarea name="cuerpoMensaje"
-												class="form-control col-xs-12" cols="" rows=""></textarea>
+											<textarea name="cuerpoMensaje" class="form-control col-xs-12"
+												cols="" rows=""></textarea>
 										</div>
 									</div>
 									<div class="panel-footer">
@@ -195,12 +195,35 @@
 											<p>@{{y.nick}}</p>
 										</div>
 										<div style="text-align: right;">
-											<button type="button" onclick="mostrar_y_ocultar_div(&#34;comentario&#34;, &#34;resp&#34;)" 
-											class="btn btn-xs btn-success">
+											<button type="button" ng-click="hoverIn2(y.Id)"
+												class="btn btn-xs btn-success">
 												Enviar Mensaje <i class="fa fa-reply-all"></i>
 											</button>
 										</div>
-
+										<div ng-show="(y.Id) == hoverEdit2">
+											<form action="/ArqSoftware/ObtenerMensajes" method="post">
+												<div class="panel-body" style="text-align: center">
+													<div>
+														<input type="hidden" name="idReceptor" value={{y.Id}}>
+														<textarea name="cuerpoMensaje"
+															class="form-control col-xs-12" cols="" rows=""></textarea>
+													</div>
+												</div>
+												<div class="panel-footer">
+													<div class="columna2">
+														<button type="submit" class="btn btn-xs btn-success">
+															Enviar <i class="fa fa-reply-all"></i>
+														</button>
+														<button type="button" class="btn btn-xs btn-danger"
+															id="resp" ng-click="hoverOut()">
+															Cancelar <i class="fa fa-ban"></i>
+														</button>
+														<!--  id="alternar-respuesta-ej1"-->
+													</div>
+													<br>
+												</div>
+											</form>
+										</div>
 									</div>
 								</div>
 							</div>

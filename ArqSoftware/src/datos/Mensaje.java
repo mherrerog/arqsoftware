@@ -13,6 +13,7 @@ import socialnetwork.Fechas;
 
 public class Mensaje {
 	
+	private int idMensaje;
 	private int emisor;
 	private int receptor;
 	private String fecha;
@@ -28,6 +29,16 @@ public class Mensaje {
 	 * @param cuerpo
 	 */
 	public Mensaje(int emisor, int receptor, String fecha, String hora, String cuerpo, int leido) {
+		this.emisor = emisor;
+		this.receptor = receptor;
+		this.fecha = fecha;
+		this.hora = hora;
+		this.cuerpo = cuerpo;
+		this.leido = leido;
+	}
+	
+	public Mensaje(int id, int emisor, int receptor, String fecha, String hora, String cuerpo, int leido) {
+		this.idMensaje = id;
 		this.emisor = emisor;
 		this.receptor = receptor;
 		this.fecha = fecha;
@@ -101,6 +112,7 @@ public class Mensaje {
 			e.printStackTrace();
 		}
 		// Atributos de publicacion
+		obj.put("id_mensj", idMensaje);
 		obj.put("emisor", user.getNombre());
 		obj.put("emisor_nick", user.getNick());
 		obj.put("id", user.getId());

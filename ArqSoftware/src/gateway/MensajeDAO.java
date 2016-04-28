@@ -64,20 +64,21 @@ public class MensajeDAO {
 		ResultSet rs = null;
 		Statement stmt = null;
 		String query = "select * from ASoftware.Mensaje "
-				+ "where (Receptor=" +idUsuario + ") order by fecha, hora";
+				+ "where (Receptor=" +idUsuario + ") order by fecha desc, hora desc";
 		try {
 			conecta = Connect.getDBConnection();
 			stmt = conecta.createStatement();
 			// execute query
 			rs = stmt.executeQuery(query);
 			while (rs.next()) {
+				int id = rs.getInt(1);
 				int emisor = rs.getInt(2);
 				int receptor = rs.getInt(3);
 				String fecha = rs.getString(4);
 				String hora = rs.getString(5);
 				int leido = rs.getInt(6);
 				String cuerpo = rs.getString(7);
-				Mensaje nuevo = new Mensaje(emisor, receptor, fecha, hora, cuerpo, leido);
+				Mensaje nuevo = new Mensaje(id, emisor, receptor, fecha, hora, cuerpo, leido);
 				mensajes.add(nuevo);
 			}
 		} catch (SQLException e) {

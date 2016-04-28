@@ -20,6 +20,8 @@ app.controller('mensajeCtrl', function($scope, $http, $location) {
 
 	// Id inicial negativo, todos son mayor de 0
 	$scope.hoverEdit = -1;
+	$scope.hoverEdit2 = -1;
+
 
 	// Funciones para mostrar y ocultar un close
 	$scope.hoverIn = function(i) {
@@ -28,5 +30,12 @@ app.controller('mensajeCtrl', function($scope, $http, $location) {
 
 	$scope.hoverOut = function() {
 		$scope.hoverEdit = -1;
+		$scope.hoverEdit2 = -1;
+	};
+	
+	
+	// Funciones para mostrar y ocultar un close
+	$scope.hoverIn2 = function(i) {
+		$scope.hoverEdit2 = i;
 	};
 });
