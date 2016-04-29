@@ -118,6 +118,18 @@
 
 											<div class="col-md-4 nombre">
 												<strong>{{ u.nombre }}</strong>
+												<!-- Icono para entrar al equipo
+													No se permite clickar si tu id de sesion coincide
+													con el del equipo (es tu propio perfil)
+												-->
+												<a href="/ArqSoftware/EditaEquipoMiembros?equipo={{u.Id}}&usuario={{propio}}&acc=add" 
+													class="miembro equipo_info" ng-show="(u.equipo) > 0"
+													ng-class="{disabled: ((propio) == (u.Id) || (u.me_sigue) == 'false'
+														|| (u.le_sigue) == 'false')}" role="button">
+													<span title="Entrar al equipo">
+														&nbsp; <i class="fa fa-users" aria-hidden="true"></i>
+													</span>
+												</a>
 												<p>@{{ u.nick }}</p>
 												<div ng-show="(propio) != (u.Id) && (u.le_sigue) == 'true'">
 													<div class="sigues">
@@ -193,7 +205,6 @@
 											<div class="item active">
 
 												<div ng-repeat="j in jugadores | pagination: curPage * pageSize | limitTo: pageSize">
-
 													<!-- Usuario -->
 													<div class="col-xs-6 col-sm-3 placeholder"  ng-mouseover="hoverIn(j.Id)" ng-mouseleave="hoverOut()">
 														<!-- Usuario -->
@@ -201,14 +212,21 @@
 															<div class="panel-heading">
 																<div class="col-md-offset-0">
 																	<img src="{{ j.logo }}" class="panel-icon img-rounded imagen miembro">
-																	<!-- Close -->
-																	<div class="close" ng-show="hoverEdit == (j.Id)">
-																		<a href="#">
+																	<!-- Close
+																		Solo aparece el id de mi sesión coincide con el del perfil o con el del
+																		usuario a eliminar del equipo
+																	-->
+																	<div class="close"
+																		ng-show="hoverEdit == (j.Id) && ((propio) == (myId) || (propio) == (j.Id))">
+																		<a href="/ArqSoftware/EditaEquipoMiembros?equipo={{myId}}&usuario={{j.Id}}&acc=delete">
 																			<i class="fa fa-times" aria-hidden="true"></i>
 																		</a>
 																	</div> <!-- Close -->
-																	<h4>{{ j.nombre }}</h4>
-																	<span class="text-muted">@{{ j.nick }}</span>
+																	<a href="profile.html?user={{ j.Id }}" class="black_link">
+																		<h4><br></h4>
+																		<div><strong> {{ j.nombre }} </strong></div>
+																		<span class="text-muted">@{{ j.nick }}</span>
+																	</a>
 																</div>
 															</div>
 														</div> <!-- Usuario -->

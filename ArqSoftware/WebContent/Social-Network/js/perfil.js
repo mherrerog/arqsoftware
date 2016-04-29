@@ -43,6 +43,7 @@ app.controller('perfilCtrl', function($scope, $http, $location) {
 			$scope.pageSize = 4;
 
       $scope.myUser = response.data.usuario;
+			$scope.myId = $scope.myUser[0].Id;
 			$scope.jugadores = response.data.jugadores;
       $scope.myData = response.data.publicaciones;
 

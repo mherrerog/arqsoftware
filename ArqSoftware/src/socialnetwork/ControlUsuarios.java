@@ -8,6 +8,10 @@ import gateway.UsuarioDAO;
 
 public class ControlUsuarios {
 	
+	/**
+	 * Devuelve un array con todos los usuario
+	 * que su nombre coincida con el indicado, en formato JSON
+	 */
 	public static String buscarUsuarios(String nombre){
 		String result = "";
 		try {
@@ -22,6 +26,10 @@ public class ControlUsuarios {
 		return result;
 	}
 	
+	/**
+	 * Devuelve un array con todos los miembros
+	 * del equipo indicado en formato JSON
+	 */
 	public static String buscarMiembros(int equipo){
 		String result = "";
 		try {
@@ -34,6 +42,32 @@ public class ControlUsuarios {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	/**
+	 * Añade al equipo indicado el usuario pasado como parametro
+	 */
+	public static void anadirMiembros(int equipo, int usuario){
+		try {
+			UsuarioDAO.insertMiembro(usuario, equipo);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Eliminar del equipo indicado el usuario pasado como parametro
+	 */
+	public static void eliminarMiembros(int equipo, int usuario){
+		try {
+			UsuarioDAO.deleteMiembro(usuario, equipo);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

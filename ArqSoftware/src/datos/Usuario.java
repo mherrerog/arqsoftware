@@ -106,7 +106,6 @@ public class Usuario {
 			// Yo mismo
 			obj.put("le_sigue", "false");
 			obj.put("me_sigue", "false");
-			System.out.println(">> Yo mismo");
 		}
 		
 		return obj.toString();

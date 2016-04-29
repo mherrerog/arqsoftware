@@ -400,10 +400,36 @@ public class UsuarioDAO {
 		conecta.close();
 	}
 	
+	/**
+	 * Inserta un usuario en la BD
+	 */
+	public static void insertMiembro(int usr, int equipo) throws SQLException{
+		Connection conecta = Connect.getDBConnection();
+		
+		String query = "INSERT INTO ASoftware.Pertenecen (fk_Equipo, fk_Miembro)"
+				+ " VALUES (?, ?)";
+		PreparedStatement preparedStatement = conecta.prepareStatement(query);
+		preparedStatement.setInt(1, equipo);
+		preparedStatement.setInt(2, usr);
+		
+		preparedStatement.execute();
+		conecta.close();
+	}
+	
 	public static void delete(Usuario usuario) throws SQLException{
 		Connection conecta = Connect.getDBConnection();
 		
 		String query = "DELETE FROM ASoftware.Usuario WHERE idUsuarios='"+Integer.toString(usuario.getId())+"';";
+		PreparedStatement preparedStatement = conecta.prepareStatement(query);		
+		preparedStatement.execute();
+		conecta.close();
+	}
+	
+	public static void deleteMiembro(int usr, int equipo) throws SQLException{
+		Connection conecta = Connect.getDBConnection();
+		
+		String query = "DELETE FROM ASoftware.Pertenecen WHERE fk_Equipo="+
+				equipo +" AND fk_Miembro=" + usr;
 		PreparedStatement preparedStatement = conecta.prepareStatement(query);		
 		preparedStatement.execute();
 		conecta.close();

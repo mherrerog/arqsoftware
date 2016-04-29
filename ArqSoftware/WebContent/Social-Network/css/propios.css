@@ -139,6 +139,11 @@
 }
 /* Cierre perfil exclusivo*/
 
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /* Adaptar elementos según la pantalla */
 @media screen and (max-width: 690px)   {
   .columna1, .columna2{

@@ -34,6 +34,7 @@ public class BuscaUsuario extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String user = request.getParameter("busca");
 		
+		//Debug
 		System.out.println(">" + user);
 		
 		String result = ControlUsuarios.buscarUsuarios(user);
