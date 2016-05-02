@@ -33,11 +33,26 @@ public class BuscaUsuario extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String user = request.getParameter("busca");
-		
+		int usuarioId = 0;
+		String cookieName = "userId";
+		String userId = "";
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) 
+		{
+		    for(int i=0; i<cookies.length; i++) 
+		    {
+		        Cookie cookie = cookies[i];
+		        if (cookieName.equals(cookie.getName())) 
+		        {
+		        	userId = (cookie.getValue());
+		        	usuarioId = Integer.parseInt(userId);
+		        }
+		    }
+		}
 		//Debug
-		System.out.println(">" + user);
+		System.out.println(">" + userId);
 		
-		String result = ControlUsuarios.buscarUsuarios(user);
+		String result = ControlUsuarios.buscarUsuarios(user, usuarioId);
 		response.setContentType("application/json");
 		// Get the printwriter object from response to write the required json object to the output stream      
 		PrintWriter out = response.getWriter();

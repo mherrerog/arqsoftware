@@ -127,26 +127,37 @@
 					<div class="col-sm">
 						<div class="panel panel-default">
 							<div class="panel-body">
-								<img src="." class="img-profile" style="display: inline-block">
-								<div style="display: inline-block">
-									<div class="nombre">
-										<strong>{{ x.nombre }}</strong>
+								<img src="{{ x.logo }}" class="panel-icon imagen" />
+								<div class="nombre">
+									<a href="profile.html?user={{ x.idUsuario }}" class="black_link">
+										<strong>{{ x.nombre}}</strong>
+										<p>@{{ x.nick }}</p>
+									</a>
+								</div>
+								<div class="botones columna2" ng-show="(propio) != (x.Id)">
+									<div ng-show="(x.le_sigue) == 'false'">
+										<a id="Seguir/{{x.Id}}" style="display: block;" type="button"
+											class="btn btn-s btn-info"
+											href = "/ArqSoftware/SeguirUsuario?seguir=0&id={{x.Id}}">
+											Seguir
+										</a>
 									</div>
-									<div class="direccion">@{{ x.nick }}</div>
+									<div ng-show="(x.le_sigue) == 'true'">
+										<a id="{{x.Id}}" style="display: block;" type="button"
+											class="btn btn-s btn-danger"
+											href = "/ArqSoftware/SeguirUsuario?seguir=1&id={{x.Id}}">
+											Dejar	de seguir
+										</a>
+									</div>
 								</div>
-								<div class="seguir-boton">
-									<a id="Seguir/{{x.Id}}" style="display: block;" type="button"
-										class="btn btn-s btn-info"
-										href = "/ArqSoftware/SeguirUsuario?seguir=0&id={{x.Id}}">Seguir {{x.Id}}</a>
-									<a id="{{x.Id}}" style="display: block;" type="button"
-										class="btn btn-s btn-danger"
-										href = "/ArqSoftware/SeguirUsuario?seguir=1&id={{x.Id}}">Dejar
-										de seguir</a>
+								<div class="panel-body">
+									<p>
+										{{ x.descripcion }}
+									</p>
 								</div>
-								<div class="panel-body">Descripción</div>
 								<div class="columnaD" style="display: inline-block">
 									<button type="button" class="btn btn-xs btn-default" id="equipo" ng-show="(x.equipo) > 1">
-									<button type="button" class="btn btn-xs btn-default">#Deporte</button>
+									<button type="button" class="btn btn-xs btn-default">#{{ x.deporte }}</button>
 								</div>
 							</div>
 						</div>
@@ -156,30 +167,7 @@
 			</div>
 		</div>
 
-		<script type="text/javascript">
-			function getQueryVariable(variable) {
-				var query = window.location.search.substring(1);
-				var vars = query.split("&");
-				for (var i = 0; i < vars.length; i++) {
-					var pair = vars[i].split("=");
-					if (pair[0] == variable) {
-						return pair[1];
-					}
-				}
-				return (false);
-			}
-		</script>
-
-		<script>
-			var app = angular.module('myApp', []);
-			app.controller('searchCtrl', function($scope, $http, $location) {
-				var val = getQueryVariable("userSearch");
-				$http.get("/ArqSoftware/BuscaUsuario?busca=" + val).then(
-						function(response) {
-							$scope.myData = response.data.usuarios;
-						});
-			});
-		</script>
+		<script type="text/javascript" src="js/search.js"></script>
 		<script type="text/javascript" src="js/cookies.js"></script>
 
 		<!-- Bootstrap core JavaScript

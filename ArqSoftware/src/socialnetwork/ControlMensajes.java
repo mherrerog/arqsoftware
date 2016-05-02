@@ -15,7 +15,7 @@ public class ControlMensajes {
 		String result = "";
 		
 		ArrayList<Usuario> users = UsuarioDAO.selectSeguirMutuo(myId);
-		result = Usuario.toJSON(users);
+		result = Usuario.toJSON(users, myId);
 						
 		return result;
 	}

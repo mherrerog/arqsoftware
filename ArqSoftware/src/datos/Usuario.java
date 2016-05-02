@@ -24,7 +24,7 @@ public class Usuario {
 	private String logo;
 	private String fondo;
 	private String descripcion;
-	
+	// private String deporte;
 
 	/**
 	 * Metodo constructor
@@ -42,6 +42,13 @@ public class Usuario {
 		this.logo = logo;
 		this.fondo = fondo;
 		this.descripcion = descripcion;
+	}
+	
+	/**
+	 * Metodo constructor con id unicamente
+	 */
+	public Usuario(int id){
+		this.id = id;
 	}
 	
 	/**
@@ -68,6 +75,9 @@ public class Usuario {
 	 * 
 	 */
 	public String toJSON(int idUsuario) throws SQLException{
+		
+		//Debug
+		System.out.println("This: " + this.id + " <> Parametro: " + idUsuario);
 		
 		int[] seguir = UsuarioDAO.seguidor_seguido(id);
 		
@@ -115,12 +125,12 @@ public class Usuario {
 	 * Devuelve un String en formato JSON con el contenido de la publicacion
 	 * @throws SQLException 
 	 */
-	public static String toJSON(ArrayList<Usuario> vector) throws SQLException{
+	public static String toJSON(ArrayList<Usuario> vector, int idUsuario) throws SQLException{
 		
 		String rs = "{\"usuarios\": [\n";
 		for (Usuario d: vector){
 			
-			rs += d.toJSON(d.getId()) + ",\n";
+			rs += d.toJSON(idUsuario) + ",\n";
 		}
 		
 		// Consulta vacia?

@@ -12,12 +12,15 @@ public class ControlUsuarios {
 	 * Devuelve un array con todos los usuario
 	 * que su nombre coincida con el indicado, en formato JSON
 	 */
-	public static String buscarUsuarios(String nombre){
+	public static String buscarUsuarios(String nombre, int usuarioId){
 		String result = "";
 		try {
 			ArrayList<Usuario> users = UsuarioDAO.selectByName(nombre);
-			result = Usuario.toJSON(users);
-			// System.out.println(result);
+			Usuario usuario = new Usuario(usuarioId);
+			result = usuario.toJSON(users, usuarioId);
+			
+			// Debug
+			System.out.println(result);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -34,7 +37,7 @@ public class ControlUsuarios {
 		String result = "";
 		try {
 			ArrayList<Usuario> users = UsuarioDAO.selectByEquipo(equipo);
-			result = Usuario.toJSON(users);
+			result = Usuario.toJSON(users, equipo);
 			// System.out.println(result);
 			
 		} catch (SQLException e) {

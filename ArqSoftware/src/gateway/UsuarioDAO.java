@@ -89,7 +89,7 @@ public class UsuarioDAO {
 				Date fecha1 = toDate(fecha);
 				String descripcion = rs.getString("Descripcion");
 				Usuario nuevo = new Usuario(id, nombre, fecha1, sexo, email, 
-					nick, password, equipo, fondo, logo, descripcion);
+					nick, password, equipo, logo, fondo, descripcion);
 				users.add(nuevo);
 			}
 		} catch (SQLException e) {
