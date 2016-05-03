@@ -26,9 +26,12 @@ app.controller('homeCtrl', function($scope, $http, $location) {
     function(response) {
       $scope.myData = response.data.publicaciones;
     });
-});
 
-function showImg(id){
-  alert('Prueba');
-  document.getElementById(id).style.display = "block";
-}
+	// Funcion para leer comentarios
+	$scope.getComentarios = function(pub){
+    $http.get("/ArqSoftware/ObtenerComentarios?pub=" + pub).then(function(res){
+        $scope.myComments = res.data.comentarios;
+    });
+  }
+
+});

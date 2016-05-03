@@ -259,7 +259,8 @@
 								<button type="button" class="btn btn-xs btn-default" id="equipo" ng-show="(x.equipo) > 1">
 									EQUIPO <i class="fa fa-users"></i>
 								</button>
-								<button type="button" class="btn btn-xs btn-primary" onclick="mostrareldiv(&#34;comentarios1&#34;)" id="down">
+								<button type="button" class="btn btn-xs btn-primary" ng-click="getComentarios(x.Id)"
+									onclick="mostrareldiv(&#34;comentarios1&#34;)" id="down">
 									Comentarios <i class="fa fa-comment"></i>
 								</button>
 							</div>
@@ -274,53 +275,37 @@
 									<div class="panel-body">
 										<div class="ui comments">
 											<h3 class="ui dividing header">Comentarios</h3>
-											<div class="comment">
-												<a class="avatar">
-													<img src="/images/avatar/small/matt.jpg">
-												</a>
-												<div class="content">
-													<a class="author">Matt</a>
-													<div class="metadata">
-														<span class="date">28/02/2016 a las 11:33</span>
-													</div>
-													<div class="text">
-														How artistic!
-													</div>
-												</div>
-												<div class="comment">
-													<a class="avatar">
-														<img src="/images/avatar/small/elliot.jpg">
-													</a>
-													<div class="content">
-														<a class="author">Elliot Fu</a>
-														<div class="metadata">
-															<span class="date">12/03/2016 a las 22:10</span>
-														</div>
-														<div class="text">
-															<p>This has been very useful for my research. Thanks as well!</p>
+
+											<div class="" ng-show="myComments.length == 0">
+												<p>
+													Nadie ha comentado esta publicación
+												</p>
+											</div>
+
+												<div ng-repeat="c in myComments">
+													<div class="comment">
+														<a class="avatar">
+															<img src="{{ c.logo }}">
+														</a>
+														<div class="content">
+															<a class="author">{{ c.nombre }}</a>
+															<div class="metadata">
+																<span class="date">{{ c.fecha }}</span>
+															</div>
+															<div class="text">
+																<p>{{ c.texto }}</p>
+															</div>
 														</div>
 													</div>
 												</div>
-												<div class="comment">
-													<a class="avatar">
-														<img src="/images/avatar/small/joe.jpg">
-													</a>
-													<div class="content">
-														<a class="author">Joe Henderson</a>
-														<div class="metadata">
-															<span class="date">01/04/2016 a las 18:31</span>
-														</div>
-														<div class="text">
-															Dude, this is awesome. Thanks so much
-														</div>
-													</div>
-												</div>
+
 												<form class="ui reply form">
 													<div class="field">
-														<textarea name="textComentario"></textarea>
+														<textarea name="textComentario" placeholder="Comentar..."></textarea>
 													</div>
 													<div class="columna2">
-														<button type="button" class="btn btn-xs btn-success" onclick="ocultareldiv(&#34;comentarios1&#34;)">
+														<button type="button" class="btn btn-xs btn-success" ng-click="getComentarios(1)">
+														<!--	onclick="ocultareldiv(&#34;comentarios1&#34;)"> -->
 															Comentar &nbsp <i class="fa fa-comment"></i>
 														</button> &nbsp
 														<button type="button" class="btn btn-xs btn-danger" onclick="ocultareldiv(&#34;comentarios1&#34;)">

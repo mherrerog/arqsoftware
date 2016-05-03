@@ -16,7 +16,11 @@ import socialnetwork.Fechas;
 public class Tests {
 	
 	public static void main (String [] args){
-		equipoJSON();
+		comentarioJSON();
+	}
+	private static void comentarioJSON(){
+		String rs = ControlPublicaciones.getComentarios(19);
+		System.out.println(rs);
 	}
 	
 	private static void equipoJSON(){

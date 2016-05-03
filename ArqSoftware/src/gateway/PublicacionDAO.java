@@ -161,6 +161,50 @@ public class PublicacionDAO {
 	 * Modo = 1 -> select para el home
 	 * Modo = 2 -> select de publicaciones de un usuario
 	 */
+	public static ArrayList<Comentario> selectComentarios(int publicacion) throws SQLException {
+		ArrayList<Comentario> posts = new ArrayList<Comentario>();
+		Connection conecta = null;
+		ResultSet rs = null;
+		Statement stmt = null;
+		String query = "SELECT * FROM ASoftware.Comentario where Publicacion_com = " +
+				publicacion;
+		try {
+			conecta = Connect.getDBConnection();
+			stmt = conecta.createStatement();
+			// execute query
+			rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int id = rs.getInt("idComentario");
+				//int pub = rs.getInt("Publicacion_com");
+				String hora_aux = rs.getString("Hora");
+				String fecha_aux = rs.getString("Fecha");
+				Date fecha = toDate(fecha_aux, hora_aux);
+				int autor = rs.getInt("Usuario_com"); // Autor
+				String texto = rs.getString("Contenido");
+				// Instanciar publicacion
+				Comentario nuevo = new Comentario(id, autor, publicacion, fecha, texto);
+				posts.add(nuevo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+			if (conecta != null) {
+				conecta.close();
+			}
+
+		}
+		return posts;
+	}
+	
+	/**
+	 * Realiza una selección de publicaciones
+	 * Modo = 1 -> select para el home
+	 * Modo = 2 -> select de publicaciones de un usuario
+	 */
 	private static ArrayList<Publicacion> select(int idUsuario, int modo) throws SQLException {
 		ArrayList<Publicacion> posts = new ArrayList<Publicacion>();
 		Connection conecta = null;

@@ -8,6 +8,7 @@ import java.util.Date;
 
 import org.json.JSONObject;
 
+import datos.Comentario;
 import datos.Publicacion;
 import datos.Usuario;
 import gateway.PublicacionDAO;
@@ -88,6 +89,22 @@ public class ControlPublicaciones {
 		}		
 		
 		return respuesta;
+	}
+	
+	/**
+	 * Devuelve en formato JSON los comentarios asociados a una publicación
+	 */
+	public static String getComentarios(int publicacion){
+		String result = "";
+		try {
+			ArrayList<Comentario> comentarios = PublicacionDAO.selectComentarios(publicacion);
+			result = Comentario.toJSON(comentarios);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	/**
