@@ -108,6 +108,20 @@ public class ControlPublicaciones {
 	}
 	
 	/**
+	 * Inserta un comentario en un publicacion
+	 */
+	public static void insertComentario(int autor, int publicacion, String texto){
+		Date f = new Date();
+		Comentario comentario = new Comentario(autor, publicacion, f, texto);
+		try {
+			PublicacionDAO.insertComentario(comentario);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
 	 * Formato fecha: aaaammdd Formato hora: hhmm
 	 */
 	public static Date toDate(String fecha, String hora) {

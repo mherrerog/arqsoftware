@@ -9,6 +9,7 @@ import java.util.Date;
 import datos.Comentario;
 import datos.Publicacion;
 import datos.Usuario;
+import socialnetwork.Fechas;
 
 public class PublicacionDAO {
 
@@ -157,9 +158,8 @@ public class PublicacionDAO {
 	}
 
 	/**
-	 * Realiza una selección de publicaciones
-	 * Modo = 1 -> select para el home
-	 * Modo = 2 -> select de publicaciones de un usuario
+	 * Realiza una selección de comentarios de 
+	 * una publicación
 	 */
 	public static ArrayList<Comentario> selectComentarios(int publicacion) throws SQLException {
 		ArrayList<Comentario> posts = new ArrayList<Comentario>();
@@ -167,7 +167,7 @@ public class PublicacionDAO {
 		ResultSet rs = null;
 		Statement stmt = null;
 		String query = "SELECT * FROM ASoftware.Comentario where Publicacion_com = " +
-				publicacion;
+				publicacion + " order by Fecha desc, Hora desc";
 		try {
 			conecta = Connect.getDBConnection();
 			stmt = conecta.createStatement();
@@ -198,6 +198,37 @@ public class PublicacionDAO {
 
 		}
 		return posts;
+	}
+	
+	/**
+	 * Inserta un comentario en la BD 
+	 * 
+	 * @throws SQLException
+	 */
+	public static void insertComentario(Comentario com) throws SQLException {
+		
+		// Fecha y hora
+		String fecha = Fechas.getFechaString(com.getFecha());
+		String hora = Fechas.getHoraString(com.getFecha());
+
+		Connection conn = Connect.getDBConnection();
+		String query = "INSERT INTO ASoftware.Comentario"
+				+ "(Publicacion_com, Hora, Fecha, Usuario_com, Contenido) "
+				+ "VALUES " + "( ?, ?, ?, ?, ?)";
+
+		// create the mysql insert preparedstatement
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		preparedStmt.setInt(1, com.getPublicacion());
+		preparedStmt.setString(2, hora);
+		preparedStmt.setString(3, fecha);
+		preparedStmt.setInt(4, com.getAutor());
+		preparedStmt.setString(5, com.getTexto());
+
+		// execute the preparedstatement
+		preparedStmt.execute();
+		// close connection
+		conn.close();
+
 	}
 	
 	/**

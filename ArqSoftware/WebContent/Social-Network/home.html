@@ -299,13 +299,13 @@
 													</div>
 												</div>
 
-												<form class="ui reply form">
+												<form class="ui reply form" action="/ArqSoftware/ObtenerComentarios?acc=new" method="post">
+													<input type="hidden" name="idPublicacion" value={{x.Id}}>
 													<div class="field">
 														<textarea name="textComentario" placeholder="Comentar..."></textarea>
 													</div>
 													<div class="columna2">
-														<button type="button" class="btn btn-xs btn-success" ng-click="getComentarios(1)">
-														<!--	onclick="ocultareldiv(&#34;comentarios1&#34;)"> -->
+														<button type="submit" class="btn btn-xs btn-success">
 															Comentar &nbsp <i class="fa fa-comment"></i>
 														</button> &nbsp
 														<button type="button" class="btn btn-xs btn-danger" onclick="ocultareldiv(&#34;comentarios1&#34;)">

@@ -2,9 +2,11 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,12 +40,17 @@ public class ObtenerComentarios extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String acc = request.getParameter("acc");
+		if (acc.compareTo("new") == 0){
+			nuevoComentario(request, response);
+		} 
+		else {
+			doGet(request, response);			
+		}
 	}
 	
 	/**
-	 * 
+	 * Obtiene los comentarios de la publicación solicitada
 	 */
 	private void obtenerComentarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String publicacion = "";
@@ -61,6 +68,34 @@ public class ObtenerComentarios extends HttpServlet {
 		// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
 		out.print(respuesta);
 		out.flush();
+	}
+	
+	/**
+	 * Almacena un nuevo comentario en la publicación indicada
+	 */
+	private void nuevoComentario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		int usuario = 0;
+		
+		// Buscar en la cookies el usuario de la sesión
+		String cookieName = "userId";
+		String userId = "";
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null){
+		    for(int i=0; i<cookies.length; i++){
+		        Cookie cookie = cookies[i];
+		        if (cookieName.equals(cookie.getName())){
+		        	userId = (cookie.getValue());
+		        	usuario = Integer.parseInt(userId);
+		        }
+		    }
+		}
+		
+		String comentario = request.getParameter("textComentario");
+		int publicacion = Integer.parseInt(request.getParameter("idPublicacion"));
+		
+		ControlPublicaciones.insertComentario(usuario, publicacion, comentario);
+		
+		response.sendRedirect("/ArqSoftware/Social-Network/home.html");
 	}
 
 }

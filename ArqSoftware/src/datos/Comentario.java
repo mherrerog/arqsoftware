@@ -29,6 +29,16 @@ public class Comentario {
 	}
 	
 	/**
+	 * Metodo constructor
+	 */
+	public Comentario(int autor, int publicacion, Date fecha, String texto) {
+		this.autor = autor;
+		this.publicacion = publicacion;
+		this.fecha = fecha;
+		this.texto = texto;
+	}
+	
+	/**
 	 * 
 	 */
 	public String toJSON() throws SQLException{
