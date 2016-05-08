@@ -72,5 +72,37 @@ public class ControlUsuarios {
 			e.printStackTrace();
 		}
 	}
+	
+	public static String buscarSeguidores(int usuarioId){
+		String result = "";
+		try {
+			ArrayList<Usuario> users = UsuarioDAO.selectSeguidores(usuarioId);
+			result = Usuario.toJSON(users, usuarioId);
+			
+			// Debug
+			System.out.println(result);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public static String buscarSeguidos(int usuarioId){
+		String result = "";
+		try {
+			ArrayList<Usuario> users = UsuarioDAO.selectSeguidos(usuarioId);
+			result = Usuario.toJSON(users, usuarioId);
+			
+			// Debug
+			System.out.println(result);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 }
