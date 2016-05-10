@@ -48,40 +48,6 @@
 	<link rel="stylesheet" type="text/css" href="../Semantic-UI-CSS-master/dist/semantic.min.css">
 	<script src="../Semantic-UI-CSS-masters/dist/semantic.min.js"></script>
 
-
-	<script type="text/javascript">
-		function abrir(url) {
-			window.open(url, '', 'top=' + ((screen.height - 500) / 2) + ',left=' + ((screen.width - 500) / 2) + ',width=500%,height=500%');
-		}
-
-		function PreviewImage() {
-			var oFReader = new FileReader();
-			oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
-
-			oFReader.onload = function(oFREvent) {
-				document.getElementById("uploadPreview").src = oFREvent.target.result;
-			};
-		};
-
-		function startTime() {
-			today = new Date();
-			h = today.getHours();
-			m = today.getMinutes();
-			m = checkTime(m);
-			document.getElementById('reloj').innerHTML = h + ":" + m;
-			t = setTimeout('startTime()', 500);
-		}
-
-		function checkTime(i) {
-			if (i < 10) {
-				i = "0" + i;
-			}
-			return i;
-		}
-		window.onload = function() {
-			startTime();
-		}
-	</script>
 	<script type="text/javascript" src="js/home.js"></script>
 
 </head>
@@ -197,7 +163,7 @@
 									<input id="uploadImage" type="file" name="myPhoto" onchange="PreviewImage();" />
 								</div>
 								<button type="button" class="btn btn-xs btn-default" onclick="mostrareldiv(&#34;image&#34;)">
-									Subir archivo <i class="fa fa-camera"></i>
+									Subir imagen <i class="fa fa-camera"></i>
 								</button>
 								<button type="submit" class="btn btn-xs btn-success">
 									Publicar <i class="fa fa-paper-plane"></i>
@@ -231,18 +197,20 @@
 									</button>
 								</div>
 								</br>
-								<a href="/ArqSoftware/Compartir?pub={{ x.Id }}" type="button" class="btn btn-xs btn-primary" id="bpublicacion">
-									Compartir &nbsp <i class="fa fa-share"></i>
-								</a>
-								</br>
-								<div id="btnDeletePub">
-									<a href="/ArqSoftware/DeletePub?pub={{ x.Id }}" type="button" class="btn btn-xs btn-primary" id="bdelete">
-										&nbsp &nbsp &nbsp &nbsp &nbsp Eliminar &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  <i class="fa fa-trash-o"></i>
+								<!-- Compartir -->
+								<div ng-show="(propio) != (x.idUsuario)">
+									<a href="/ArqSoftware/Compartir?pub={{ x.Id }}" type="button" class="btn btn-xs btn-primary" id="bpublicacion">
+										Compartir &nbsp <i class="fa fa-share"></i>
 									</a>
 								</div>
-								<myFunction />
+								<!-- Eliminar pub -->
+								<div ng-show="(propio) == (x.idUsuario)">
+									<a href="/ArqSoftware/DeletePub?pub={{ x.Id }}" type="button" class="btn btn-xs btn-danger" id="bdelete">
+										Eliminar &nbsp  <i class="fa fa-trash-o"></i>
+									</a>
+								</div>
 								<script type="text/javascript">
-								
+
 								</script>
 							</div>
 						</div>
@@ -256,10 +224,13 @@
 							</div>
 							<!-- YouTube -->
 							<div ng-show="(x.video) != null && (x.video) != ''">
-								{{x.video}}
+
 								<div class="embed-responsive embed-responsive-16by9">
-									<iframe class="embed-responsive-item" frameborder="0" allowfullscreen ng-src="{{x.video}}"></iframe>
+									<iframe class="embed-responsive-item" frameborder="0" allowfullscreen
+										ng-src="{{ getYoutube(x.video) }}">
+									</iframe>
 								</div>
+
 							</div>
 						</div>
 						<div class="panel-footer" id="foot">
@@ -310,7 +281,7 @@
 												</div>
 
 												<form class="ui reply form" action="/ArqSoftware/ObtenerComentarios?acc=new" method="post">
-													<input type="hidden" name="idPublicacion" value={{x.Id}}>
+													<input type="hidden" name="idPublicacion" value={{pubId}}>
 													<div class="field">
 														<textarea name="textComentario" placeholder="Comentar..."></textarea>
 													</div>
@@ -342,7 +313,6 @@
 			<script type="text/javascript" src="js/cookies.js"></script>
 		</div>
 
-
 		<!-- Bootstrap core JavaScript
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
@@ -362,6 +332,16 @@
 				});
 			});
 		</script>
+
+		<!-- Begin Cookie Consent plugin by Silktide - http://silktide.com/cookieconsent -->
+  	<script type="text/javascript">
+  	    window.cookieconsent_options = {"message":"Este sitio web utiliza cookies para asegurar la mejor experiencia en nuestra web",
+  	    			"dismiss":"Entendido!","learnMore":"More info","link":null,"theme":"dark-bottom"};
+  	</script>
+
+  	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
+  	<!-- End Cookie Consent plugin -->
+
 </body>
 
 </html>

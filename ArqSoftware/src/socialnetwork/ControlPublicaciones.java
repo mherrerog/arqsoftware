@@ -34,7 +34,20 @@ public class ControlPublicaciones {
 	public static void nuevaPub(int autor, String texto, Date fecha,
 			String imagen, String video, String ruta, String deporte){
 		
-		Publicacion nueva = new Publicacion(autor, texto, fecha, imagen, video, 
+		// Url de youtube ej: https://www.youtube.com/watch?v=F9ZS49zGqIg
+		// almacenar solo F9ZS49zGqIg
+		String youtube = "";		
+		if (video != null){
+			String [] url = video.split("v=");
+			if (url.length == 2){
+				youtube = url[1];
+			} else {
+				System.out.println("URL introducida de forma incorrecta (YouTube)");
+				youtube = null;
+			}
+		}
+		
+		Publicacion nueva = new Publicacion(autor, texto, fecha, imagen, youtube, 
 				ruta, deporte);
 		//Insertar publicación
 		try {

@@ -93,6 +93,9 @@ public class ObtenerComentarios extends HttpServlet {
 		String comentario = request.getParameter("textComentario");
 		int publicacion = Integer.parseInt(request.getParameter("idPublicacion"));
 		
+		// Debug
+		System.out.println(">Pub: " + publicacion);
+		
 		ControlPublicaciones.insertComentario(usuario, publicacion, comentario);
 		
 		response.sendRedirect("/ArqSoftware/Social-Network/home.html");

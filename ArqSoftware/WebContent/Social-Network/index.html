@@ -32,7 +32,7 @@
       text-shadow: 0 0px 0px rgba(0,0,0,.5);
     }
 
-    body{  
+    body{
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -47,7 +47,7 @@
     }
     .img3 {
       background: no-repeat center center fixed url(img/football.jpg);
-      
+
     }
   </style>
 
@@ -85,13 +85,13 @@
   </head>
 
   <body>
-  
-  
+
+
 
     <!-- Static navbar -->
     <div class="row">
     	<div class="col-lg-12 col-md-12 col-xs-12">
-    
+
     		<nav id="no-margin" class="navbar navbar-default">
       			<div class="container-fluid">
      				 <div class="row">
@@ -110,29 +110,29 @@
 		          			<div id="navbar" class="navbar-collapse collapse">
 
 		            			<form class="navbar-form navbar-right" action="/ArqSoftware/InicioSesion?id=0" method="POST">
-		            
+
 		            				<div id="area1" style="display:inline;">
 		              					<input type="text" id="textId" name="mail" class="form-control" placeholder="Correo electronico">
-		            				 </div> 
-		             				<div id="area2" style="display:inline;"> 
+		            				 </div>
+		             				<div id="area2" style="display:inline;">
 		              					<input type="password" id=btnPasswd name="password" class="form-control" placeholder="Contraseña">
 		              				</div>
-		             				<div id="area3" style="display:inline;"> 
+		             				<div id="area3" style="display:inline;">
 		              					<input type="submit" id="entrarBtn" class="btn btn-sm  btn-info" value="Entrar">
-		               				</div> 
-		              
+		               				</div>
+
 		            			</form>
 		         			</div><!--/.nav-collapse -->
 
 						</div>
-						<div class="col-lg-2 col-md-1"></div>        
+						<div class="col-lg-2 col-md-1"></div>
 					</div>
-			
+
       			</div><!--/.container-fluid -->
     		</nav>
     	</div>
     </div>
-   
+
     <div class="site-wrapper">
       <div class="site-wrapper-inner">
         <div class="cover-container">
@@ -156,6 +156,15 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
 
+    <!-- Begin Cookie Consent plugin by Silktide - http://silktide.com/cookieconsent -->
+  	<script type="text/javascript">
+  	    window.cookieconsent_options = {"message":"Este sitio web utiliza cookies para asegurar la mejor experiencia en nuestra web",
+  	    			"dismiss":"Entendido!","learnMore":"More info","link":null,"theme":"dark-bottom"};
+  	</script>
+
+  	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
+  	<!-- End Cookie Consent plugin -->
+
   </body>
 
   <script type="text/javascript">
@@ -167,7 +176,7 @@
 
       $('body').addClass(classToAdd);
       });
-      
+
       window.onresize = function() {
           if($(window).width() < 752){
         	  //alert('IN');

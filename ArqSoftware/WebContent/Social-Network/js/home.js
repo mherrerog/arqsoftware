@@ -1,3 +1,36 @@
+// Funciones para carga de imagenes
+function abrir(url) {
+	window.open(url, '', 'top=' + ((screen.height - 500) / 2) + ',left=' + ((screen.width - 500) / 2) + ',width=500%,height=500%');
+}
+
+function PreviewImage() {
+	var oFReader = new FileReader();
+	oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+
+	oFReader.onload = function(oFREvent) {
+		document.getElementById("uploadPreview").src = oFREvent.target.result;
+	};
+};
+
+function startTime() {
+	today = new Date();
+	h = today.getHours();
+	m = today.getMinutes();
+	m = checkTime(m);
+	document.getElementById('reloj').innerHTML = h + ":" + m;
+	t = setTimeout('startTime()', 500);
+}
+
+function checkTime(i) {
+	if (i < 10) {
+		i = "0" + i;
+	}
+	return i;
+}
+window.onload = function() {
+	startTime();
+}
+
 /* Funciones para mostrar y ocultar elementos */
 function mostrareldiv(name) {
 	document.getElementById(name).style.display = "block";
@@ -21,17 +54,35 @@ function ocultar_y_mostrar_div(mostrar1, mostrar2, ocultar) {
 
 /* Carga de publicaciones */
 var app = angular.module('myApp', []);
-app.controller('homeCtrl', function($scope, $http, $location) {
+app.controller('homeCtrl', function($scope, $http, $location, $sce) {
   $http.get("/ArqSoftware/ObtenerPublicaciones?page=home").then(
     function(response) {
       $scope.myData = response.data.publicaciones;
+
+			// Recorrer valor de cookies
+      var rastro = document.cookie.split('=');
+      for (var i = 0; i < rastro.length; i++) {
+        var par = rastro[i];
+        if (par == 'userId'){
+            $scope.propio = rastro[i+1];
+        }
+        // Avanzar otro valor de i
+        i++;
+      }
     });
 
 	// Funcion para leer comentarios
 	$scope.getComentarios = function(pub){
     $http.get("/ArqSoftware/ObtenerComentarios?pub=" + pub).then(function(res){
         $scope.myComments = res.data.comentarios;
+				$scope.pubId = pub;
     });
+  }
+
+	// Funcion para leer comentarios
+	$scope.getYoutube = function(url){
+    $scope.videoURL = $sce.trustAsResourceUrl('http://www.youtube.com/embed/' + url);
+		return $scope.videoURL;
   }
 
 });
