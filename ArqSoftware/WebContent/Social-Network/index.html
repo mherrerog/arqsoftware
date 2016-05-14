@@ -32,6 +32,10 @@
       text-shadow: 0 0px 0px rgba(0,0,0,.5);
     }
 
+    .alerta{
+      text-shadow: 0 0px 0px rgba(0,0,0,0);
+    }
+
     body{
       -webkit-background-size: cover;
       -moz-background-size: cover;
@@ -50,7 +54,7 @@
 
     }
   </style>
-
+  <script src="../angular-1.5.0/angular.min.js"></script>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -84,9 +88,7 @@
     <![endif]-->
   </head>
 
-  <body>
-
-
+  <body ng-app="myApp" ng-controller="signinCtrl">
 
     <!-- Static navbar -->
     <div class="row">
@@ -133,6 +135,19 @@
     	</div>
     </div>
 
+    <div class="alerta">
+      <div ng-show="(error) == 'nulo'">
+        <div class="alert alert-danger">
+          <strong>Error!</strong> No se ha encontrado un usuario con ese email.
+        </div>
+      </div>
+      <div ng-show="(error) == 'passwd'">
+        <div class="alert alert-danger">
+          <strong>Error!</strong> Contraseña incorrecta.
+        </div>
+      </div>
+    </div>
+
     <div class="site-wrapper">
       <div class="site-wrapper-inner">
         <div class="cover-container">
@@ -146,6 +161,8 @@
         </div>
       </div>
     </div>
+
+    <script type="text/javascript" src="js/index.js"></script>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

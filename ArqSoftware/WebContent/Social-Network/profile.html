@@ -277,9 +277,10 @@
 
 						<div ng-repeat="x in myData">
 							<!-- Publicacion -->
+
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<img src="{{ x.logo }}" class="panel-icon imagen" alt="" />
+									<img src="{{ x.logo }}" class="panel-icon imagen" />
 									<div class="nombre">
 										<a href="profile.html?user={{ x.idUsuario }}" class="black_link">
 											<strong>{{ x.nombre}}</strong>
@@ -288,39 +289,78 @@
 									</div>
 									<div class="botones columna2">
 										<div class="btn-group like">
-											<a href="/ArqSoftware/MeGusta?pub={{ x.Id }}" type="button" class="btn btn-xs btn-primary" id="blike"> Me Gusta
-												&nbsp <i class="fa fa-thumbs-o-up"></i>
+											<a href="/ArqSoftware/MeGusta?pub={{ x.Id }}" type="button" class="btn btn-xs btn-primary" id="blike">
+												Me Gusta &nbsp <i class="fa fa-thumbs-o-up"></i>
 											</a>
-											<button type="button" class="btn btn-xs btn-primary" id="bnum">{{ x.likes }}</button>
+											<button type="button" class="btn btn-xs btn-primary" id="bnum">
+												{{ x.likes }}
+											</button>
 										</div>
-										<br></br> <a href="/ArqSoftware/Compartir?pub={{ x.Id }}" type="button" class="btn btn-xs btn-primary" id="bpublicacion"> Compartir &nbsp <i class="fa fa-share"></i>
-										</a>
+										</br>
+										<!-- Compartir -->
+										<div ng-show="(propio) != (x.idUsuario)">
+											<a href="/ArqSoftware/Compartir?pub={{ x.Id }}" type="button" class="btn btn-xs btn-primary" id="bpublicacion">
+												Compartir &nbsp <i class="fa fa-share"></i>
+											</a>
+										</div>
+										<!-- Eliminar pub -->
+										<div ng-show="(propio) == (x.idUsuario)">
+											<button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal" id="bdelete">
+												Eliminar &nbsp <i class="fa fa-trash-o"></i>
+											</button>
+										</div>
+
+										<!-- Modal -->
+										<div class="modal fade" id="myModal" role="dialog">
+											<div class="modal-dialog">
+
+												<!-- Modal content-->
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal">&times;</button>
+														<h4 class="modal-title">Eliminar publicación</h4>
+													</div>
+													<div class="modal-body">
+														<p>
+															¿Esta seguro que quiere eliminar la publicación? &nbsp &nbsp
+															<a href="/ArqSoftware/DeletePub?pub={{ x.Id }}" type="button"
+																class="btn btn-xs btn-danger pull-right">
+																Eliminar &nbsp  <i class="fa fa-trash-o"></i>
+															</a>
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+
 									</div>
 								</div>
 								<div class="panel-body">
 									<p>{{ x.texto }}</p>
 									<!-- Imagen -->
-									<div ng-show="(x.img) != null &amp;&amp; (x.img) != ''">
+									<div ng-show="(x.img) != null && (x.img) != ''">
 										<div class="embed-responsive embed-responsive-16by9">
-											<img class="img-responsive" src="{{ x.img }}" alt=""></img>
+											<img class="img-responsive" src="{{ x.img }}"></img>
 										</div>
 									</div>
 									<!-- YouTube -->
-									<div ng-show="(x.video) != null &amp;&amp; (x.video) != ''">
-										{{x.video}}
+									<div ng-show="(x.video) != null && (x.video) != ''">
+
 										<div class="embed-responsive embed-responsive-16by9">
-											<iframe class="embed-responsive-item" frameborder="0" allowfullscreen ng-src="{{x.video}}"></iframe>
+											<iframe class="embed-responsive-item" frameborder="0" allowfullscreen ng-src="{{ getYoutube(x.video) }}">
+											</iframe>
 										</div>
+
 									</div>
 								</div>
 								<div class="panel-footer" id="foot">
 									<div class="columna1">{{ x.fecha }}</div>
 									<div class="columna2">
 										<button type="button" class="btn btn-xs btn-default" id="down" ng-show="(x.deporte) != null">#{{ x.deporte}}</button>
-										<button type="button" class="btn btn-xs btn-default" id="equipo" ng-show="(x.equipo) &gt; 1">
+										<button type="button" class="btn btn-xs btn-default" id="equipo" ng-show="(x.equipo) > 1">
 											EQUIPO <i class="fa fa-users"></i>
 										</button>
-										<button type="button" class="btn btn-xs btn-primary" onclick="mostrareldiv(&#34;comentarios1&#34;)" id="down">
+										<button type="button" class="btn btn-xs btn-primary" ng-click="getComentarios(x.Id)" onclick="mostrareldiv(&#34;comentarios1&#34;)" id="down">
 											Comentarios <i class="fa fa-comment"></i>
 										</button>
 									</div>
@@ -329,10 +369,62 @@
 								</div>
 
 								<!-- Comentarios -->
+								<div class="panel-body modal" id="comentarios1" style="display: none">
+									<div id="contenido-interno">
+										<div class="panel panel-default">
+											<div class="panel-body">
+												<div class="ui comments">
+													<h3 class="ui dividing header">Comentarios</h3>
 
+													<div class="" ng-show="myComments.length == 0">
+														<p>
+															Nadie ha comentado esta publicación
+														</p>
+													</div>
+
+													<div ng-repeat="c in myComments">
+														<div class="comment">
+															<a class="avatar">
+																<img src="{{ c.logo }}">
+															</a>
+															<div class="content">
+																<a class="author">{{ c.nombre }}</a>
+																<div class="metadata">
+																	<span class="date">{{ c.fecha }}</span>
+																</div>
+																<div class="text">
+																	<p>{{ c.texto }}</p>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<form class="ui reply form" action="/ArqSoftware/ObtenerComentarios?acc=new" method="post">
+														<input type="hidden" name="idPublicacion" value={{pubId}}>
+														<div class="field">
+															<textarea name="textComentario" placeholder="Comentar..."></textarea>
+														</div>
+														<div class="columna2">
+															<button type="submit" class="btn btn-xs btn-success">
+																Comentar &nbsp <i class="fa fa-comment"></i>
+															</button> &nbsp
+															<button type="button" class="btn btn-xs btn-danger" onclick="ocultareldiv(&#34;comentarios1&#34;)">
+																Cancelar &nbsp <i class="fa fa-ban"></i>
+															</button>
+														</div>
+													</form>
+												</div>
+											</div>
+											<!-- Panel -->
+										</div>
+									</div>
+								</div>
 								<!-- Cierre comentarios -->
 
-								<!-- Cierre publicacion -->
+
+							</div>
+
+							<!-- Cierre publicacion -->
 							</div>
 						</div>
 					</div>
@@ -363,7 +455,7 @@
 
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
 	<!-- End Cookie Consent plugin -->
-	
+
 </body>
 
 </html>

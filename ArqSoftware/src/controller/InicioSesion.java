@@ -59,7 +59,8 @@ public class InicioSesion extends HttpServlet {
 		 */
 		if (metodo == 0) {
 			Usuario user;
-			if (inicioSesion(request)){
+			int i = inicioSesion(request);
+			if (i == 0){
 				try {
 					user = UsuarioDAO.selectByMail((String) request.getParameter("mail"));
 					Cookie userCookie = new Cookie("userId", ""+user.getId());
@@ -71,10 +72,12 @@ public class InicioSesion extends HttpServlet {
 				}
 				response.sendRedirect("/ArqSoftware/Social-Network/home.html");
 			}else{
+				String error = "";
+				if (i == 1) error = "passwd";
+				else if (i == 2) error = "nulo";
 				//Informar error al usuario.
-				PrintWriter out = response.getWriter();
-				out.print("ERROR");
-				out.flush();
+				response.sendRedirect("/ArqSoftware/Social-Network/index.html?error=" 
+						+ error);
 			}
 		}else if (metodo == 1) {
 			String email = request.getParameter("email");
@@ -99,22 +102,35 @@ public class InicioSesion extends HttpServlet {
 		}
 	}
 	
-	private static boolean inicioSesion(HttpServletRequest request) {
+	/**
+	 * Consulta el inicio de sesión en la base de datos
+	 * @return 
+	 * 	0 -> OK
+	 * 	1 -> Contraseña no coincide
+	 * 	2 -> Usuario no registrado
+	 */
+	private static int inicioSesion(HttpServletRequest request) {
 		String mail = request.getParameter("mail");
 		String password = request.getParameter("password");
 		
 		try {
 			Usuario iniciandoSesion = UsuarioDAO.selectByMail(mail);
+			if (iniciandoSesion == null){
+				// Usuario desconocido
+				return 2;
+			}
 			if (iniciandoSesion.getPassword().compareTo(password)==0){
-				return true;
+				// Proceso correcto
+				return 0;
 			}else{
-				return false;
+				// Contraseña incorrecta
+				return 1;
 			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return false;
+			return 2;
 		}
 	}
 	

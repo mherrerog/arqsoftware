@@ -57,7 +57,21 @@ app.controller('perfilCtrl', function($scope, $http, $location) {
         // Avanzar otro valor de i
         i++;
       }
-    })
+    });
+
+		// Funcion para leer comentarios
+		$scope.getComentarios = function(pub){
+	    $http.get("/ArqSoftware/ObtenerComentarios?pub=" + pub).then(function(res){
+	        $scope.myComments = res.data.comentarios;
+					$scope.pubId = pub;
+	    });
+	  };
+
+		// Funcion para leer comentarios
+		$scope.getYoutube = function(url){
+	    $scope.videoURL = $sce.trustAsResourceUrl('http://www.youtube.com/embed/' + url);
+			return $scope.videoURL;
+	  };
 
 		// Id inicial negativo, todos son mayor de 0
 		$scope.hoverEdit = -1;
