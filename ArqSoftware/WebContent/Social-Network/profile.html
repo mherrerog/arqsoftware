@@ -350,13 +350,15 @@
 											<iframe class="embed-responsive-item" frameborder="0" allowfullscreen ng-src="{{ getYoutube(x.video) }}">
 											</iframe>
 										</div>
-
 									</div>
 								</div>
 								<div class="panel-footer" id="foot">
 									<div class="columna1">{{ x.fecha }}</div>
 									<div class="columna2">
-										<button type="button" class="btn btn-xs btn-default" id="down" ng-show="(x.deporte) != null">#{{ x.deporte}}</button>
+										<button type="button" class="btn btn-xs btn-default" id="down"
+											ng-show="(x.deporte) != null && (x.deporte) != ''">
+											#{{ x.deporte}}
+										</button>
 										<button type="button" class="btn btn-xs btn-default" id="equipo" ng-show="(x.equipo) > 1">
 											EQUIPO <i class="fa fa-users"></i>
 										</button>

@@ -1,3 +1,19 @@
+// Lectura de cookies
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 /* Funciones para mostrar y ocultar elementos */
 function mostrareldiv(name) {
 	document.getElementById(name).style.display = "block";
@@ -35,7 +51,7 @@ function getQueryVariable(variable) {
 
 var app = angular.module('myApp', []);
 var val = getQueryVariable("user");
-app.controller('perfilCtrl', function($scope, $http, $location) {
+app.controller('perfilCtrl', function($scope, $http, $location, $sce) {
   $http.get("/ArqSoftware/ObtenerPublicaciones?page=profile&user=" + val).then(
     function(response) {
 			// Paginacion de miembros del equipo
@@ -47,16 +63,8 @@ app.controller('perfilCtrl', function($scope, $http, $location) {
 			$scope.jugadores = response.data.jugadores;
       $scope.myData = response.data.publicaciones;
 
-      // Recorrer valor de cookies
-      var rastro = document.cookie.split('=');
-      for (var i = 0; i < rastro.length; i++) {
-        var par = rastro[i];
-        if (par == 'userId'){
-            $scope.propio = rastro[i+1];
-        }
-        // Avanzar otro valor de i
-        i++;
-      }
+			// Leer cookies
+			$scope.propio = getCookie('userId');
     });
 
 		// Funcion para leer comentarios

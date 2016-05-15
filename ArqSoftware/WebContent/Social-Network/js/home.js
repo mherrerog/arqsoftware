@@ -1,3 +1,19 @@
+// Lectura de cookies
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 // Funciones para carga de imagenes
 function abrir(url) {
 	window.open(url, '', 'top=' + ((screen.height - 500) / 2) + ',left=' + ((screen.width - 500) / 2) + ',width=500%,height=500%');
@@ -59,16 +75,8 @@ app.controller('homeCtrl', function($scope, $http, $location, $sce) {
     function(response) {
       $scope.myData = response.data.publicaciones;
 
-			// Recorrer valor de cookies
-      var rastro = document.cookie.split('=');
-      for (var i = 0; i < rastro.length; i++) {
-        var par = rastro[i];
-        if (par == 'userId'){
-            $scope.propio = rastro[i+1];
-        }
-        // Avanzar otro valor de i
-        i++;
-      }
+			// Leer cookies
+			$scope.propio = getCookie('userId');
     });
 
 	// Funcion para leer comentarios
