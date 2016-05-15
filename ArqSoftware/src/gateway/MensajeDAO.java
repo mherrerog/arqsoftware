@@ -16,8 +16,14 @@ public class MensajeDAO {
 	 * Metodo de inserción a la BD
 	 * @throws SQLException 
 	 */
-	public static void insert(int emisor, int receptor, String fecha, String hora, String cuerpo) throws SQLException{
+	public static void insert(Mensaje ms) throws SQLException{
 
+		// Datos del mensaje
+		int emisor = ms.getEmisor();
+		int receptor = ms.getReceptor();
+		String fecha = ms.getFecha();
+		String hora = ms.getHora();
+		String cuerpo = ms.getCuerpo();
 		Connection conn = Connect.getDBConnection();
 		
 		String query = "INSERT INTO ASoftware.Mensaje" +

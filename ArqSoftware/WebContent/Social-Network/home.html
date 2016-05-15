@@ -131,7 +131,7 @@
 					</div>
 				</div>
 				<div id="publi" style="display: none;">
-					<form action="/ArqSoftware/Publica" method="post">
+					<form action="/ArqSoftware/Publica" method="POST" enctype="multipart/form-data">
 						<div class="panel-body" style="text-align: center">
 							<!-- Texto -->
 							<div>
@@ -140,7 +140,7 @@
 							<div class="row" id="you">
 								<!-- Video Youtube -->
 								<div class="col-xs-10">
-									<input type="text" class="form-control" name="youtube" placeholder="Enlace a Youtube">
+									<input type="text" class="form-control" name="youtube" placeholder="Enlace a al contenido multimedia">
 								</div>
 								<!-- Deporte -->
 								<div class="col-xs-2 deporte_select">
@@ -162,13 +162,15 @@
 							<div class="columna1" id="reloj"></div>
 							h.
 							<div class="columna2">
+								<!--
 								<div id="image" style="display: none; text-align: center" class="columna1">
 									<input type="hidden" name="MAX_FILE_SIZE" value="12000000" />
-									<input id="uploadImage" type="file" name="myPhoto" onchange="PreviewImage();" />
+									<input id="uploadImage" type="file" name="myPhoto" size="60" onchange="PreviewImage();" />
 								</div>
 								<button type="button" class="btn btn-xs btn-default" onclick="mostrareldiv(&#34;image&#34;)">
 									Subir imagen <i class="fa fa-camera"></i>
 								</button>
+							-->
 								<button type="submit" class="btn btn-xs btn-success">
 									Publicar <i class="fa fa-paper-plane"></i>
 								</button>

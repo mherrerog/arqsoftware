@@ -34,8 +34,10 @@ public class ControlMensajes {
 		String fecha = Fechas.getFechaString(d);
 		String hora = Fechas.getHoraString(d);
 		
+		Mensaje ms = new Mensaje(userId, idReceptor, fecha, hora, cuerpo, 0);
+		
 		try {
-			MensajeDAO.insert(userId, idReceptor, fecha, hora, cuerpo);
+			MensajeDAO.insert(ms);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

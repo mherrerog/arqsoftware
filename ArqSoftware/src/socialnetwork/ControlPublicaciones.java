@@ -63,6 +63,65 @@ public class ControlPublicaciones {
 	}
 	
 	/**
+	 * Crea una nueva publicación en la base de datos,
+	 * almacena el link según su contenido
+	 */
+	public static void nuevaPub(int autor, String texto, Date fecha,
+			String link, String deporte){
+		
+		// Url de youtube ej: https://www.youtube.com/watch?v=F9ZS49zGqIg
+		// almacenar solo F9ZS49zGqIg		
+		String youtube = null;
+		String ruta = null;
+		String img = null;
+		
+		if (link == null){
+			return;
+		}
+		
+		if (link.contains("youtube.com/watch?v=")){
+			// Link youtube
+			String [] url = link.split("v=");
+			if (url.length == 2){
+				youtube = url[1];
+			} else {
+				System.out.println("URL introducida de forma incorrecta (YouTube)");
+				youtube = null;
+			}
+		} else if (link.contains(".gpx")){
+			ruta = link;
+		} else if (link.contains(".png")){
+			// Imagen PNG
+			img = link;
+		} else if (link.contains(".gif")){
+			// Imagen GIF
+			img = link;
+		} else if (link.contains(".jpeg")){
+			// Imagen JPEG
+			img = link;
+		} else if (link.contains(".jpg")){
+			// Imagen JPG
+			img = link;
+		} else {
+			System.out.println("Formato desconocido");
+		}
+		
+		Publicacion nueva = new Publicacion(autor, texto, fecha, img, youtube, 
+			ruta, deporte);
+		//Insertar publicación
+		try {
+			PublicacionDAO.insert(nueva);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(nueva);
+		
+		
+	}
+	
+	/**
 	 * Devuelve en formato JSON las publicaciones para el home de un usuario
 	 */
 	public static String showHome(int usuario) throws SQLException{

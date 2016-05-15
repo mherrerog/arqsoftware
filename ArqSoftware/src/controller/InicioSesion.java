@@ -81,7 +81,8 @@ public class InicioSesion extends HttpServlet {
 			}
 		}else if (metodo == 1) {
 			String email = request.getParameter("email");
-			if (registroUsuario(request)){
+			int error = registroUsuario(request);
+			if ( error == 0){
 				Usuario user;
 				try {
 					user = UsuarioDAO.selectByMail(email);
@@ -95,10 +96,11 @@ public class InicioSesion extends HttpServlet {
 				response.sendRedirect("/ArqSoftware/Social-Network/home.html");
 			}else{
 				//Informar error al usuario.
-				PrintWriter out = response.getWriter();
-				out.print("ERROR");
-				out.flush();
-			}
+				String err = "";
+				if (error == 1) err = "passwd";
+				else if (error == 2) err = "mail";
+				response.sendRedirect("/ArqSoftware/Social-Network/signup.html?error=" + err);
+			} 
 		}
 	}
 	
@@ -134,7 +136,14 @@ public class InicioSesion extends HttpServlet {
 		}
 	}
 	
-	private static boolean registroUsuario(HttpServletRequest request) {
+	/**
+	 * Inserta un usuario en la base de datos
+	 * @return 
+	 * 	0 -> OK
+	 * 	1 -> Contraseña no coincide
+	 * 	2 -> Usuario registrado
+	 */
+	private static int registroUsuario(HttpServletRequest request) {
 		String username = request.getParameter("username");
 		String date = request.getParameter("date");
 		Date fecha = Fechas.getFechaFromWeb(date);
@@ -157,16 +166,16 @@ public class InicioSesion extends HttpServlet {
 				System.out.println(nuevo);
 				//Passwords iguales, realizamos el insert.
 				UsuarioDAO.insert(nuevo);
-				return true;
+				return 0;
 				
 			}else{
-				return false;
+				return 1;
 			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return false;
+			return 2;
 		}
 	}
 

@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.util.Date;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import socialnetwork.ControlPublicaciones;
 
@@ -17,6 +19,9 @@ import socialnetwork.ControlPublicaciones;
  * Servlet implementation class Publica
  */
 @WebServlet("/Publica")
+@MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
+maxFileSize=1024*1024*10,      // 10MB
+maxRequestSize=1024*1024*50)   // 50MB
 public class Publica extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -64,13 +69,23 @@ public class Publica extends HttpServlet {
 		// Obtener campos del formulario
 		String texto = request.getParameter("textPublicacion");
 		Date fecha = new Date();
-		String img = null;
+		
+		String link = request.getParameter("youtube");
+		/*
+		try {
+			Descarga.downloadImg(request);
+		} catch (ServletException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		String video = request.getParameter("youtube");
-		String ruta = null;
+		String ruta = null; */
+		
 		String deporte = request.getParameter("deporte");
 		
-		
-		ControlPublicaciones.nuevaPub(Integer.parseInt(userId),texto,fecha,img,video,ruta,deporte);
+		ControlPublicaciones.nuevaPub(Integer.parseInt(userId),texto,fecha,link,deporte);
 		
 		try {
 			response.sendRedirect("/ArqSoftware/Social-Network/home.html");

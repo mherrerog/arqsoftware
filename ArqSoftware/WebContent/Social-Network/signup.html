@@ -20,6 +20,9 @@
     <!-- Custom styles for this template -->
     <link href="css/signup.css" rel="stylesheet">
 
+    <!-- Angular -->
+    <script src="../angular-1.5.0/angular.min.js"></script>
+
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
@@ -31,7 +34,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body  ng-app="myApp" ng-controller="signinCtrl">
 
     <!-- Static navbar -->
     <nav class="navbar navbar-default">
@@ -53,6 +56,20 @@
     <div class="container" id="registro">
       <div class="row">
         <div class="col-md-6">
+
+          <!-- Alerta de error -->
+          <div class="alerta">
+            <div ng-show="(error) == 'mail'">
+              <div class="alert alert-danger">
+                <strong>Error!</strong> Ese email ya ha sido registrado.
+              </div>
+            </div>
+            <div ng-show="(error) == 'passwd'">
+              <div class="alert alert-danger">
+                <strong>Error!</strong> Las contraseñas no coinciden.
+              </div>
+            </div>
+          </div>
 
           <form class="form-horizontal" action="/ArqSoftware/InicioSesion?id=1" method="POST">
           <fieldset>
@@ -155,6 +172,9 @@
       <p> *Seleccione esta casilla si desea registrarse como un equipo.</p>
     </div>
 
+    <!-- Error script -->
+    <script type="text/javascript" src="js/index.js"></script>
+
     <!-- Begin Cookie Consent plugin by Silktide - http://silktide.com/cookieconsent -->
   	<script type="text/javascript">
   	    window.cookieconsent_options = {"message":"Este sitio web utiliza cookies para asegurar la mejor experiencia en nuestra web",
@@ -163,6 +183,6 @@
 
   	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
   	<!-- End Cookie Consent plugin -->
-    
+
   </body>
 </html>
