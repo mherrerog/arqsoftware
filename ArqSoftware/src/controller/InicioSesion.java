@@ -90,7 +90,7 @@ public class InicioSesion extends HttpServlet {
 				try {
 					user = UsuarioDAO.selectByMail(email);
 					Cookie userCookie = new Cookie("userId", ""+user.getId());
-					userCookie.setMaxAge(60*15); //15 minutos
+					userCookie.setMaxAge(-1); 
 					response.addCookie(userCookie);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block

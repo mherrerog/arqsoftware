@@ -15,6 +15,8 @@ import gateway.UsuarioDAO;
 import socialnetwork.Fechas;
 
 public class Publicacion implements Comparable{
+	
+	private final String PATH = "file:///Users/manuelherrerogajon/Rutas/";
 
 	private int id;
 	private int autor;
@@ -199,7 +201,15 @@ public class Publicacion implements Comparable{
 		obj.put("fecha", f);
 		obj.put("img", imagen);
 		obj.put("video", video);
-		obj.put("ruta", ruta);
+		if (ruta != null){
+			if (ruta.compareTo("") != 0){
+				obj.put("ruta", PATH + ruta);
+			} else {
+				obj.put("ruta", "null");
+			}
+		} else {
+			obj.put("ruta", ruta);
+		}
 		obj.put("deporte", deporte);
 		obj.put("idUsuario", autor);
 		

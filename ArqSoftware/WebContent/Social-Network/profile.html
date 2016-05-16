@@ -305,13 +305,14 @@
 										</div>
 										<!-- Eliminar pub -->
 										<div ng-show="(propio) == (x.idUsuario)">
-											<button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal" id="bdelete">
+											<button type="button" class="btn btn-xs btn-danger" data-toggle="modal"
+												data-target="#myModal{{x.Id}}" id="bdelete">
 												Eliminar &nbsp <i class="fa fa-trash-o"></i>
 											</button>
 										</div>
 
 										<!-- Modal -->
-										<div class="modal fade" id="myModal" role="dialog">
+										<div class="modal fade" id="myModal{{x.Id}}" role="dialog">
 											<div class="modal-dialog">
 
 												<!-- Modal content-->

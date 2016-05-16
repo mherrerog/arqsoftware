@@ -75,17 +75,16 @@ public class Publica extends HttpServlet {
 		Date fecha = new Date();
 		
 		String link = request.getParameter("youtube");
-		/*
+		String aux = null;
+		
 		try {
-			Descarga.downloadImg(request);
+			aux = Descarga.downloadMap(request);
 		} catch (ServletException | IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
-		
-		String video = request.getParameter("youtube");
-		String ruta = null; */
+		if (aux != null) link = aux;
 		
 		String deporte = request.getParameter("deporte");
 		

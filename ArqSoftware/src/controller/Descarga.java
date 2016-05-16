@@ -16,9 +16,10 @@ import javax.servlet.http.Part;
  */
 public class Descarga {
 
-	private static final String RUTA = "pruebas";
+	// Directorio donde se almacenarán las rutas
+	private static final String RUTA = "/Users/manuelherrerogajon/Rutas/";
 
-	public static void downloadImg(HttpServletRequest request)
+	public static String downloadMap(HttpServletRequest request)
 			throws ServletException, IOException {
 		
 		// Debug
@@ -26,23 +27,26 @@ public class Descarga {
 					
 		// gets absolute path of the web application
 		String appPath = request.getServletContext().getRealPath("");
-		// constructs path of the directory to save uploaded file
-		String savePath = appPath + File.separator + RUTA;
 
 		// creates the save directory if it does not exists
-		File fileSaveDir = new File(savePath);
+		File fileSaveDir = new File(RUTA);
 		if (!fileSaveDir.exists()) {
 			fileSaveDir.mkdir();
 		}
 
-		Part p = request.getPart("myPhoto");
+		Part p = request.getPart("myGPX");
 		String fileName = extractFileName(p);
 		
-		// Debug
-		String path = new File(".").getCanonicalPath();
-		System.out.println("> " + path + "/" +fileName);
+		String newName = lookNames();
 		
-		//p.write(path + "/img/" + fileName);
+		if (fileName.contains(".gpx")){
+			// Archivo gpx
+			p.write(RUTA + newName);
+			return RUTA + newName;
+		}
+		
+		return null;
+		
 	}
 
 	/**
@@ -59,38 +63,30 @@ public class Descarga {
 		return "";
 	}
 
-	/*
-	 * public static void downloadImg(HttpServletRequest request) throws
-	 * ServletException, IOException {
-	 * 
-	 * // Create path components to save the file String path = RUTA; Part
-	 * filePart = request.getPart("myPhoto"); //String fileName =
-	 * getFileName(filePart); String fileName = "prueba.png";
-	 * 
-	 * OutputStream out = null; InputStream filecontent = null;
-	 * 
-	 * try { File f = new File(path + File.separator + fileName);
-	 * f.getParentFile().mkdirs(); f.createNewFile(); out = new
-	 * FileOutputStream(f); filecontent = filePart.getInputStream();
-	 * 
-	 * int read = 0; final byte[] bytes = new byte[1024];
-	 * 
-	 * while ((read = filecontent.read(bytes)) != -1) { out.write(bytes, 0,
-	 * read); }
-	 * 
-	 * // Debug System.out.println("New file " + fileName + " created at " +
-	 * path);
-	 * 
-	 * } catch (FileNotFoundException fne) { // Error fne.printStackTrace();
-	 * System.err.println("Error durante la descarga del archivo"); } finally {
-	 * if (out != null) { out.close(); } if (filecontent != null) {
-	 * filecontent.close(); } } }
-	 * 
-	 * private static String getFileName(Part part) {
-	 * 
-	 * for (String content : part.getHeader("content-disposition").split(";")) {
-	 * if (content.trim().startsWith("filename")) { return content.substring(
-	 * content.indexOf('=') + 1).trim().replace("\"", ""); } } return null; }
+	/**
+	 * Devuelve el nuevo nombre del fichero
 	 */
-
+	private static String lookNames() {
+		int max = 0;
+		// Abrir directorio predeterminado
+		File dir = new File(RUTA);
+		File [] ficheros = dir.listFiles();
+		if (ficheros.length == 0){
+			return "0.gpx";
+		}
+		for (File f: ficheros){
+			int aux = 0;
+			
+			try {
+				System.out.println(f.getName());
+				String [] n = f.getName().split(".");
+				aux = Integer.parseInt(n[0]);
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+			if (aux > max) max = aux;
+		}
+		max++;
+		return max + ".gpx";
+	}
 }
