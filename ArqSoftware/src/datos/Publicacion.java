@@ -16,7 +16,7 @@ import socialnetwork.Fechas;
 
 public class Publicacion implements Comparable{
 	
-	private final String PATH = "file:///Users/manuelherrerogajon/Rutas/";
+	private final String PATH = "/Rutas/";
 
 	private int id;
 	private int autor;
@@ -202,13 +202,13 @@ public class Publicacion implements Comparable{
 		obj.put("img", imagen);
 		obj.put("video", video);
 		if (ruta != null){
-			if (ruta.compareTo("") != 0){
+			if (ruta.contains(".gpx")){
 				obj.put("ruta", PATH + ruta);
 			} else {
-				obj.put("ruta", "null");
+				obj.put("ruta", "");
 			}
 		} else {
-			obj.put("ruta", ruta);
+			obj.put("ruta", "");
 		}
 		obj.put("deporte", deporte);
 		obj.put("idUsuario", autor);

@@ -42,7 +42,7 @@ public class Descarga {
 		if (fileName.contains(".gpx")){
 			// Archivo gpx
 			p.write(RUTA + newName);
-			return RUTA + newName;
+			return newName;
 		}
 		
 		return null;
