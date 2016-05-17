@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.naming.NamingException;
+
 import org.json.JSONObject;
 
 import gateway.UsuarioDAO;
@@ -39,6 +41,7 @@ public class Comentario {
 	}
 	
 	/**
+	 * @throws NamingException 
 	 * 
 	 */
 	public String toJSON() throws SQLException{
@@ -63,6 +66,7 @@ public class Comentario {
 	
 	/**
 	 * Devuelve un String en formato JSON los comentarios
+	 * @throws NamingException 
 	 */
 	public static String toJSON(ArrayList<Comentario> vector) throws SQLException{
 		

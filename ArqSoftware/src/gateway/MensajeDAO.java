@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.naming.NamingException;
+
 import datos.Mensaje;
 
 
@@ -24,14 +26,24 @@ public class MensajeDAO {
 		String fecha = ms.getFecha();
 		String hora = ms.getHora();
 		String cuerpo = ms.getCuerpo();
-		Connection conn = Connect.getDBConnection();
+		Connection conecta = null;
+		
+		
+		// Conexion por Pool de conexiones
+		try {
+			conecta = Connect.getConnectionFromPool();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// conecta = Connect.getDBConnection();
 		
 		String query = "INSERT INTO ASoftware.Mensaje" +
 			"(Emisor_M, Receptor, Fecha, Hora, Cuerpo, Leido)  VALUES" +
 			"( ?, ?, ?,?, ?,?)";
 		
 		// create the mysql insert preparedstatement
-		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		PreparedStatement preparedStmt = conecta.prepareStatement(query);
 		preparedStmt.setInt(1, emisor);
 		preparedStmt.setInt(2, receptor);
 		preparedStmt.setString(3, fecha);
@@ -42,7 +54,7 @@ public class MensajeDAO {
 		// execute the preparedstatement
 		preparedStmt.execute();
 		// close connection
-		conn.close();
+		conecta.close();
 		
 	}
 	
@@ -53,14 +65,26 @@ public class MensajeDAO {
 	 */
 	public static void delete(int idMensaje) throws SQLException {
 		String query = "DELETE FROM ASoftware.Mensaje WHERE " + "(idMensaje = ?)";
-		Connection conn = Connect.getDBConnection();
-		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		
+		Connection conecta = null;
+		
+		
+		// Conexion por Pool de conexiones
+		try {
+			conecta = Connect.getConnectionFromPool();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// conecta = Connect.getDBConnection();
+		
+		PreparedStatement preparedStmt = conecta.prepareStatement(query);
 		preparedStmt.setInt(1, idMensaje);
 
 		// execute the preparedstatement
 		preparedStmt.execute();
 		// close connection
-		conn.close();
+		conecta.close();
 	}
 	
 	public static ArrayList<Mensaje> selectByUsuario(int idUsuario) throws SQLException {
@@ -72,7 +96,8 @@ public class MensajeDAO {
 		String query = "select * from ASoftware.Mensaje "
 				+ "where (Receptor=" +idUsuario + ") order by fecha desc, hora desc";
 		try {
-			conecta = Connect.getDBConnection();
+			conecta = Connect.getConnectionFromPool();
+			//conecta = Connect.getDBConnection();
 			stmt = conecta.createStatement();
 			// execute query
 			rs = stmt.executeQuery(query);
@@ -90,13 +115,16 @@ public class MensajeDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			if (stmt != null) {
 				stmt.close();
 			}
 			if (conecta != null) {
 				conecta.close();
-			}
+			} 
 
 		}
 		return mensajes;

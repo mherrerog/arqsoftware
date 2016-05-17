@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.naming.NamingException;
+
 import datos.Comentario;
 import datos.Publicacion;
 import datos.Usuario;
@@ -20,14 +22,21 @@ public class PublicacionDAO {
 	 */
 	public static void delete(int idPublicacion) throws SQLException {
 		String query = "DELETE FROM ASoftware.Publicacion WHERE " + "(idPublicacion = ?)";
-		Connection conn = Connect.getDBConnection();
-		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		Connection conecta = null;
+		//conecta = Connect.getDBConnection();
+		try {
+			conecta = Connect.getConnectionFromPool();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		PreparedStatement preparedStmt = conecta.prepareStatement(query);
 		preparedStmt.setInt(1, idPublicacion);
 
 		// execute the preparedstatement
 		preparedStmt.execute();
 		// close connection
-		conn.close();
+		conecta.close();
 	}
 
 	
@@ -38,12 +47,19 @@ public class PublicacionDAO {
 	 */
 	public static void insert(Publicacion pub) throws SQLException {
 
-		Connection conn = Connect.getDBConnection();
+		Connection conecta = null;
+		//conecta = Connect.getDBConnection();
+		try {
+			conecta = Connect.getConnectionFromPool();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String query = "INSERT INTO ASoftware.Publicacion "
 				+ "(Fecha, Hora, Emisor, Texto, Imagen, Video, Ruta, Deporte) VALUES " + "( ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		// create the mysql insert preparedstatement
-		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		PreparedStatement preparedStmt = conecta.prepareStatement(query);
 		preparedStmt.setString(1, pub.getFechaString());
 		preparedStmt.setString(2, pub.getHoraString());
 		preparedStmt.setInt(3, pub.getAutor());
@@ -56,7 +72,7 @@ public class PublicacionDAO {
 		// execute the preparedstatement
 		preparedStmt.execute();
 		// close connection
-		conn.close();
+		conecta.close();
 
 	}
 	
@@ -67,18 +83,25 @@ public class PublicacionDAO {
 	 */
 	public static void insertLike(int usuario, int pub) throws SQLException {
 
-		Connection conn = Connect.getDBConnection();
+		Connection conecta = null;
+		//conecta = Connect.getDBConnection();
+		try {
+			conecta = Connect.getConnectionFromPool();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String query = "INSERT INTO ASoftware.Megusta VALUES " + "( ?, ?)";
 
 		// create the mysql insert preparedstatement
-		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		PreparedStatement preparedStmt = conecta.prepareStatement(query);
 		preparedStmt.setInt(1, usuario);
 		preparedStmt.setInt(2, pub);
 
 		// execute the preparedstatement
 		preparedStmt.execute();
 		// close connection
-		conn.close();
+		conecta.close();
 
 	}
 	
@@ -89,18 +112,26 @@ public class PublicacionDAO {
 	 */
 	public static void insertShare(int usuario, int pub) throws SQLException {
 
-		Connection conn = Connect.getDBConnection();
+		Connection conecta = null;
+		//conecta = Connect.getDBConnection();
+		try {
+			conecta = Connect.getConnectionFromPool();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		String query = "INSERT INTO ASoftware.Compartir VALUES " + "( ?, ?)";
 
 		// create the mysql insert preparedstatement
-		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		PreparedStatement preparedStmt = conecta.prepareStatement(query);
 		preparedStmt.setInt(1, usuario);
 		preparedStmt.setInt(2, pub);
 
 		// execute the preparedstatement
 		preparedStmt.execute();
 		// close connection
-		conn.close();
+		conecta.close();
 
 	}
 
@@ -136,7 +167,9 @@ public class PublicacionDAO {
 		String query = "select count(*) as likes, pk_publicacion_mg from ASoftware.Megusta where " +
 				"pk_publicacion_mg=" + publicacion + " group by pk_publicacion_mg";
 		try {
-			conecta = Connect.getDBConnection();
+			//conecta = Connect.getDBConnection();
+			conecta = Connect.getConnectionFromPool();
+			
 			stmt = conecta.createStatement();
 			// execute query
 			rs = stmt.executeQuery(query);
@@ -146,13 +179,16 @@ public class PublicacionDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			if (stmt != null) {
 				stmt.close();
 			}
 			if (conecta != null) {
 				conecta.close();
-			}
+			} 
 		}
 		return likes;
 	}
@@ -211,13 +247,21 @@ public class PublicacionDAO {
 		String fecha = Fechas.getFechaString(com.getFecha());
 		String hora = Fechas.getHoraString(com.getFecha());
 
-		Connection conn = Connect.getDBConnection();
+		Connection conecta = null;
+		//conecta = Connect.getDBConnection();
+		try {
+			conecta = Connect.getConnectionFromPool();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		String query = "INSERT INTO ASoftware.Comentario"
 				+ "(Publicacion_com, Hora, Fecha, Usuario_com, Contenido) "
 				+ "VALUES " + "( ?, ?, ?, ?, ?)";
 
 		// create the mysql insert preparedstatement
-		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		PreparedStatement preparedStmt = conecta.prepareStatement(query);
 		preparedStmt.setInt(1, com.getPublicacion());
 		preparedStmt.setString(2, hora);
 		preparedStmt.setString(3, fecha);
@@ -227,7 +271,7 @@ public class PublicacionDAO {
 		// execute the preparedstatement
 		preparedStmt.execute();
 		// close connection
-		conn.close();
+		conecta.close();
 
 	}
 	
@@ -261,7 +305,8 @@ public class PublicacionDAO {
 					+ "ORDER BY Fecha DESC , Hora DESC";
 		}
 		try {
-			conecta = Connect.getDBConnection();
+			//conecta = Connect.getDBConnection();
+			conecta = Connect.getConnectionFromPool();
 			stmt = conecta.createStatement();
 			// execute query
 			rs = stmt.executeQuery(query);
@@ -282,6 +327,9 @@ public class PublicacionDAO {
 				posts.add(nuevo);
 			}
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {

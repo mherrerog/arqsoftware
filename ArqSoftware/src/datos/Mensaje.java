@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.naming.NamingException;
+
 import org.json.JSONObject;
 
 import gateway.UsuarioDAO;
@@ -99,7 +101,7 @@ public class Mensaje {
 	/**
 	 * Devuelve la cadena que representa dicho objeto en JSON
 	 */
-	public String toJSON(){
+	public String toJSON() {
 		JSONObject obj = new JSONObject();
 		
 		String horatoweb = Fechas.getFechaToWeb(Fechas.getFechaFromWeb(fecha,hora));
@@ -129,7 +131,7 @@ public class Mensaje {
 	/**
 	 * Devuelve la cadena que representa dicho objeto en JSON
 	 */
-	public static String toJSON(ArrayList<Mensaje> vector){
+	public static String toJSON(ArrayList<Mensaje> vector) {
 		String rs = "{\"mensajes\": [\n";
 		for (Mensaje d: vector){
 			

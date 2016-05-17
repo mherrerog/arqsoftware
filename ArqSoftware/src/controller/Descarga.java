@@ -78,9 +78,12 @@ public class Descarga {
 			int aux = 0;
 			
 			try {
+				String fName = f.getName();
 				System.out.println(f.getName());
-				String [] n = f.getName().split(".");
-				aux = Integer.parseInt(n[0]);
+				if (fName.contains("gpx")){
+					String [] n = f.getName().split("gpx");
+					aux = Integer.parseInt(n[0].substring(0, n[0].length() - 1));
+				}
 			} catch (Exception e){
 				e.printStackTrace();
 			}

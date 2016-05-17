@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.naming.NamingException;
+
 import org.json.JSONObject;
 
 import datos.Comentario;
@@ -123,8 +125,9 @@ public class ControlPublicaciones {
 	
 	/**
 	 * Devuelve en formato JSON las publicaciones para el home de un usuario
+	 * @throws NamingException 
 	 */
-	public static String showHome(int usuario) throws SQLException{
+	public static String showHome(int usuario) throws SQLException, NamingException{
 		ArrayList<Publicacion> pubs = PublicacionDAO.selectForHome(usuario);
 		String publicaciones = Publicacion.toJSON(pubs);
 		System.out.println(publicaciones);
@@ -134,8 +137,9 @@ public class ControlPublicaciones {
 	
 	/**
 	 * Devuelve en formato JSON las publicaciones para el perfil de un usuario
+	 * @throws NamingException 
 	 */
-	public static String showProfile(int actual, int usuario) throws SQLException{
+	public static String showProfile(int actual, int usuario) throws SQLException, NamingException{
 		ArrayList<Publicacion> pubs = PublicacionDAO.selectForProfile(usuario);
 		String publicaciones = Publicacion.toJSON(pubs);
 		publicaciones=publicaciones.substring(1);
@@ -165,8 +169,9 @@ public class ControlPublicaciones {
 	
 	/**
 	 * Devuelve en formato JSON los comentarios asociados a una publicación
+	 * @throws NamingException 
 	 */
-	public static String getComentarios(int publicacion){
+	public static String getComentarios(int publicacion) throws NamingException{
 		String result = "";
 		try {
 			ArrayList<Comentario> comentarios = PublicacionDAO.selectComentarios(publicacion);

@@ -36,8 +36,9 @@ public class TestVarios extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		System.out.println("----->");
 		try {
-			Usuario u = UsuarioDAO.selectByMail("yo@tu.el");
-			System.out.println(u.getNombre());
+			//Usuario u = UsuarioDAO.selectByMail("yo@tu.el");
+			//System.out.println(u.getNombre());
+			Pool.test1();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

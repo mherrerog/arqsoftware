@@ -6,12 +6,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.naming.NamingException;
+
 import datos.Usuario;
 
 public class UsuarioDAO {
 	
 	/**
 	 * @throws SQLException 
+	 * @throws NamingException 
 	 * 
 	 */
 	public static Usuario selectById(int idUsuario) throws SQLException{
@@ -21,7 +24,10 @@ public class UsuarioDAO {
 		Usuario nuevo = null;
 		String query = "select * from ASoftware.Usuario where idUsuarios = '"+idUsuario+"'";
 		try {
-			conecta = Connect.getDBConnection();
+			// Conexion por Pool de conexiones
+			conecta = Connect.getConnectionFromPool();
+			// conecta = Connect.getDBConnection();
+			
 			stmt = conecta.createStatement();
 			// execute query
 			rs = stmt.executeQuery(query);
@@ -47,6 +53,9 @@ public class UsuarioDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			if (stmt != null) {
 				stmt.close();
@@ -60,6 +69,7 @@ public class UsuarioDAO {
 	}
 
 	/**
+	 * @throws NamingException 
 	 * 
 	 */
 	public static ArrayList<Usuario> selectByName(String name) throws SQLException {
@@ -71,7 +81,10 @@ public class UsuarioDAO {
 		String query = "select * from ASoftware.Usuario where (nombre LIKE CONCAT('" + name + "', '%'))"
 				+ "or (nick LIKE CONCAT('%', '" + name + "', '%'))";
 		try {
-			conecta = Connect.getDBConnection();
+			// Conexion por Pool de conexiones
+			conecta = Connect.getConnectionFromPool();
+			// conecta = Connect.getDBConnection();
+						
 			stmt = conecta.createStatement();
 			// execute query
 			rs = stmt.executeQuery(query);
@@ -95,13 +108,16 @@ public class UsuarioDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			if (stmt != null) {
 				stmt.close();
 			}
 			if (conecta != null) {
 				conecta.close();
-			}
+			} 
 
 		}
 		return users;
@@ -110,6 +126,7 @@ public class UsuarioDAO {
 	
 	/**
 	 * Devuelve el usuario cuyo mail corresponde al correo introducido
+	 * @throws NamingException 
 	 */
 	
 	public static Usuario selectByMail(String mail) throws SQLException {
@@ -120,7 +137,9 @@ public class UsuarioDAO {
 		Usuario nuevo = null;
 		String query = "select * from ASoftware.Usuario where Mail = '"+mail+"'";
 		try {
-			conecta = Connect.getDBConnection();
+			// Conexion por Pool de conexiones
+			conecta = Connect.getConnectionFromPool();
+			// conecta = Connect.getDBConnection();
 			stmt = conecta.createStatement();
 			// execute query
 			rs = stmt.executeQuery(query);
@@ -144,6 +163,9 @@ public class UsuarioDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			if (stmt != null) {
 				stmt.close();
@@ -161,6 +183,7 @@ public class UsuarioDAO {
 	 * Devuelve un array con dos enteros
 	 * resultado[0] = nº seguidores del usuario
 	 * resultado[1] = nº seguidos del usuario 
+	 * @throws NamingException 
 	 */
 	public static int[] seguidor_seguido(int usuario) throws SQLException {
 		int[] resultado = new int [2];
@@ -174,7 +197,9 @@ public class UsuarioDAO {
 				"where usuario = useguido AND usuario = " + usuario;
 		
 		try {
-			conecta = Connect.getDBConnection();
+			// Conexion por Pool de conexiones
+			conecta = Connect.getConnectionFromPool();
+			// conecta = Connect.getDBConnection();
 			stmt = conecta.createStatement();
 			// execute query
 			rs = stmt.executeQuery(query);
@@ -187,13 +212,16 @@ public class UsuarioDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			if (stmt != null) {
 				stmt.close();
 			}
 			if (conecta != null) {
 				conecta.close();
-			}
+			} 
 
 		}
 		
@@ -202,6 +230,7 @@ public class UsuarioDAO {
 	
 	/**
 	 * Devuelve un true si usuario sigue a siguiendo
+	 * @throws NamingException 
 	 */
 	public static boolean yoSigo(int usuario, int siguiendo) throws SQLException {
 		int resultado = 0;
@@ -214,7 +243,9 @@ public class UsuarioDAO {
 				" group by fk_Usuario, fk_Seguido";
 		
 		try {
-			conecta = Connect.getDBConnection();
+			// Conexion por Pool de conexiones
+			conecta = Connect.getConnectionFromPool();
+			// conecta = Connect.getDBConnection();
 			stmt = conecta.createStatement();
 			// execute query
 			rs = stmt.executeQuery(query);
@@ -224,6 +255,9 @@ public class UsuarioDAO {
 			}
 			
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
@@ -241,6 +275,7 @@ public class UsuarioDAO {
 	
 	/**
 	 * Devuelve un true si usuario sigue a siguiendo
+	 * @throws NamingException 
 	 */
 	public static boolean meSigue(int usuario, int siguiendo) throws SQLException {
 		int resultado = 0;
@@ -253,7 +288,9 @@ public class UsuarioDAO {
 				" group by fk_Usuario, fk_Seguido";
 		
 		try {
-			conecta = Connect.getDBConnection();
+			// Conexion por Pool de conexiones
+			conecta = Connect.getConnectionFromPool();
+			// conecta = Connect.getDBConnection();
 			stmt = conecta.createStatement();
 			// execute query
 			rs = stmt.executeQuery(query);
@@ -263,6 +300,9 @@ public class UsuarioDAO {
 			}
 			
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
@@ -279,6 +319,7 @@ public class UsuarioDAO {
 	}
 	
 	/**
+	 * @throws NamingException 
 	 * 
 	 */
 	public static ArrayList<Usuario> selectSeguirMutuo(int myId) throws SQLException {
@@ -290,7 +331,10 @@ public class UsuarioDAO {
 		String query = "select * from ASoftware.Usuario U, ASoftware.Seguir S, ASoftware.Seguir P " +
 		"where (S.fk_Usuario = P.fk_Seguido and P.fk_Usuario = S.fk_Seguido and S.fk_Usuario = " + myId + ") and S.fk_Seguido = U.idUsuarios";
 		try {
-			conecta = Connect.getDBConnection();
+			// Conexion por Pool de conexiones
+			conecta = Connect.getConnectionFromPool();
+			// conecta = Connect.getDBConnection();
+			
 			stmt = conecta.createStatement();
 			// execute query
 			rs = stmt.executeQuery(query);
@@ -314,13 +358,16 @@ public class UsuarioDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			if (stmt != null) {
 				stmt.close();
 			}
 			if (conecta != null) {
 				conecta.close();
-			}
+			} 
 
 		}
 		return users;
@@ -339,7 +386,9 @@ public class UsuarioDAO {
 		String query = "select * from ASoftware.Usuario, ASoftware.Pertenecen " + 
 				"where idUsuarios=fk_Miembro and fk_Equipo=" + team;
 		try {
-			conecta = Connect.getDBConnection();
+			// Conexion por Pool de conexiones
+			conecta = Connect.getConnectionFromPool();
+			// conecta = Connect.getDBConnection();
 			stmt = conecta.createStatement();
 			// execute query
 			rs = stmt.executeQuery(query);
@@ -363,13 +412,16 @@ public class UsuarioDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			if (stmt != null) {
 				stmt.close();
 			}
 			if (conecta != null) {
 				conecta.close();
-			}
+			} 
 
 		}
 		return users;
@@ -385,7 +437,10 @@ public class UsuarioDAO {
 		String query = "select * from ASoftware.Usuario a, ASoftware.Seguir " + 
 				"where idUsuarios=fk_Seguido and fk_usuario=" + myId;
 		try {
-			conecta = Connect.getDBConnection();
+			// Conexion por Pool de conexiones
+			conecta = Connect.getConnectionFromPool();
+			// conecta = Connect.getDBConnection();
+			
 			stmt = conecta.createStatement();
 			// execute query
 			rs = stmt.executeQuery(query);
@@ -409,13 +464,16 @@ public class UsuarioDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			if (stmt != null) {
 				stmt.close();
 			}
 			if (conecta != null) {
 				conecta.close();
-			}
+			} 
 
 		}
 		return users;
@@ -431,7 +489,10 @@ public class UsuarioDAO {
 		String query = "select * from ASoftware.Usuario a, ASoftware.Seguir " + 
 				"where idUsuarios=fk_usuario and fk_Seguido=" + myId;
 		try {
-			conecta = Connect.getDBConnection();
+			// Conexion por Pool de conexiones
+			conecta = Connect.getConnectionFromPool();
+			// conecta = Connect.getDBConnection();
+			
 			stmt = conecta.createStatement();
 			// execute query
 			rs = stmt.executeQuery(query);
@@ -455,13 +516,16 @@ public class UsuarioDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			if (stmt != null) {
 				stmt.close();
 			}
 			if (conecta != null) {
 				conecta.close();
-			}
+			} 
 
 		}
 		return users;
@@ -472,7 +536,15 @@ public class UsuarioDAO {
 	 * Inserta un usuario en la BD
 	 */
 	public static void insert(Usuario usr) throws SQLException{
-		Connection conecta = Connect.getDBConnection();
+		// Conexion por Pool de conexiones
+		Connection conecta = null;
+		try {
+			conecta = Connect.getConnectionFromPool();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// conecta = Connect.getDBConnection();
 		
 		String query = "INSERT INTO ASoftware.Usuario (Nombre, Fecha, Mail, Sexo, Password, Equipo, Nick, Descripcion) "
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -495,7 +567,16 @@ public class UsuarioDAO {
 	 * Inserta un usuario en la BD
 	 */
 	public static void insertMiembro(int usr, int equipo) throws SQLException{
-		Connection conecta = Connect.getDBConnection();
+		Connection conecta = null;
+		
+		// Conexion por Pool de conexiones
+		try {
+			conecta = Connect.getConnectionFromPool();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// conecta = Connect.getDBConnection();
 		
 		String query = "INSERT INTO ASoftware.Pertenecen (fk_Equipo, fk_Miembro)"
 				+ " VALUES (?, ?)";
@@ -508,7 +589,16 @@ public class UsuarioDAO {
 	}
 	
 	public static void delete(Usuario usuario) throws SQLException{
-		Connection conecta = Connect.getDBConnection();
+		Connection conecta = null;
+		
+		// Conexion por Pool de conexiones
+		try {
+			conecta = Connect.getConnectionFromPool();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// conecta = Connect.getDBConnection();
 		
 		String query = "DELETE FROM ASoftware.Usuario WHERE idUsuarios='"+Integer.toString(usuario.getId())+"';";
 		PreparedStatement preparedStatement = conecta.prepareStatement(query);		
@@ -517,7 +607,16 @@ public class UsuarioDAO {
 	}
 	
 	public static void deleteMiembro(int usr, int equipo) throws SQLException{
-		Connection conecta = Connect.getDBConnection();
+		Connection conecta = null;
+		
+		// Conexion por Pool de conexiones
+		try {
+			conecta = Connect.getConnectionFromPool();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// conecta = Connect.getDBConnection();
 		
 		String query = "DELETE FROM ASoftware.Pertenecen WHERE fk_Equipo="+
 				equipo +" AND fk_Miembro=" + usr;
@@ -527,7 +626,16 @@ public class UsuarioDAO {
 	}
 	
 	public static void update(Usuario usuario) throws SQLException{
-		Connection conecta = Connect.getDBConnection();
+		Connection conecta = null;
+		
+		// Conexion por Pool de conexiones
+		try {
+			conecta = Connect.getConnectionFromPool();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// conecta = Connect.getDBConnection();
 		
 		String query = "UPDATE ASoftware.Usuario set Nombre='"+usuario.getNombre()+"', Fecha='"+usuario.getFechaString()+" "
 				+ "', Sexo='"+usuario.getSexo()+"', Password='"+usuario.getPassword()+"', Descripcion='"+usuario.getDescripcion()+" "
@@ -541,7 +649,16 @@ public class UsuarioDAO {
 	 * Inserta una nueva realcion de seguimiento en la BD
 	 */
 	public static void insertUserSeguir(int myId, int idUser) throws SQLException{
-		Connection conecta = Connect.getDBConnection();
+		Connection conecta = null;
+		
+		// Conexion por Pool de conexiones
+		try {
+			conecta = Connect.getConnectionFromPool();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// conecta = Connect.getDBConnection();
 		
 		
 		String query = "INSERT INTO ASoftware.Seguir (fk_Usuario, fk_Seguido) "
@@ -558,7 +675,16 @@ public class UsuarioDAO {
 	 * Borra una realcion de seguimiento existente en la BD
 	 */
 	public static void deleteUserSeguir(int myId, int idUser) throws SQLException{
-		Connection conecta = Connect.getDBConnection();
+		Connection conecta = null;
+		
+		// Conexion por Pool de conexiones
+		try {
+			conecta = Connect.getConnectionFromPool();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// conecta = Connect.getDBConnection();
 		
 		String query = "DELETE FROM ASoftware.Seguir WHERE fk_Usuario = " + myId 
 				+ " and fk_Seguido = " + idUser;

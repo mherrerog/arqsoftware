@@ -137,9 +137,11 @@
 								<div class="botones columna2" ng-show="(propio) != (x.Id)">
 									<div ng-show="(x.le_sigue) == 'false'">
 										<a id="Seguir/{{x.Id}}" style="display: block;" type="button"
-											class="btn btn-s btn-info"
+											class="btn btn-s btn-default"
 											href = "/ArqSoftware/SeguirUsuario?seguir=0&id={{x.Id}}">
-											Seguir
+											Seguir &nbsp&nbsp <span
+											class="glyphicon glyphicon-user"></span> <i
+											class="fa fa-plus" aria-hidden="true"></i>
 										</a>
 									</div>
 									<div ng-show="(x.le_sigue) == 'true'">
@@ -157,7 +159,9 @@
 								</div>
 								<div class="columnaD" style="display: inline-block">
 									<button type="button" class="btn btn-xs btn-default" id="equipo" ng-show="(x.equipo) > 1">
+										<!--
 									<button type="button" class="btn btn-xs btn-default">#{{ x.deporte }}</button>
+									-->
 								</div>
 							</div>
 						</div>

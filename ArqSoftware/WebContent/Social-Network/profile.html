@@ -155,7 +155,9 @@
 												<!-- Botón seguir -->
 												<div ng-show="(propio) != (u.Id) && (u.le_sigue) == 'false'">
 													<div class="seguir_d_perfil">
-														<a href="#" class="btn btn-sm btn-default" role="button" id="seguir"> Seguir &nbsp&nbsp <span
+														<a href="/ArqSoftware/SeguirUsuario?seguir=0&id={{u.Id}}" 
+															class="btn btn-sm btn-default" role="button" id="seguir">
+															Seguir &nbsp&nbsp <span
 															class="glyphicon glyphicon-user"></span> <i
 															class="fa fa-plus" aria-hidden="true"></i>
 														</a>

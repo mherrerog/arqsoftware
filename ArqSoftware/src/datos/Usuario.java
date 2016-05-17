@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.naming.NamingException;
+
 import org.json.JSONObject;
 
 import gateway.PublicacionDAO;
@@ -72,6 +74,7 @@ public class Usuario {
 	
 	/**
 	 * @throws SQLException 
+	 * @throws NamingException 
 	 * 
 	 */
 	public String toJSON(int idUsuario) throws SQLException{
@@ -124,6 +127,7 @@ public class Usuario {
 	/**
 	 * Devuelve un String en formato JSON con el contenido de la publicacion
 	 * @throws SQLException 
+	 * @throws NamingException 
 	 */
 	public static String toJSON(ArrayList<Usuario> vector, int idUsuario) throws SQLException{
 		

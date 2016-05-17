@@ -8,6 +8,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
+import javax.naming.NamingException;
+
 import org.json.JSONObject;
 
 import gateway.PublicacionDAO;
@@ -169,6 +171,7 @@ public class Publicacion implements Comparable{
 	}
 	
 	/**
+	 * @throws NamingException 
 	 * 
 	 */
 	public String toJSON(){
@@ -218,8 +221,9 @@ public class Publicacion implements Comparable{
 	
 	/**
 	 * Devuelve un String en formato JSON con el contenido de la publicacion
+	 * @throws NamingException 
 	 */
-	public static String toJSON(ArrayList<Publicacion> vector){
+	public static String toJSON(ArrayList<Publicacion> vector) {
 		
 		String rs = "{\"publicaciones\": [\n";
 		for (Publicacion d: vector){

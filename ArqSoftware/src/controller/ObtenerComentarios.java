@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -60,7 +61,13 @@ public class ObtenerComentarios extends HttpServlet {
 		publicacion = request.getParameter("pub");
 		int pub = Integer.parseInt(publicacion);
 		
-		String respuesta = ControlPublicaciones.getComentarios(pub);
+		String respuesta = "";
+		try {
+			respuesta = ControlPublicaciones.getComentarios(pub);
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// Debug
 		System.out.println(respuesta);
