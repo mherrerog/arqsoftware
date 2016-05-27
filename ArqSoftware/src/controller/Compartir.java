@@ -68,7 +68,7 @@ public class Compartir extends HttpServlet {
 		    }
 		}
 		int publicacion = Integer.parseInt(request.getParameter("pub"));
-		ControlPublicaciones.borrarPublicacion(Integer.parseInt(userId), publicacion);
+		ControlPublicaciones.compartirPublicacion(Integer.parseInt(userId), publicacion);
 		response.sendRedirect("/ArqSoftware/Social-Network/home.html");
 	}
 

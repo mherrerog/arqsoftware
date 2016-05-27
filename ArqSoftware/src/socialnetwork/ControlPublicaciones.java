@@ -248,7 +248,7 @@ public class ControlPublicaciones {
 	/**
 	 * El usuario user comparte la publicacion cuyo id es pasado como parametro
 	 */
-	public static void borrarPublicacion(int user, int publicacion){
+	public static void compartirPublicacion(int user, int publicacion){
 		try {
 			PublicacionDAO.insertShare(user, publicacion);
 		} catch (SQLException e) {
