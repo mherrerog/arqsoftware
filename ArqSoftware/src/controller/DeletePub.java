@@ -1,19 +1,21 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gateway.PublicacionDAO;
+import socialnetwork.ControlPublicaciones;
 
 /**
- * Servlet implementation class MeGusta
+ * Clase correspondiente a la capa de presentacion, concretamente esta clase implementa al servlet 
+ * que se encarga de gestionar las peticiones de borrar publicaciones.
+ * <p>
+ * @author Grupo 1 - Arquitectura Software. Universidad de Zaragoza.
+ *
  */
 @WebServlet("/DeletePub")
 public class DeletePub extends HttpServlet {
@@ -47,35 +49,12 @@ public class DeletePub extends HttpServlet {
 	}
 	
 	/**
-	 * 
+	 * Borra una publicación determinada
 	 */
 	private void deletePublication(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Obtener usuario
-		
-		String cookieName = "userId";
-		String userId = "";
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) 
-		{
-		    for(int i=0; i<cookies.length; i++) 
-		    {
-		        Cookie cookie = cookies[i];
-		        if (cookieName.equals(cookie.getName())) 
-		        {
-		        	userId = (cookie.getValue());
-		        }
-		    }
-		}
-		
-		int usuario = 1;
 		int publicacion = Integer.parseInt(request.getParameter("pub"));
-		
-		try {
-			PublicacionDAO.delete(publicacion);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ControlPublicaciones.borrarPublicacion(publicacion);
 		
 		response.sendRedirect("/ArqSoftware/Social-Network/home.html");
 	}

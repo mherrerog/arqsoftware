@@ -6,6 +6,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+/**
+ * Clase que tiene el objetivo de controlar los formatos de las fechas para 
+ * insertarlas a la base de datos o para mostrarlas en la web.
+ * 
+ * @author Grupo 1 - Arquitectura Software. Universidad de Zaragoza.
+ *
+ */
 public class Fechas {
 	
 	/**

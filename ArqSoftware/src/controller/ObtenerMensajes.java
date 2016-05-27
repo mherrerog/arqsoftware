@@ -10,13 +10,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import socialnetwork.ControlMensajes;
-import socialnetwork.ControlPublicaciones;
 
 /**
- * Servlet implementation class ObtenerPublicaciones
+ * Clase correspondiente a la capa de presentacion, concretamente esta clase implementa al servlet 
+ * que se encarga de gestionar las peticiones para obtener los mensajes que posea un usuario determinado.
+ * <p>
+ * @author Grupo 1 - Arquitectura Software. Universidad de Zaragoza.
+ *
  */
 @WebServlet("/ObtenerMensajes")
 public class ObtenerMensajes extends HttpServlet {
@@ -91,6 +93,9 @@ public class ObtenerMensajes extends HttpServlet {
 		out.flush();
 	}
 	
+	/**
+	 * Gestiona las peticiones de insertar un mensaje en la base de datos
+	 */
 	private void insertarMensaje(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String cookieName = "userId";
 		String userId = "";

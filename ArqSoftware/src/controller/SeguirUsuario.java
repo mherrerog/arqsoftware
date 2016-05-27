@@ -1,9 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,13 +8,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import datos.Usuario;
-import gateway.UsuarioDAO;
+import socialnetwork.ControlUsuarios;
 
 /**
- * Servlet implementation class InicioSesion
+ * Clase correspondiente a la capa de presentacion, concretamente esta clase implementa al servlet 
+ * que se encarga de gestionar las peticiones para seguir a un usuario determinado.
+ * <p>
+ * @author Grupo 1 - Arquitectura Software. Universidad de Zaragoza.
+ *
  */
 @WebServlet("/SeguirUsuario")
 public class SeguirUsuario extends HttpServlet {
@@ -55,28 +54,8 @@ public class SeguirUsuario extends HttpServlet {
 		    }
 		}
 		
-		/**
-		 * Si metodo == 0 -> seguir al usuario user.
-		 * si metodo == 1 -> dejar de seguir al usuario user.
-		 */
-		
-		if (metodo == 0) {
-			try {
-				UsuarioDAO.insertUserSeguir(Integer.parseInt(userId), user);
-				response.sendRedirect("/ArqSoftware/Social-Network/home.html");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else if (metodo == 1) {
-			try {
-				UsuarioDAO.deleteUserSeguir(Integer.parseInt(userId), user);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			response.sendRedirect("/ArqSoftware/Social-Network/home.html");
-		}
+		ControlUsuarios.seguirODejarSeguir(userId, user, metodo);
+		response.sendRedirect("/ArqSoftware/Social-Network/home.html");
 	}
 
 	/**

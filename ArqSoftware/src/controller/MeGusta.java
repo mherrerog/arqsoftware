@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,10 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gateway.PublicacionDAO;
+import socialnetwork.ControlPublicaciones;
 
 /**
- * Servlet implementation class MeGusta
+ * Clase correspondiente a la capa de presentacion, concretamente esta clase implementa al servlet 
+ * que se encarga de gestionar las peticiones de me gusta una publicacion por parte de los usuarios.
+ * <p>
+ * @author Grupo 1 - Arquitectura Software. Universidad de Zaragoza.
+ *
  */
 @WebServlet("/MeGusta")
 public class MeGusta extends HttpServlet {
@@ -43,7 +46,7 @@ public class MeGusta extends HttpServlet {
 	}
 	
 	/**
-	 * 
+	 * Añade un megusta a una determinada publicacion.
 	 */
 	private void addLike(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Obtener usuario
@@ -63,16 +66,9 @@ public class MeGusta extends HttpServlet {
 		    }
 		}
 		
-		int usuario = 1;
 		int publicacion = Integer.parseInt(request.getParameter("pub"));
 		
-		try {
-			PublicacionDAO.insertLike(Integer.parseInt(userId), publicacion);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		ControlPublicaciones.insertLike(Integer.parseInt(userId), publicacion);
 		response.sendRedirect("/ArqSoftware/Social-Network/home.html");
 	}
 

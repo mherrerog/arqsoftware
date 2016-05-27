@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -15,7 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import socialnetwork.ControlPublicaciones;
 
 /**
- * Servlet implementation class ObtenerComentarios
+ * Clase correspondiente a la capa de presentacion, concretamente esta clase implementa al servlet 
+ * que se encarga de gestionar las peticiones para obtener los comentarios que posea una publicacion determinada.
+ * <p>
+ * @author Grupo 1 - Arquitectura Software. Universidad de Zaragoza.
+ *
  */
 @WebServlet("/ObtenerComentarios")
 public class ObtenerComentarios extends HttpServlet {

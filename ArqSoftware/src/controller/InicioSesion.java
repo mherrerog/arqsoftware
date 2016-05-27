@@ -1,28 +1,28 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.util.Date;
 
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import datos.Usuario;
-import gateway.UsuarioDAO;
+import socialnetwork.ControlUsuarios;
 import socialnetwork.Fechas;
 
 /**
- * Servlet implementation class InicioSesion
+ * Clase correspondiente a la capa de presentacion, concretamente esta clase implementa al servlet 
+ * que se encarga de gestionar las peticiones de inicio de sesion de usuarios.
+ * <p>
+ * @author Grupo 1 - Arquitectura Software. Universidad de Zaragoza.
+ *
  */
 @WebServlet("/InicioSesion")
 public class InicioSesion extends HttpServlet {
@@ -68,15 +68,10 @@ public class InicioSesion extends HttpServlet {
 			Usuario user;
 			int i = inicioSesion(request);
 			if (i == 0){
-				try {
-					user = UsuarioDAO.selectByMail((String) request.getParameter("mail"));
-					Cookie userCookie = new Cookie("userId", ""+user.getId());
-					userCookie.setMaxAge(60*15); //15 minutos
-					response.addCookie(userCookie);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				user = ControlUsuarios.buscarUser(request.getParameter("mail"));
+				Cookie userCookie = new Cookie("userId", ""+user.getId());
+				userCookie.setMaxAge(60*15); //15 minutos
+				response.addCookie(userCookie);
 				response.sendRedirect("/ArqSoftware/Social-Network/home.html");
 			}else{
 				String error = "";
@@ -91,15 +86,10 @@ public class InicioSesion extends HttpServlet {
 			int error = registroUsuario(request);
 			if ( error == 0){
 				Usuario user;
-				try {
-					user = UsuarioDAO.selectByMail(email);
-					Cookie userCookie = new Cookie("userId", ""+user.getId());
-					userCookie.setMaxAge(-1); 
-					response.addCookie(userCookie);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				user = ControlUsuarios.buscarUser(email);
+				Cookie userCookie = new Cookie("userId", ""+user.getId());
+				userCookie.setMaxAge(-1); 
+				response.addCookie(userCookie);
 				response.sendRedirect("/ArqSoftware/Social-Network/home.html");
 			}else{
 				//Informar error al usuario.
@@ -122,24 +112,17 @@ public class InicioSesion extends HttpServlet {
 		String mail = request.getParameter("mail");
 		String password = request.getParameter("password");
 		
-		try {
-			Usuario iniciandoSesion = UsuarioDAO.selectByMail(mail);
-			if (iniciandoSesion == null){
-				// Usuario desconocido
-				return 2;
-			}
-			if (iniciandoSesion.getPassword().compareTo(getMD5(password))==0){
-				// Proceso correcto
-				return 0;
-			}else{
-				// Contraseña incorrecta
-				return 1;
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Usuario iniciandoSesion = ControlUsuarios.buscarUser(mail);
+		if (iniciandoSesion == null){
+			// Usuario desconocido
 			return 2;
+		}
+		if (iniciandoSesion.getPassword().compareTo(getMD5(password))==0){
+			// Proceso correcto
+			return 0;
+		}else{
+			// Contraseña incorrecta
+			return 1;
 		}
 	}
 	
@@ -167,24 +150,14 @@ public class InicioSesion extends HttpServlet {
 			equipo = 1;
 		}
 		
-		try {
-			if (password.compareTo(password_confirm) == 0){
-				String pass = getMD5(password);
-				Usuario nuevo = new Usuario(username, fecha, genero, email, 
-						nick, pass, equipo, logo, null, descripcion);
-				System.out.println(nuevo);
-				//Passwords iguales, realizamos el insert.
-				UsuarioDAO.insert(nuevo);
-				return 0;
-				
-			}else{
-				return 1;
-			}
+		if (password.compareTo(password_confirm) == 0){
+			String pass = getMD5(password);
+			ControlUsuarios.anadirUsuario(username, fecha, genero, email, 
+					nick, pass, equipo, logo, null, descripcion);
+			return 0;
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return 2;
+		}else{
+			return 1;
 		}
 	}
 	

@@ -1,14 +1,10 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
-import java.util.Date;
 
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -17,11 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datos.Usuario;
-import gateway.UsuarioDAO;
-import socialnetwork.Fechas;
+import socialnetwork.ControlUsuarios;
 
 /**
- * Servlet implementation class EditarPerfil
+ * Clase correspondiente a la capa de presentacion, concretamente esta clase implementa al servlet 
+ * que se encarga de gestionar las peticiones de editar el perfil de los usuarios.
+ * <p>
+ * @author Grupo 1 - Arquitectura Software. Universidad de Zaragoza.
+ *
  */
 @WebServlet("/EditarPerfil")
 public class EditarPerfil extends HttpServlet {
@@ -55,13 +54,7 @@ public class EditarPerfil extends HttpServlet {
 		        }
 		    }
 		}	
-		Usuario deleted = new Usuario(Integer.parseInt(userId),"",null,"","","","",0,"","","");
-		try {
-			UsuarioDAO.delete(deleted);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ControlUsuarios.borrarUser(Integer.parseInt(userId));
 		response.sendRedirect("/ArqSoftware/Social-Network/index.html");
 	}
 
@@ -94,7 +87,7 @@ public class EditarPerfil extends HttpServlet {
 		Usuario user=null;
 		
 		try {
-			user=UsuarioDAO.selectById(Integer.parseInt(userId));
+			user=ControlUsuarios.buscarUserId(Integer.parseInt(userId));
 			int count=0;
 			
 			if(username.compareTo("")==0){
@@ -124,13 +117,10 @@ public class EditarPerfil extends HttpServlet {
 				count++;
 			}
 			if(count!=6){
-				Usuario updated = new Usuario(Integer.parseInt(userId),username,Fechas.getFechaFromWeb(date),genero,"","",password,0,logo,"",descripcion);
-				UsuarioDAO.update(updated);
+				ControlUsuarios.updateUser(Integer.parseInt(userId),username,date,genero,password,logo,descripcion);
 			}		
 			response.sendRedirect("/ArqSoftware/Social-Network/home.html");
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		

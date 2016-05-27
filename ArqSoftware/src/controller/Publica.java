@@ -10,13 +10,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 import socialnetwork.ControlPublicaciones;
 
 /**
- * Servlet implementation class Publica
+ * Clase correspondiente a la capa de presentacion, concretamente esta clase implementa al servlet 
+ * que se encarga de gestionar las peticiones para añadir una nueva publicacion.
+ * <p>
+ * @author Grupo 1 - Arquitectura Software. Universidad de Zaragoza.
+ *
  */
 @WebServlet("/Publica")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
@@ -52,7 +54,7 @@ public class Publica extends HttpServlet {
 	}
 
 	/**
-	 * 
+	 * Gestiona la peticion de insertar una nueva publicacion.
 	 */
 	private void nuevaPublicacion(HttpServletRequest request, HttpServletResponse response){
 		String cookieName = "userId";

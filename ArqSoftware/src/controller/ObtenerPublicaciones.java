@@ -11,12 +11,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import socialnetwork.ControlPublicaciones;
 
 /**
- * Servlet implementation class ObtenerPublicaciones
+ * Clase correspondiente a la capa de presentacion, concretamente esta clase implementa al servlet 
+ * que se encarga de gestionar las peticiones obtener las publicaciones que posea un usuario determinado.
+ * <p>
+ * @author Grupo 1 - Arquitectura Software. Universidad de Zaragoza.
+ *
  */
 @WebServlet("/ObtenerPublicaciones")
 public class ObtenerPublicaciones extends HttpServlet {

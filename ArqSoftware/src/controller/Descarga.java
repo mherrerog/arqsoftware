@@ -1,18 +1,18 @@
 package controller;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 /**
- * Servlet implementation class UploadServlet
+ * Clase que tiene como objetivo descargar el archivo .gpx subido por los usuarios 
+ * y almacenarlo en el directorio de almacenamiento de rutas.
+ * <p>
+ * @author Grupo 1 - Arquitectura Software. Universidad de Zaragoza.
+ *
  */
 public class Descarga {
 
@@ -24,9 +24,6 @@ public class Descarga {
 		
 		// Debug
 		System.out.println("Procesando descarga...");
-					
-		// gets absolute path of the web application
-		String appPath = request.getServletContext().getRealPath("");
 
 		// creates the save directory if it does not exists
 		File fileSaveDir = new File(RUTA);

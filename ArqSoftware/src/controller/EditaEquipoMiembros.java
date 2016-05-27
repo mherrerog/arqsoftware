@@ -10,7 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import socialnetwork.ControlUsuarios;
 
 /**
- * Servlet implementation class EditaEquipoMiembros
+ * Clase correspondiente a la capa de presentacion, concretamente esta clase 
+ * implementa al servlet que se encarga de gestionar lasnpeticiones de los usuarios 
+ * para eliminar un determinado miembro de un equipo.
+ * <p>
+ * @author Grupo 1 - Arquitectura Software. Universidad de Zaragoza.
+ *
  */
 @WebServlet("/EditaEquipoMiembros")
 public class EditaEquipoMiembros extends HttpServlet {

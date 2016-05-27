@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,10 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gateway.PublicacionDAO;
+import socialnetwork.ControlPublicaciones;
 
 /**
- * Servlet implementation class Compartir
+ * Clase correspondiente a la capa de presentacion, concretamente esta clase implementa al servlet 
+ * que se encarga de gestionar las peticiones de compartir publicaciones.
+ * <p>
+ * @author Grupo 1 - Arquitectura Software. Universidad de Zaragoza.
+ *
  */
 @WebServlet("/Compartir")
 public class Compartir extends HttpServlet {
@@ -47,7 +50,7 @@ public class Compartir extends HttpServlet {
 	}
 	
 	/**
-	 * 
+	 * Metodo que perimite a un usuario compartir una determinada publicacion
 	 */
 	private void compartir(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cookieName = "userId";
@@ -65,14 +68,7 @@ public class Compartir extends HttpServlet {
 		    }
 		}
 		int publicacion = Integer.parseInt(request.getParameter("pub"));
-		
-		try {
-			PublicacionDAO.insertShare(Integer.parseInt(userId), publicacion);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		ControlPublicaciones.borrarPublicacion(Integer.parseInt(userId), publicacion);
 		response.sendRedirect("/ArqSoftware/Social-Network/home.html");
 	}
 

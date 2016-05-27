@@ -1,14 +1,10 @@
 package socialnetwork;
 
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.naming.NamingException;
-
-import org.json.JSONObject;
 
 import datos.Comentario;
 import datos.Publicacion;
@@ -219,6 +215,42 @@ public class ControlPublicaciones {
 		Comentario comentario = new Comentario(autor, publicacion, f, texto);
 		try {
 			PublicacionDAO.insertComentario(comentario);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Inserta un like a una publicacion
+	 */
+	public static void insertLike(int autor, int publicacion){
+		try {
+			PublicacionDAO.insertLike(autor, publicacion);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Elimina la publicacion cuyo id es pasado como parametro
+	 */
+	public static void borrarPublicacion(int publicacion){
+		try {
+			PublicacionDAO.delete(publicacion);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * El usuario user comparte la publicacion cuyo id es pasado como parametro
+	 */
+	public static void borrarPublicacion(int user, int publicacion){
+		try {
+			PublicacionDAO.insertShare(user, publicacion);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -12,7 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import socialnetwork.ControlUsuarios;
 
 /**
- * Servlet implementation class ObtenerMiembros
+ * Clase correspondiente a la capa de presentacion, concretamente esta clase implementa al servlet 
+ * que se encarga de gestionar las peticiones para obtener los miembros que posea un equipo determinado.
+ * <p>
+ * @author Grupo 1 - Arquitectura Software. Universidad de Zaragoza.
+ *
  */
 @WebServlet("/ObtenerMiembros")
 public class ObtenerMiembros extends HttpServlet {
@@ -45,7 +49,7 @@ public class ObtenerMiembros extends HttpServlet {
 	}
 	
 	/**
-	 * 
+	 * Gestiona la peticion de buscar todos aquellos usuarios que pertenezcan a un equipo
 	 */
 	private void buscarMiembros(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int equipo = 0;
