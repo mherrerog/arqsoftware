@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Reporte de errores</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap-3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <link href="css/signup.css" rel="stylesheet">
+
+    <style media="screen">
+      .centrado {
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body class="background">
+
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="center">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" id="brand-home" href="Social-Network/index.html">FaceSports</a>
+          </div>
+        </div>
+      </div><!--/.container-fluid -->
+    </nav>
+
+    <div class="container" id="registro">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-3">
+
+          <form class="form-horizontal" action="/ArqSoftware/Debug" method="POST">
+          <fieldset>
+            <div id="legend">
+              <legend class="">Formulario de errores</legend>
+            </div>
+
+           <div class="control-group">
+              <label class="control-label" for="password_confirm">Descripción</label>
+              <div class="controls">
+                <textarea id="descripcion" name="descripcion" class="form-control input-lg"></textarea>
+                <p class="help-block">Gracias por su aporte!</p>
+              </div>
+            </div>
+
+            <button class="btn btn-lg btn-success" type="submit">Enviar</button>
+
+          </fieldset>
+        </form>
+
+        </div>
+      </div>
+      </br>
+    </div>
+
+    <!-- Error script -->
+    <script type="text/javascript" src="js/index.js"></script>
+
+    <!-- Begin Cookie Consent plugin by Silktide - http://silktide.com/cookieconsent -->
+  	<script type="text/javascript">
+  	    window.cookieconsent_options = {"message":"Este sitio web utiliza cookies para asegurar la mejor experiencia en nuestra web",
+  	    			"dismiss":"Entendido!","learnMore":"More info","link":null,"theme":"dark-bottom"};
+  	</script>
+
+  	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
+  	<!-- End Cookie Consent plugin -->
+
+  </body>
+</html>

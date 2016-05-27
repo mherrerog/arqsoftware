@@ -16,10 +16,22 @@ import datos.Usuario;
 import gateway.PublicacionDAO;
 import gateway.UsuarioDAO;
 
+/**
+ * Clase correspondiente a la capa de logica de aplicacion, concretamente esta clase
+ * tiene el objetivo de soportar la logica asociada a las publicaciones.
+ * 
+ * @author Grupo 1 - Arquitectura Software. Universidad de Zaragoza.
+ *
+ */
 public class ControlPublicaciones {
 	
 	/**
-	 * Añade como me gusta la publicacion al usuario indicado
+	 * Metodo encargado de enviar una peticion a la base de datos para registar
+	 * que el usuario identificado por el id: usuario, le ha dado al boton "me gusta"
+	 * de la publicacion identificada por el id: publicacion.
+	 * 
+	 * @param usuario	Entero correspondiente al identificador del usuario.
+	 * @param publicacion	Entero correspondiente al identificador de la publicacion.
 	 */
 	public static void meGusta(int usuario, int publicacion){
 		try {
@@ -31,7 +43,21 @@ public class ControlPublicaciones {
 	}
 	
 	/**
-	 * Crea una nueva publicación en la base de datos
+	 * Metodo encargado de enviar una peticion a la base de datos para insertar 
+	 * una nueva publicacion en la base de datos. Los atributos asociados 
+	 * a esta nueva publicacion son los reflejados a continuacion.
+	 * 
+	 * @param autor		Entero correspondiente al identificador del usuario.
+	 * @param texto		String correspondiente al texto que compone el cuerpo de
+	 * la publicacion.
+	 * @param fecha		String correspondiente a la fecha en la que se realizo la
+	 * publicacion.
+	 * @param imagen	String correspondiente a una URL valida de una imagen.
+	 * @param video		String correspondiente a una URL valida de un video de youtube.
+	 * @param ruta		String correspondiente al nombre del archivo .gpx que corresponde
+	 * a una ruta.
+	 * @param deporte	String correspondiente a al deporte que esta asociado a la
+	 * publicacion.
 	 */
 	public static void nuevaPub(int autor, String texto, Date fecha,
 			String imagen, String video, String ruta, String deporte){
@@ -68,6 +94,7 @@ public class ControlPublicaciones {
 	 * Crea una nueva publicación en la base de datos,
 	 * almacena el link según su contenido
 	 */
+	
 	public static void nuevaPub(int autor, String texto, Date fecha,
 			String link, String deporte){
 		
@@ -90,18 +117,18 @@ public class ControlPublicaciones {
 				System.out.println("URL introducida de forma incorrecta (YouTube)");
 				youtube = null;
 			}
-		} else if (link.contains(".gpx")){
+		} else if (link.contains(".gpx") || link.contains(".GPX")){
 			ruta = link;
-		} else if (link.contains(".png")){
+		} else if (link.contains(".png") || link.contains(".PNG")){
 			// Imagen PNG
 			img = link;
-		} else if (link.contains(".gif")){
+		} else if (link.contains(".gif") || link.contains(".GIF")){
 			// Imagen GIF
 			img = link;
-		} else if (link.contains(".jpeg")){
+		} else if (link.contains(".jpeg") || link.contains(".JPEG")){
 			// Imagen JPEG
 			img = link;
-		} else if (link.contains(".jpg")){
+		} else if (link.contains(".jpg") || link.contains(".JPG")){
 			// Imagen JPG
 			img = link;
 		} else {
@@ -196,23 +223,6 @@ public class ControlPublicaciones {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	/**
-	 * Formato fecha: aaaammdd Formato hora: hhmm
-	 */
-	public static Date toDate(String fecha, String hora) {
-		Date nueva = null;
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("HHmmyyyyMMdd");
-		try {
-			nueva = sdf.parse(hora+fecha);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return nueva;
 	}
 
 }

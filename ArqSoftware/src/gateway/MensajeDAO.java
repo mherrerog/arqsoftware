@@ -15,8 +15,8 @@ import datos.Mensaje;
 public class MensajeDAO {
 	
 	/**
-	 * Metodo de inserción a la BD
-	 * @throws SQLException 
+	 * Metodo de insercion a la BD de un mensaje
+	 * @throws SQLException error al ejecutar la insercion
 	 */
 	public static void insert(Mensaje ms) throws SQLException{
 
@@ -38,7 +38,7 @@ public class MensajeDAO {
 		}
 		// conecta = Connect.getDBConnection();
 		
-		String query = "INSERT INTO ASoftware.Mensaje" +
+		String query = "INSERT INTO Mensaje" +
 			"(Emisor_M, Receptor, Fecha, Hora, Cuerpo, Leido)  VALUES" +
 			"( ?, ?, ?,?, ?,?)";
 		
@@ -60,11 +60,11 @@ public class MensajeDAO {
 	
 	/**
 	 * Elimina un mensaje de la BD
-	 * 
-	 * @throws SQLException
+	 * @throws SQLException error durante la ejecucion 
+	 * de la sentencia
 	 */
 	public static void delete(int idMensaje) throws SQLException {
-		String query = "DELETE FROM ASoftware.Mensaje WHERE " + "(idMensaje = ?)";
+		String query = "DELETE FROM Mensaje WHERE " + "(idMensaje = ?)";
 		
 		Connection conecta = null;
 		
@@ -87,13 +87,18 @@ public class MensajeDAO {
 		conecta.close();
 	}
 	
+	/**
+	 * Consulta los mensajes recibidos de un determinado usuario
+	 * @param idUsuario identificador del usuario
+	 * @return ArrayList<Mensaje> mensajes cuyo receptor es el usuario
+	 */
 	public static ArrayList<Mensaje> selectByUsuario(int idUsuario) throws SQLException {
 
 		ArrayList<Mensaje> mensajes = new ArrayList<Mensaje>();
 		Connection conecta = null;
 		ResultSet rs = null;
 		Statement stmt = null;
-		String query = "select * from ASoftware.Mensaje "
+		String query = "select * from Mensaje "
 				+ "where (Receptor=" +idUsuario + ") order by fecha desc, hora desc";
 		try {
 			conecta = Connect.getConnectionFromPool();

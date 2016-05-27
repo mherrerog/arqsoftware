@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <style type="text/css">
+
 </style>
 
 <head>
@@ -60,7 +61,7 @@
 </head>
 
 <script src="../angular-1.5.0/angular.min.js" type="text/javascript"></script>
-<body onload="checkCookie()">
+<body class="background" onload="checkCookie()">
 	<!-- NAVBAR
       ================================================== -->
 	<div class="navbar-wrapper">
@@ -83,6 +84,7 @@
 							<li><a href="home.html">Inicio</a></li>
 							<li><a href="profile.html">Perfil</a></li>
 							<li class="active"><a href="mensajes.html">Mensajes</a></li>
+							<li><a href="../report.html">Reportar errores</a></li>
 
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
@@ -126,10 +128,18 @@
 
 				<div class="col-md-7">
 
+					<div ng-show="myMens.length == 0">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<strong> No ha recibido ningún mensaje </strong>
+							</div>
+						</div>
+					</div>
+
 					<div ng-repeat="x in myMens">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<img src="" class="panel-icon imagen" alt="" />
+								<img src="{{x.logo}}" class="panel-icon imagen" alt="" />
 								<div class="nombre">
 									<strong>{{x.emisor}}</strong>
 									<p>@{{x.emisor_nick}}</p>

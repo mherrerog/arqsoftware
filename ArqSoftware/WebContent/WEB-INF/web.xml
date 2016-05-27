@@ -9,7 +9,7 @@
   </resource-ref>
   <display-name>Sport</display-name>
   <welcome-file-list>
-    <welcome-file>ArqSoftware/WebContent/Social-Network/index.html</welcome-file>
+    <welcome-file>Social-Network/index.html</welcome-file>
   </welcome-file-list>
   <error-page>
     <error-code>404</error-code>

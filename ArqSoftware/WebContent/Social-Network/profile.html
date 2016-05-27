@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
-<style type="text/css">
-	.wallpaper {
-		/* Fondo personalizado por usuario*/
-		background-image: url('img/pista.jpg');
-		background-size: 100% auto;
-	}
-	.miembro {
+  <style type="text/css">
+
+   .miembro {
 		display: inline-block;
 	}
 	.close {
 		display: inline-block;
 	}
-</style>
 
-<head>
-	<meta charset="utf-8">
+  </style>
+  <script src="../angular-1.5.0/angular.min.js"></script>
+  <head>
+    <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -44,10 +41,10 @@
 
 	<script type="text/javascript" src="js/perfil.js"></script>
 
-</head>
-<script src="../angular-1.5.0/angular.min.js" type="text/javascript"></script>
+  </head>
 
-<body class="wallpaper" onload="checkCookie()">
+<script src="../angular-1.5.0/angular.min.js" type="text/javascript"></script>
+  <body class="background" onload="checkCookie()">
 	<div>
 
 		<!-- NAVBAR
@@ -68,6 +65,7 @@
 								<li><a href="home.html">Inicio</a></li>
 								<li class="active"><a href="profile.html">Perfil</a></li>
 								<li><a href="mensajes.html">Mensajes</a></li>
+                <li><a href="../report.html">Reportar errores</a></li>
 
 							</ul>
 							<ul class="nav navbar-nav navbar-right">
@@ -137,7 +135,7 @@
 													</div>
 													<div ng-show="(u.me_sigue) == 'true'" class="sigues">
 														<!-- Icono mensaje -->
-														<a href="#" class="btn btn-sm" role="button" title="Enviar mensaje privado">
+														<a href="mensajes.html" class="btn btn-sm" role="button" title="Enviar mensaje privado">
 															<i class="fa fa-envelope-o" aria-hidden="true"></i>
 														</a>
 													</div>
@@ -146,16 +144,16 @@
 
 											<div class="col-md-5 col-sm-4" style="float:right;" id="der">
 												<div>
-													Siguiendo: <a href="seguidor.html?metodo=0&id={{ u.Id }}">{{ u.seguidos }}</a>
+													Siguiendo: <a href="seguidor.html?metodo=1&id={{ u.Id }}">{{ u.seguidores }}</a>
 												</div>
 												<div>
-													Seguidores: <a href="seguidor.html?metodo=1&id={{ u.Id }}">{{ u.seguidores }}</a>
+													Seguidores: <a href="seguidor.html?metodo=0&id={{ u.Id }}">{{ u.seguidos }}</a>
 												</div>
 
 												<!-- Botón seguir -->
 												<div ng-show="(propio) != (u.Id) && (u.le_sigue) == 'false'">
 													<div class="seguir_d_perfil">
-														<a href="/ArqSoftware/SeguirUsuario?seguir=0&id={{u.Id}}" 
+														<a href="/ArqSoftware/SeguirUsuario?seguir=0&id={{u.Id}}"
 															class="btn btn-sm btn-default" role="button" id="seguir">
 															Seguir &nbsp&nbsp <span
 															class="glyphicon glyphicon-user"></span> <i
@@ -167,7 +165,7 @@
 												<!-- Botón dejar de seguir -->
 												<div ng-show="(propio) != (u.Id) && (u.le_sigue) == 'true'">
 													<div class="seguir_d_perfil">
-														<a href="#" class="btn btn-sm btn-danger" role="button" id="seguir"> Dejar de seguir
+														<a href="/ArqSoftware/SeguirUsuario?seguir=1&id={{u.Id}}" class="btn btn-sm btn-danger" role="button" id="seguir"> Dejar de seguir
 														</a>
 													</div>
 												</div>
@@ -436,7 +434,7 @@
 
 							</div>
 
-							<!-- Cierre publicacion -->
+							<!-- Cierre onload="checkCookie()"publicacion -->
 							</div>
 						</div>
 					</div>

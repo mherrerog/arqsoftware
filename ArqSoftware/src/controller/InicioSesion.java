@@ -2,6 +2,9 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -125,7 +128,7 @@ public class InicioSesion extends HttpServlet {
 				// Usuario desconocido
 				return 2;
 			}
-			if (iniciandoSesion.getPassword().compareTo(password)==0){
+			if (iniciandoSesion.getPassword().compareTo(getMD5(password))==0){
 				// Proceso correcto
 				return 0;
 			}else{
@@ -157,6 +160,7 @@ public class InicioSesion extends HttpServlet {
 		String password_confirm = request.getParameter("password_confirm");
 		String genero = request.getParameter("genero");
 		String team = request.getParameter("team");
+		String logo = request.getParameter("logo");
 		String descripcion = request.getParameter("descripcion");
 		int equipo = 0;
 		if (team != null) {
@@ -165,8 +169,9 @@ public class InicioSesion extends HttpServlet {
 		
 		try {
 			if (password.compareTo(password_confirm) == 0){
+				String pass = getMD5(password);
 				Usuario nuevo = new Usuario(username, fecha, genero, email, 
-						nick, password, equipo, null, null, descripcion);
+						nick, pass, equipo, logo, null, descripcion);
 				System.out.println(nuevo);
 				//Passwords iguales, realizamos el insert.
 				UsuarioDAO.insert(nuevo);
@@ -182,5 +187,33 @@ public class InicioSesion extends HttpServlet {
 			return 2;
 		}
 	}
+	
+	/**
+	 * Metodo que dada una cadena de caracteres que representa el password
+	 * de un usuario determinado, le aplica un cifrado para que el password
+	 * no sea visible sin aplicarse un descifrado.
+	 * 
+	 * @param input	cadena de caracteres que representa el password de un usuario
+	 * determinado.
+	 * 
+	 * @return	devuelve una cadena de caracteres que representa el password del
+	 * usuario pero cifrado.
+	 */
+	private static String getMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger number = new BigInteger(1, messageDigest);
+            String hashtext = number.toString(16);
+            // Now we need to zero pad it if you actually want the full 32 chars.
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        }
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

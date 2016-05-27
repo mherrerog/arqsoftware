@@ -2,6 +2,9 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -87,35 +90,41 @@ public class EditarPerfil extends HttpServlet {
 		String password = request.getParameter("password");
 		String genero = request.getParameter("genero");
 		String descripcion = request.getParameter("descripcion");
+		String logo = request.getParameter("logo");
 		Usuario user=null;
 		
 		try {
 			user=UsuarioDAO.selectById(Integer.parseInt(userId));
 			int count=0;
 			
-			if(username==""){
+			if(username.compareTo("")==0){
 				username=user.getNombre();
 				count++;
 			}
-			if(date==""){
+			if(date.compareTo("")==0){
 				date=user.getFechaString();
 				count++;
 			}
-			if(password==""){
+			if(password.compareTo("")==0){
 				password=user.getPassword();
 				count++;
+			}else if (password.compareTo("")!=0) {
+				password = getMD5(password);
 			}
 			if(genero==null){
 				genero=user.getSexo();
 				count++;
 			}
-			if(descripcion==""){
+			if(descripcion.compareTo("")==0){
 				descripcion=user.getDescripcion();
 				count++;
 			}
-			
-			if(count!=5){
-				Usuario updated = new Usuario(Integer.parseInt(userId),username,Fechas.getFechaFromWeb(date),genero,"","",password,0,"","",descripcion);
+			if(logo.compareTo("")==0){
+				logo=user.getLogo();
+				count++;
+			}
+			if(count!=6){
+				Usuario updated = new Usuario(Integer.parseInt(userId),username,Fechas.getFechaFromWeb(date),genero,"","",password,0,logo,"",descripcion);
 				UsuarioDAO.update(updated);
 			}		
 			response.sendRedirect("/ArqSoftware/Social-Network/home.html");
@@ -126,5 +135,33 @@ public class EditarPerfil extends HttpServlet {
 		}
 		
 	}
+	
+	/**
+	 * Metodo que dada una cadena de caracteres que representa el password
+	 * de un usuario determinado, le aplica un cifrado para que el password
+	 * no sea visible sin aplicarse un descifrado.
+	 * 
+	 * @param input	cadena de caracteres que representa el password de un usuario
+	 * determinado.
+	 * 
+	 * @return	devuelve una cadena de caracteres que representa el password del
+	 * usuario pero cifrado.
+	 */
+	private static String getMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger number = new BigInteger(1, messageDigest);
+            String hashtext = number.toString(16);
+            // Now we need to zero pad it if you actually want the full 32 chars.
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        }
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

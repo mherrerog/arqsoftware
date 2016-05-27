@@ -10,18 +10,17 @@ import javax.naming.NamingException;
 
 import datos.Comentario;
 import datos.Publicacion;
-import datos.Usuario;
 import socialnetwork.Fechas;
 
 public class PublicacionDAO {
 
 	/**
 	 * Elimina una publicación en la BD
-	 * 
-	 * @throws SQLException
+	 * @param idPublicacion identificador de la publicación
+	 * @throws SQLException error al ejecutar la sentencia
 	 */
 	public static void delete(int idPublicacion) throws SQLException {
-		String query = "DELETE FROM ASoftware.Publicacion WHERE " + "(idPublicacion = ?)";
+		String query = "DELETE FROM Publicacion WHERE " + "(idPublicacion = ?)";
 		Connection conecta = null;
 		//conecta = Connect.getDBConnection();
 		try {
@@ -42,8 +41,8 @@ public class PublicacionDAO {
 	
 	/**
 	 * Inserta una publicación en la BD
-	 * 
-	 * @throws SQLException
+	 * @param pub publicacion a insertar
+	 * @throws SQLException error al ejecutar la sentencia
 	 */
 	public static void insert(Publicacion pub) throws SQLException {
 
@@ -55,7 +54,7 @@ public class PublicacionDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String query = "INSERT INTO ASoftware.Publicacion "
+		String query = "INSERT INTO software.Publicacion "
 				+ "(Fecha, Hora, Emisor, Texto, Imagen, Video, Ruta, Deporte) VALUES " + "( ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		// create the mysql insert preparedstatement
@@ -78,8 +77,9 @@ public class PublicacionDAO {
 	
 	/**
 	 * Inserta like de un usuario a publicación en la BD
-	 * 
-	 * @throws SQLException
+	 * @param usuario identificador del usuario a insertar
+	 * @param pub identificador de publicacion a insertar
+	 * @throws SQLException error al ejecutar la sentencia
 	 */
 	public static void insertLike(int usuario, int pub) throws SQLException {
 
@@ -91,7 +91,7 @@ public class PublicacionDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String query = "INSERT INTO ASoftware.Megusta VALUES " + "( ?, ?)";
+		String query = "INSERT INTO software.Megusta VALUES " + "( ?, ?)";
 
 		// create the mysql insert preparedstatement
 		PreparedStatement preparedStmt = conecta.prepareStatement(query);
@@ -107,8 +107,9 @@ public class PublicacionDAO {
 	
 	/**
 	 * Inserta un compartir en la BD entre un usuario y una publicacion
-	 * 
-	 * @throws SQLException
+	 * @param usuario identificador del usuario a insertar
+	 * @param pub identificador de publicacion a insertar
+	 * @throws SQLException  error al ejecutar la sentencia
 	 */
 	public static void insertShare(int usuario, int pub) throws SQLException {
 
@@ -121,7 +122,7 @@ public class PublicacionDAO {
 			e.printStackTrace();
 		}
 		
-		String query = "INSERT INTO ASoftware.Compartir VALUES " + "( ?, ?)";
+		String query = "INSERT INTO software.Compartir VALUES " + "( ?, ?)";
 
 		// create the mysql insert preparedstatement
 		PreparedStatement preparedStmt = conecta.prepareStatement(query);
@@ -137,6 +138,9 @@ public class PublicacionDAO {
 
 	/**
 	 * Selecciona las publicaciones que aparecen en el home de un usario
+	 * @param idUsuario identificador del usuario
+	 * @return ArrayList<Publicacion> publicaciones para el home del usuario
+	 * @throws SQLException error al ejecutar la sentencia
 	 */
 	public static ArrayList<Publicacion> selectForHome(int idUsuario) throws SQLException {
 		return select(idUsuario, 1);
@@ -144,27 +148,26 @@ public class PublicacionDAO {
 	
 	/**
 	 * Selecciona las publicaciones que aparecen en el perfil de un usario
+	 * @param idUsuario identificador del usuario
+	 * @return ArrayList<Publicacion> publicaciones para el perfil del usuario
+	 * @throws SQLException error al ejecutar la sentencia
 	 */
 	public static ArrayList<Publicacion> selectForProfile(int idUsuario) throws SQLException {
-		return select(idUsuario, 2);
-	}
-
-	/**
-	 * Selecciona las publicaciones de un usario
-	 */
-	public static ArrayList<Publicacion> selectById(int idUsuario) throws SQLException {
 		return select(idUsuario, 2);
 	}
 	
 	/**
 	 * Devuelve el numero de likes de una publicacion
+	 * @param publicacion identificador de la publicacion
+	 * @return int numero de likes de una publicacion
+	 * @throws SQLException error al ejecutar la sentencia
 	 */
 	public static int selectLikes(int publicacion) throws SQLException {
 		int likes = 0;
 		Connection conecta = null;
 		ResultSet rs = null;
 		Statement stmt = null;
-		String query = "select count(*) as likes, pk_publicacion_mg from ASoftware.Megusta where " +
+		String query = "select count(*) as likes, pk_publicacion_mg from software.Megusta where " +
 				"pk_publicacion_mg=" + publicacion + " group by pk_publicacion_mg";
 		try {
 			//conecta = Connect.getDBConnection();
@@ -196,13 +199,16 @@ public class PublicacionDAO {
 	/**
 	 * Realiza una selección de comentarios de 
 	 * una publicación
+	 * @param publicacion identificador de la publicacion a insertar
+	 * @return ArrayList<Comentario> comentarios de la publicacion
+	 * @throws SQLException error al ejecutar la sentencia
 	 */
 	public static ArrayList<Comentario> selectComentarios(int publicacion) throws SQLException {
 		ArrayList<Comentario> posts = new ArrayList<Comentario>();
 		Connection conecta = null;
 		ResultSet rs = null;
 		Statement stmt = null;
-		String query = "SELECT * FROM ASoftware.Comentario where Publicacion_com = " +
+		String query = "SELECT * FROM software.Comentario where Publicacion_com = " +
 				publicacion + " order by Fecha desc, Hora desc";
 		try {
 			conecta = Connect.getDBConnection();
@@ -238,8 +244,8 @@ public class PublicacionDAO {
 	
 	/**
 	 * Inserta un comentario en la BD 
-	 * 
-	 * @throws SQLException
+	 * @param com comentario a insertar
+	 * @throws SQLException error al ejecutar la sentencia
 	 */
 	public static void insertComentario(Comentario com) throws SQLException {
 		
@@ -256,7 +262,7 @@ public class PublicacionDAO {
 			e.printStackTrace();
 		}
 		
-		String query = "INSERT INTO ASoftware.Comentario"
+		String query = "INSERT INTO software.Comentario"
 				+ "(Publicacion_com, Hora, Fecha, Usuario_com, Contenido) "
 				+ "VALUES " + "( ?, ?, ?, ?, ?)";
 
@@ -277,8 +283,11 @@ public class PublicacionDAO {
 	
 	/**
 	 * Realiza una selección de publicaciones
-	 * Modo = 1 -> select para el home
-	 * Modo = 2 -> select de publicaciones de un usuario
+	 * @param idUsuario identificador del usuario
+	 * @param modo = 1 -> select para el home, 
+	 * 		modo = 2 -> select de publicaciones de un usuario
+	 * @return ArrayList<Publicacion> publicaciones del usuario
+	 * @throws SQLException error al ejecutar la sentencia
 	 */
 	private static ArrayList<Publicacion> select(int idUsuario, int modo) throws SQLException {
 		ArrayList<Publicacion> posts = new ArrayList<Publicacion>();
@@ -289,18 +298,18 @@ public class PublicacionDAO {
 		if (modo == 1) { // select para el Home de un usuario <- Sin implementar
 			query = "select distinct A.idPublicacion, A.Fecha, A.Hora, A.Emisor, A.Texto, A.Imagen, A.Video, A.Ruta, A.Deporte from ("
 					+ "(select idPublicacion, Fecha, Hora, Emisor, Texto, Imagen, Video, Ruta, Deporte " +
-					"from ASoftware.Publicacion p, ASoftware.Seguir s where " +
+					"from software.Publicacion p, software.Seguir s where " +
 					"p.emisor = s.fk_Seguido AND s.fk_Usuario=" + idUsuario + ")"
 					+ "UNION"
 					+ "(select idPublicacion, Fecha, Hora, Emisor, Texto, Imagen, Video, Ruta, Deporte " +
-					"from ASoftware.Publicacion p where " +
+					"from software.Publicacion p where " +
 					"p.Emisor = "+ idUsuario +")) A order by A.Fecha desc, A.Hora desc";
 		} else if (modo == 2) { // select de publicaciones de un usario o compartidas
 			
 			query = "SELECT DISTINCT idPublicacion, Fecha, Hora, Emisor, Texto, Imagen, "
-					+ "Video, Ruta, Deporte FROM ASoftware.Publicacion "
+					+ "Video, Ruta, Deporte FROM software.Publicacion "
 					+ "WHERE Emisor = " + idUsuario + " OR idPublicacion IN ("
-					+ "SELECT pk_publicacion_c FROM ASoftware.Compartir WHERE "
+					+ "SELECT pk_publicacion_c FROM software.Compartir WHERE "
 					+ "pk_usuario_c = " + idUsuario + ") "
 					+ "ORDER BY Fecha DESC , Hora DESC";
 		}
@@ -345,7 +354,11 @@ public class PublicacionDAO {
 	}
 
 	/**
-	 * Formato fecha: aaaammdd Formato hora: hhmm
+	 * Devuevle un objeto fecha a partir de los strings de fecha 
+	 * y hora
+	 * @param fecha con formato aaaammdd
+	 * @param hora con formato hhmm
+	 * @return Date fecha indicada
 	 */
 	private static Date toDate(String fecha, String hora) {
 		Date nueva = null;

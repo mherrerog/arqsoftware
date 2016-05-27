@@ -34,7 +34,7 @@
     <![endif]-->
   </head>
 
-  <body  ng-app="myApp" ng-controller="signinCtrl">
+  <body class="background" ng-app="myApp" ng-controller="signinCtrl">
 
     <!-- Static navbar -->
     <nav class="navbar navbar-default">
@@ -141,7 +141,7 @@
                   <td><input type="radio" name="genero" value="mujer"> Mujer</td>
                   <td><input type="radio" name="genero" value="mixto"> Mixto</td>
                 </tr>
-                <tr><td></br></td></tr>
+               <!-- <tr><td></br></td></tr>
                 <tr><td><label class="control-label" for="password">Deporte que practica</label></td></tr>
                 <tr>
                   <td><input type="radio" name="sport" value="running"> Running</td>
@@ -153,11 +153,17 @@
                   <td><input type="radio" name="sport" value="futbol"> Multideporte</td>
                   <td><input type="radio" name="sport" value="otros"> Otros</td>
                 </tr>
-                <tr><td></br></td></tr>
+                <tr><td></br></td></tr>-->
                 <tr>
                   <td><input type="checkbox" name="team" value="teamOk"> *Equipo</td>
                 </tr>
               </table>
+              <label class="control-label" for="logo">Imagen de Perfil</label>
+              <div class="controls">
+                <input type="text" id="logo" name="logo" placeholder="" class="form-control input-lg">
+                <p class="help-block">Inserte una URL válida</p>
+              </div>
+              </br>
             </div>
 
             <div class="control-group">

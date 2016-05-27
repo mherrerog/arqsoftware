@@ -14,14 +14,15 @@ public class Connect {
 	
 	
 	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_CONNECTION = "jdbc:mysql://127.0.0.1/";
-	private static final String DB_USER = "root";
-	private static final String DB_PASSWORD = "ssii2015";
+	private static final String DB_CONNECTION = "jdbc:mysql://127.10.249.130/";
+	private static final String DB_USER = "adminG8qpMFy";
+	private static final String DB_PASSWORD = "ubZnrpb5PUge";
 	
 	
 	
 	/**
-	 * @return conexión a la base de datos
+	 * Devuelve una conexion por JDBC a la base de datos 
+	 * @return conexion a la base de datos
 	 */
 	public static Connection getDBConnection() {
 		
@@ -57,33 +58,28 @@ public class Connect {
 		}
 
 		return dbConnection;
-		/*
-		try {
-			return getConnectionFromPool();
-		} catch (SQLException | NamingException e) {
-			// TODO Auto-generated catch block 
-			e.printStackTrace();
-			return null;
-		}
-		*/
 	}
 	
 	/**
-	 * @throws SQLException 
-	 * @throws NamingException 
-	 * 
+	 * Devuevle una conexión con la base de datos a
+	 * través de un pool de conexiones
+	 * @throws SQLException error durante la conexión
+	 * @throws NamingException el pool de conexiones no se
+	 * ha configurado correctamente
+	 * @return conexión con la base de datos
 	 */
 	public static Connection getConnectionFromPool() throws SQLException, NamingException{
 		Context initContext = new InitialContext();
 		Context envContext  = (Context)initContext.lookup("java:/comp/env");
-		DataSource ds = (DataSource)envContext.lookup("jdbc/mysql");
+		DataSource ds = (DataSource)envContext.lookup("jdbc/MySQLDS");
 		
 		return ds.getConnection();
 	}
 	
 	/**
 	 * Ejecuta la sentencia indicada en la BD
-	 * @throws SQLException 
+	 * @param query sentencia a ejecutar
+	 * @throws SQLException error al ejecutar la sentencia
 	 */
 	public static void ejecutaSentencia(String query) throws SQLException{
 		Connection conecta = null;

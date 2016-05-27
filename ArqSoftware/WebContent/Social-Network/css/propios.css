@@ -1,167 +1,165 @@
+.background{
+		background-color: #E8EAF6;
+	}
+	
 .nombre {
-  display: inline-block;
-  height: 80px;
-  margin-left: 30px;
-  font-size: 18px;
-  color: black;
+	display: inline-block;
+	height: 80px;
+	margin-left: 30px;
+	font-size: 18px;
+	color: black;
 }
 
 /* links */
 .black_link {
-  color: black;
+	color: black;
 }
 
 .follow {
-  display: inline-block;
-  margin: 10px;
-  font-size: 16px;
+	display: inline-block;
+	margin: 10px;
+	font-size: 16px;
 }
 
 .deporte_select {
-  text-align: right;
+	text-align: right;
 }
 
 .publicacion {
-  font-size: 14px;
+	font-size: 14px;
 }
 
 .imagen {
-  display: inline-block;
-  height: 80px;
-  border-style: solid;
-  border-width: 2px;
-  border-color: white;
+	display: inline-block;
+	height: 80px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: white;
 }
 
 .botones {
-  display: inline-block;
-  float: right;
+	display: inline-block;
+	float: right;
 }
 
 .like {
-  margin-top: 7%;
+	margin-top: 7%;
 }
 
 .modal {
-  width: 100%;
-  /*Toma el 100% del ancho de la página*/
-  height: 100%;
-  /*Toma el 100% del alto de la página*/
-  position: fixed;
-  /*Con este código hacemos que el contenedor se mantenga en la pantalla y para que tome las dimensiones del body y no de la entrada*/
-  background-color: rgba(1, 1, 1, 0.4);
-  /*Color de fondo, incluye opacidad del 90%*/
-  top: 0;
-  /*Position superior*/
-  left: 0;
-  /*Posición lateral*/
-  z-index: 9999;
-  /*Evitamos que algún elemento del blog sobreponga la ventana modal*/
+	width: 100%;
+	/*Toma el 100% del ancho de la página*/
+	height: 100%;
+	/*Toma el 100% del alto de la página*/
+	position: fixed;
+	/*Con este código hacemos que el contenedor se mantenga en la pantalla y para que tome las dimensiones del body y no de la entrada*/
+	background-color: rgba(1, 1, 1, 0.4);
+	/*Color de fondo, incluye opacidad del 90%*/
+	top: 0;
+	/*Position superior*/
+	left: 0;
+	/*Posición lateral*/
+	z-index: 9999;
+	/*Evitamos que algún elemento del blog sobreponga la ventana modal*/
 }
 
 #contenido-interno {
-  margin: 3% auto;
-  /*Separación arriba y centrado*/
-  font-size: 12px;
-  /*Tamaño de la fuente*/
-  width: 50%;
-  /*Ancho del contenedor*/
-  color: #222;
-  /*Color del texto*/
-  background-color: rgba(255, 255, 255, 0);
-  /*Color de fondo*/
+	margin: 3% auto;
+	/*Separación arriba y centrado*/
+	font-size: 12px;
+	/*Tamaño de la fuente*/
+	width: 50%;
+	/*Ancho del contenedor*/
+	color: #222;
+	/*Color del texto*/
+	background-color: rgba(255, 255, 255, 0);
+	/*Color de fondo*/
 }
 
 #comentario {
-  display: none;
+	display: none;
 }
 
-
 .columna1 {
-  display: inline-block;
-  float: left;
+	display: inline-block;
+	float: left;
 }
 
 .columna2 {
-  display: inline-block;
-  float: right;
+	display: inline-block;
+	float: right;
 }
 
 .center {
-  text-align: center;
+	text-align: center;
 }
 
 .settings {
-  display: inline-block;
-  margin-top: 5px;
+	display: inline-block;
+	margin-top: 5px;
 }
 
-.equipo_info{
-  color: #5bc0de;
+.equipo_info {
+	color: #5bc0de;
 }
-
 
 #bpublicacion {
-  margin: 7% auto;
-  width: 120px;
+	margin: 7% auto;
+	width: 120px;
 }
 
 #bdelete {
-  margin: 7% auto;
-  width: 120px;
+	margin: 7% auto;
+	width: 120px;
 }
 
-
 #blike {
-  width: 85px;
+	width: 85px;
 }
 
 #bnum {
-  width: 35px;
-  color: #337ab7;
-  background-color: white;
+	width: 35px;
+	color: #337ab7;
+	background-color: white;
 }
 
 #pub {
-  width: 60%;
+	width: 60%;
 }
 
-
 .form-control {
-  width: 100%;
+	width: 100%;
 }
 
 /* Exclusivo del perfil*/
 .seguir_d_perfil {
-  margin-top: 10px;
+	margin-top: 10px;
 }
+
 .sigues {
-  font-size: 11px;
-  display: inline-block;
+	font-size: 11px;
+	display: inline-block;
 }
+
 #der {
-  text-align:right;
+	text-align: right;
 }
 /* Cierre perfil exclusivo*/
-
 .disabled {
-  cursor: not-allowed;
-  pointer-events: none;
+	cursor: not-allowed;
+	pointer-events: none;
 }
 
 /* Adaptar elementos según la pantalla */
-@media screen and (max-width: 690px)   {
-  .columna1, .columna2{
-      width:100%;
-      float:none;
-  }
-
-  #bpublicacion {
-    margin: 2% 1%;
-  }
-
-  #contenido-interno {
-    width: 90%;
-  }
-
+@media screen and (max-width: 690px) {
+	.columna1, .columna2 {
+		width: 100%;
+		float: none;
+	}
+	#bpublicacion {
+		margin: 2% 1%;
+	}
+	#contenido-interno {
+		width: 90%;
+	}
 }

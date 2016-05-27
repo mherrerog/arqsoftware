@@ -1,12 +1,7 @@
 package datos;
 
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
-import javax.naming.NamingException;
 
 import org.json.JSONObject;
 
@@ -22,13 +17,16 @@ public class Mensaje {
 	private String hora;
 	private String cuerpo;
 	private int leido;
+	private final String PERFIL = "https://image.freepik.com/iconos-gratis/perfil-macho-sombra-de-usuario_318-40244.png";
 	
 	/**
-	 * @param emisor
-	 * @param receptor
-	 * @param fecha
-	 * @param hora
-	 * @param cuerpo
+	 * Metodo constructor
+	 * @param emisor identificador del emisor del mensaje
+	 * @param receptor identificador del receptor del mensaje
+	 * @param fecha momento de envio del mensaje
+	 * @param hora momento de envio del mensaje
+	 * @param cuerpo contenido del mensaje
+	 * @param leido es 1 si el mensaje ha sido leído, 0 en caso contrario
 	 */
 	public Mensaje(int emisor, int receptor, String fecha, String hora, String cuerpo, int leido) {
 		this.emisor = emisor;
@@ -39,6 +37,16 @@ public class Mensaje {
 		this.leido = leido;
 	}
 	
+	/**
+	 * Metodo constructor
+	 * @paam id identificador del mensaje
+	 * @param emisor identificador del emisor del mensaje
+	 * @param receptor identificador del receptor del mensaje
+	 * @param fecha momento de envio del mensaje
+	 * @param hora momento de envio del mensaje
+	 * @param cuerpo contenido del mensaje
+	 * @param leido es 1 si el mensaje ha sido leído, 0 en caso contrario
+	 */
 	public Mensaje(int id, int emisor, int receptor, String fecha, String hora, String cuerpo, int leido) {
 		this.idMensaje = id;
 		this.emisor = emisor;
@@ -49,57 +57,58 @@ public class Mensaje {
 		this.leido = leido;
 	}
 
+	/**
+	 * Devuelve 1 si el mensaje ha sido leido, 
+	 * 0 en caso contrario
+	 * @return valor de leido
+	 */
 	public int getLeido() {
 		return leido;
 	}
 
-	public void setLeido(int leido) {
-		this.leido = leido;
-	}
-
-	// Getters
+	/**
+	 * Devuelve el emisor del mensaje
+	 * @return identificador del emisor del mensaje
+	 */
 	public int getEmisor() {
 		return emisor;
 	}
 
+	/**
+	 * Devuelve el receptor del mensaje
+	 * @return identificador del receptor del mensaje
+	 */
 	public int getReceptor() {
 		return receptor;
 	}
 
+	/**
+	 * Devuelve la fecha del mensaje
+	 * @return fecha del mensaje en formato aaaammdd
+	 */
 	public String getFecha() {
 		return fecha;
 	}
 
+	/**
+	 * Devuelve la hora del mensaje
+	 * @return hora del mensaje en formato hhmm
+	 */
 	public String getHora() {
 		return hora;
 	}
 
+	/**
+	 * Devuelve el cuerpo del mensaje
+	 * @return cuerpo del mensaje en formato hhmm
+	 */
 	public String getCuerpo() {
 		return cuerpo;
 	}
 
-	public void setEmisor(int emisor) {
-		this.emisor = emisor;
-	}
-
-	public void setReceptor(int receptor) {
-		this.receptor = receptor;
-	}
-
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-
-	public void setHora(String hora) {
-		this.hora = hora;
-	}
-
-	public void setCuerpo(String cuerpo) {
-		this.cuerpo = cuerpo;
-	}
-
 	/**
 	 * Devuelve la cadena que representa dicho objeto en JSON
+	 * @return cadena en formato JSON del mensaje
 	 */
 	public String toJSON() {
 		JSONObject obj = new JSONObject();
@@ -117,6 +126,11 @@ public class Mensaje {
 		obj.put("id_mensj", idMensaje);
 		obj.put("emisor", user.getNombre());
 		obj.put("emisor_nick", user.getNick());
+		if (user.getLogo() != null){
+			obj.put("logo", user.getLogo());
+		}else{
+			obj.put("logo", PERFIL);
+		}
 		obj.put("id", user.getId());
 		obj.put("receptor", receptor);
 		obj.put("hora", horatoweb);
@@ -129,7 +143,9 @@ public class Mensaje {
 
 	
 	/**
-	 * Devuelve la cadena que representa dicho objeto en JSON
+	 * Devuelve un vector de mensajes en formato JSON
+	 * @param vector mensajes a parsear
+	 * @return vector de mensajes en formato JSON
 	 */
 	public static String toJSON(ArrayList<Mensaje> vector) {
 		String rs = "{\"mensajes\": [\n";
@@ -145,30 +161,5 @@ public class Mensaje {
 		}
 		
 		return rs + "\n]}";
-	}
-	
-	/**
-	 * 
-	 */
-	public String toString(){
-		Date d = toDate(fecha, hora);
-		return "From: " + emisor + " --- Date: " + d + "\nTo:   " + receptor + "\n " + cuerpo;
-	}
-	
-	/**
-	 * Formato fecha: aaaammdd Formato hora: hhmm
-	 */
-	private static Date toDate(String fecha, String hora) {
-		Date nueva = null;
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("hhmmyyyyMMdd");
-		try {
-			nueva = sdf.parse(hora+fecha);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return nueva;
 	}
 }

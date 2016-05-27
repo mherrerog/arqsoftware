@@ -17,7 +17,7 @@ import javax.servlet.http.Part;
 public class Descarga {
 
 	// Directorio donde se almacenarán las rutas
-	private static final String RUTA = "/Users/manuelherrerogajon/Rutas/";
+	private static final String RUTA = "/var/lib/openshift/56e1800089f5cf548100012e/jbossews/confluence/";
 
 	public static String downloadMap(HttpServletRequest request)
 			throws ServletException, IOException {

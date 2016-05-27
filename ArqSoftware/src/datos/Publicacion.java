@@ -1,14 +1,8 @@
 package datos;
 
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-
-import javax.naming.NamingException;
 
 import org.json.JSONObject;
 
@@ -16,30 +10,30 @@ import gateway.PublicacionDAO;
 import gateway.UsuarioDAO;
 import socialnetwork.Fechas;
 
-public class Publicacion implements Comparable{
+public class Publicacion {
 	
-	private final String PATH = "/Rutas/";
+	private final String PATH = "/confluence/";
 
 	private int id;
 	private int autor;
 	private String texto;
 	private Date fecha;
-	private ArrayList<Usuario> compartido;
-	private ArrayList<Usuario> megusta;
-	private ArrayList<Comentario> comentarios;
 	private String imagen;
 	private String video;
 	private String ruta;
 	private String deporte;
+	private final String PERFIL = "https://image.freepik.com/iconos-gratis/perfil-macho-sombra-de-usuario_318-40244.png";
+
 	
 	/**
-	 * @param id
-	 * @param autor
-	 * @param texto
-	 * @param fecha
-	 * @param imagen
-	 * @param video
-	 * @param ruta
+	 * Metodo constructor
+	 * @param id identificador de la publicacion
+	 * @param autor identificador del autor
+	 * @param texto contenido textual de la publicacion
+	 * @param fecha momento de la publicacion
+	 * @param imagen enlace una imagen
+	 * @param video enlace a un video de YouTube
+	 * @param ruta nombre del archivo GPX
 	 */
 	public Publicacion(int id, int autor, String texto, Date fecha, String imagen, String video, 
 			String ruta, String deporte) {
@@ -53,6 +47,15 @@ public class Publicacion implements Comparable{
 		this.deporte = deporte;
 	}
 	
+	/**
+	 * Metodo constructor
+	 * @param autor identificador del autor
+	 * @param texto contenido textual de la publicacion
+	 * @param fecha momento de la publicacion
+	 * @param imagen enlace una imagen
+	 * @param video enlace a un video de YouTube
+	 * @param ruta nombre del archivo GPX
+	 */
 	public Publicacion(int autor, String texto, Date fecha, String imagen, String video, 
 			String ruta, String deporte) {
 		this.autor = autor;
@@ -64,115 +67,91 @@ public class Publicacion implements Comparable{
 		this.deporte = deporte;
 	}
 
-
-	/**
-	 * Metodo constructor
-	 */
-	public Publicacion(int id, int autor, String texto, Date fecha, ArrayList<Usuario> compartido, 
-			ArrayList<Usuario> megusta, ArrayList<Comentario> comentarios) {
-		this.id = id;
-		this.autor = autor;
-		this.texto = texto;
-		this.fecha = fecha;
-		this.deporte = deporte;
-		this.compartido = compartido;
-		this.megusta = megusta;
-		this.comentarios = comentarios;
-	}
-	
-	public static ArrayList<Publicacion> unirPublicaciones(ArrayList<Publicacion> a,
-			ArrayList<Publicacion> b){
-		ArrayList<Publicacion> union = a;
-		for (Publicacion sig: b){
-			union.add(sig);
-		}
-		Collections.sort(union);	//Ordena la lista de forma ascendente
-		return union;
-		
-	}
-
 	//Setters & Getters
+	/**
+	 * Devuelve el identificador de la publicacion
+	 * @return identificador de la publicacion
+	 */
 	public int getId() {
 		return id;
 	}
 	
+	/**
+	 * Devuelve el autor de la publicacion
+	 * @return identificador del autor
+	 */
 	public int getAutor() {
 		return autor;
 	}
 
+	/**
+	 * Devuelve el texto de la publicacion
+	 * @return texto de la publicacion
+	 */
 	public String getTexto() {
 		return texto;
 	}
 
+	/**
+	 * Devuelve la fecha de la publicacion
+	 * @return fecha de la publicacion
+	 */
 	public Date getFecha() {
 		return fecha;
 	}
 	
+	/**
+	 * Devuelve la fecha de la publicacion
+	 * @return fecha en formato aaaammdd
+	 */
 	public String getFechaString() {
 		return Fechas.getFechaString(this.fecha);
 	}
 	
+	/**
+	 * Devuelve la hora de la publicacion
+	 * @return hora en formato hhmm
+	 */
 	public String getHoraString() {
-		// Hora
-		String hh = "" + fecha.getHours();
-		while (hh.length() < 2){
-			hh = "0" + hh;
-		}
-		// Minutos
-		String min = "" + fecha.getMinutes();
-		while (min.length() < 2){
-			min = "0" + min;
-		}
-		return hh + min;
+		return Fechas.getHoraString(this.fecha);
 	}
 
+	/**
+	 * Devuelve el deporte de la publicacion
+	 * @return deporte de la publicacion
+	 */
 	public String getDeporte() {
 		return deporte;
 	}
-
-	public ArrayList<Usuario> getCompartido() {
-		return compartido;
-	}
-
-	public ArrayList<Usuario> getMegusta() {
-		return megusta;
-	}
-
-	public ArrayList<Comentario> getComentarios() {
-		return comentarios;
-	}
 	
+	/**
+	 * Devuelve la url de la imagen de la publicacion
+	 * @return imagen de la publicacion
+	 */
 	public String getImagen() {
 		return imagen;
 	}
 
+	/**
+	 * Devuelve la url del video de la publicacion
+	 * @return video de la publicacion
+	 */
 	public String getVideo() {
 		return video;
 	}
 
+	/**
+	 * Devuelve nombre completo del fichero de ruta
+	 *  de la publicacion
+	 * @return nombre del fichero GPX
+	 */
 	public String getRuta() {
 		return ruta;
 	}
-
-	/**
-	 * Pre: o tipo Publicacion
-	 * Compara las fechas de dos publicaciones
-	 */
-	public int compareTo(Object o) {
-		Publicacion otra = (Publicacion) o;
-		return otra.fecha.compareTo(fecha);
-	}
-
-	@Override
-	public String toString() {
-		return "Publicacion [id=" + id + ", autor=" + autor + ", texto=" + texto + ", fecha=" + fecha + ", deporte="
-				+ deporte + ", compartido=" + compartido + ", megusta=" + megusta + ", comentarios=" + comentarios
-				+ ", imagen=" + imagen + ", video=" + video + ", ruta=" + ruta + "]";
-	}
 	
 	/**
-	 * @throws NamingException 
-	 * 
+	 * Pasa a formato JSON la publicacion
+	 * @return publicacion en formato JSON
 	 */
 	public String toJSON(){
 		Usuario u = null;
@@ -192,7 +171,11 @@ public class Publicacion implements Comparable{
 		// Atributos de usuario
 		obj.put("nombre", u.getNombre());
 		obj.put("nick", u.getNick());
-		obj.put("logo", u.getLogo());
+		if (u.getLogo() != null){
+			obj.put("logo", u.getLogo());
+		}else{
+			obj.put("logo", PERFIL);
+		}
 		obj.put("equipo", u.getEquipo());
 		
 		// Likes
@@ -220,8 +203,9 @@ public class Publicacion implements Comparable{
 	}
 	
 	/**
-	 * Devuelve un String en formato JSON con el contenido de la publicacion
-	 * @throws NamingException 
+	 * Pasa a formato JSON un vector de publicaciones
+	 * @param vector publicaciones a parsear
+	 * @return vector en formato JSON de publicaciones
 	 */
 	public static String toJSON(ArrayList<Publicacion> vector) {
 		

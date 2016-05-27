@@ -2,14 +2,9 @@ package datos;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
-import javax.naming.NamingException;
-
 import org.json.JSONObject;
-
-import gateway.PublicacionDAO;
 import gateway.UsuarioDAO;
 import socialnetwork.Fechas;
 
@@ -27,9 +22,22 @@ public class Usuario {
 	private String fondo;
 	private String descripcion;
 	// private String deporte;
+	
+	private final String PERFIL = "https://image.freepik.com/iconos-gratis/perfil-macho-sombra-de-usuario_318-40244.png";
 
 	/**
 	 * Metodo constructor
+	 * @param id identificador del usuario
+	 * @param nombre nombre completo del usuario
+	 * @param fecha nacimiento del usuario
+	 * @param sexo naturaleza del usuario
+	 * @param email correo del usuario
+	 * @param nick apodo del usaurio
+	 * @param password clave de acceso del usuario
+	 * @param equipo si equipo > 0 el usuario representa un equipo 
+	 * @param logo direccion de la imagen de usuario
+	 * @param fondo direccion del fondo de usuario
+	 * @param descripcion texto sobre el usuario
 	 */
 	public Usuario(int id, String nombre, Date fecha, String sexo, String email, 
 			String nick, String password, int equipo, String logo, String fondo, String descripcion){
@@ -47,14 +55,25 @@ public class Usuario {
 	}
 	
 	/**
-	 * Metodo constructor con id unicamente
+	 * Metodo constructor
+	 * @param id identificador del usuario
 	 */
 	public Usuario(int id){
 		this.id = id;
 	}
 	
 	/**
-	 * Metodo constructor sin id
+	 * Metodo constructor
+	 * @param nombre nombre completo del usuario
+	 * @param fecha nacimiento del usuario
+	 * @param sexo naturaleza del usuario
+	 * @param email correo del usuario
+	 * @param nick apodo del usaurio
+	 * @param password clave de acceso del usuario
+	 * @param equipo si equipo > 0 el usuario representa un equipo 
+	 * @param logo direccion de la imagen de usuario
+	 * @param fondo direccion del fondo de usuario
+	 * @param descripcion texto sobre el usuario
 	 */
 	public Usuario(String nombre, Date fecha, String sexo, String email, 
 			String nick, String password, int equipo, String logo, String fondo, String descripcion){
@@ -73,9 +92,9 @@ public class Usuario {
 	
 	
 	/**
-	 * @throws SQLException 
-	 * @throws NamingException 
-	 * 
+	 * Pasa a formato JSON la publicacion
+	 * @return publicacion en formato JSON
+	 * @throws SQLException error al ejecutar una sentencia
 	 */
 	public String toJSON(int idUsuario) throws SQLException{
 		
@@ -91,7 +110,11 @@ public class Usuario {
 		obj.put("nombre", nombre);
 		obj.put("nick", nick);
 		obj.put("equipo", equipo);
-		obj.put("logo", logo);
+		if (logo != null){
+			obj.put("logo", logo);
+		}else{
+			obj.put("logo", PERFIL);
+		}
 		obj.put("fondo", fondo);
 		obj.put("fecha", fecha);
 		obj.put("sexo", sexo);
@@ -125,9 +148,11 @@ public class Usuario {
 	}
 	
 	/**
-	 * Devuelve un String en formato JSON con el contenido de la publicacion
-	 * @throws SQLException 
-	 * @throws NamingException 
+	 * Pasa a formato JSON un vector de publicaciones
+	 * @param vector publicaciones a parsear
+	 * @param idUsuario identificador del usuario
+	 * @return vector en formato JSON de publicaciones
+	 * @throws SQLException error al ejecutar una sentencia
 	 */
 	public static String toJSON(ArrayList<Usuario> vector, int idUsuario) throws SQLException{
 		
@@ -147,44 +172,81 @@ public class Usuario {
 	}
 	
 	// Getters & Setters
+	/**
+	 * Devuelve el nombre del usuario
+	 * @return nombre del usuario
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * Devuelve el identificador del usuario
+	 * @return identificador del usuario
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Devuelve el sexo del usuario
+	 * @return sexo del usuario
+	 */
 	public String getSexo() {
 		return sexo;
 	}
 
+	/**
+	 * Devuelve el email del usuario
+	 * @return email del usuario
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Devuelve el nick del usuario
+	 * @return nick del usuario
+	 */
 	public String getNick() {
 		return nick;
 	}
 
+	/**
+	 * Devuelve la clave del usuario
+	 * @return clave del usuario
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * Devuelve el nacimiento del usuario
+	 * @return nacimiento del usuario
+	 */
 	public Date getFecha() {
 		return fecha;
 	}
 	
+	/**
+	 * Devuelve la descripcion del usuario
+	 * @return descripcion del usuario
+	 */
 	public String getDescripcion() {
 		return descripcion;
 	}
 	
+	/**
+	 * Devuelve el nacimiento del usuario
+	 * @return nacimiento del usuario en formato aaaammdd
+	 */
 	public String getFechaString() {
 		return Fechas.getFechaString(this.fecha);
 	}
 	
 	/**
-	 * Devuele un entero positivo si el
+	 * Devuelve un entero indicando si el usuario es un equipo
+	 * @return devuele un entero positivo si el
 	 * usuario es un equipo
 	 */
 	public int getEquipo() {
@@ -192,20 +254,20 @@ public class Usuario {
 		else return 0;
 	}
 	
+	/**
+	 * Devuelve el logo del usuario
+	 * @return url del logo
+	 */
 	public String getLogo() {
 		return logo;
 	}
 	
+	/**
+	 * Devuelve el fondo del usuario
+	 * @return url del fondo
+	 */
 	public String getFondo() {
 		return fondo;
-	}
-
-
-	@Override
-	public String toString() {
-		return "Usuario [nombre=" + nombre + ", id=" + id + ", sexo=" + sexo + ", email=" + email + ", nick=" + nick
-				+ ", password=" + password + ", fecha=" + fecha + ", equipo=" + equipo + ", logo=" + logo + ", fondo="
-				+ fondo + "]";
 	}
 	
 	
